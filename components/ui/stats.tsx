@@ -6,27 +6,27 @@ import { Upload, Image, Zap, Globe } from 'lucide-react';
 const stats = [
   {
     icon: Upload,
-    label: 'Free Storage',
-    value: '10GB',
-    description: 'Generous free tier',
+    label: 'Unlimited Free Image Uploads',
+    value: '∞',
+    description: 'No limits on free image hosting',
   },
   {
     icon: Globe,
-    label: 'Global CDN',
-    value: '100%',
-    description: 'Worldwide distribution',
+    label: 'Global CDN Network',
+    value: '275+',
+    description: 'Worldwide fast image delivery',
   },
   {
     icon: Zap,
-    label: 'Optimization',
-    value: 'Auto',
-    description: 'Automatic compression',
+    label: 'Instant URL Generation',
+    value: '<1s',
+    description: 'Convert images to URLs instantly',
   },
   {
     icon: Image,
-    label: 'Formats',
+    label: 'Image Formats Supported',
     value: '5+',
-    description: 'Multiple image types',
+    description: 'JPG, PNG, GIF, WEBP, SVG',
   },
 ];
 

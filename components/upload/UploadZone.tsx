@@ -2,11 +2,12 @@
 
 import { useCallback, useState, useEffect } from 'react';
 import { useDropzone } from 'react-dropzone';
-import { Upload, Image as ImageIcon, X, CheckCircle2, Copy, AlertCircle } from 'lucide-react';
+import { Upload, Image as ImageIcon, X, CheckCircle2, Copy, Share2, QrCode, Code } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { formatFileSize } from '@/lib/validations';
 import { UploadHistoryManager } from '@/lib/upload-history';
 import { showSuccessToast, showErrorToast, handleError } from '@/lib/error-handler';
+import ShareDialog from '@/components/sharing/ShareDialog';
 
 interface UploadedFile {
   id: string;
@@ -29,21 +30,7 @@ export default function UploadZone() {
   const [uploadedFiles, setUploadedFiles] = useState<UploadedFile[]>([]);
   const [uploading, setUploading] = useState(false);
   const [uploadProgress, setUploadProgress] = useState<Record<string, number>>({});
-  const [serviceStatus, setServiceStatus] = useState<'checking' | 'ready' | 'error'>('checking');
-
-  // Check service status on mount
-  useEffect(() => {
-    fetch('/api/test')
-      .then(res => res.json())
-      .then(data => {
-        if (data.r2ClientAvailable) {
-          setServiceStatus('ready');
-        } else {
-          setServiceStatus('error');
-        }
-      })
-      .catch(() => setServiceStatus('error'));
-  }, []);
+  const [shareDialog, setShareDialog] = useState<{ isOpen: boolean; url: string; title: string } | null>(null);
 
   const onDrop = useCallback((acceptedFiles: File[]) => {
     const newFiles = acceptedFiles.map(file => {
@@ -93,10 +80,20 @@ export default function UploadZone() {
   const copyToClipboard = async (text: string) => {
     try {
       await navigator.clipboard.writeText(text);
-      showSuccessToast('URL copied to clipboard!');
+      showSuccessToast('Copied to clipboard!');
     } catch (error) {
-      showErrorToast('Failed to copy URL');
+      showErrorToast('Failed to copy');
     }
+  };
+
+  const generateHtmlEmbed = (url: string, fileName: string) => {
+    const altText = fileName.replace(/\.[^/.]+$/, ""); // Remove file extension for alt text
+    return `<img src="${url}" alt="${altText}" />`;
+  };
+
+  const copyHtmlEmbed = async (url: string, fileName: string) => {
+    const htmlCode = generateHtmlEmbed(url, fileName);
+    await copyToClipboard(htmlCode);
   };
 
   const uploadFiles = async () => {
@@ -196,50 +193,42 @@ export default function UploadZone() {
           onClick={() => alert('Upload history feature coming soon!')}
           className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
         >
-          Upload History
+          Image Upload History
         </button>
       </div>
 
-      {/* Service Status */}
-      {serviceStatus === 'error' && (
-        <div className="mb-4 p-4 bg-red-50 border border-red-200 rounded-lg flex items-center gap-2 text-red-700">
-          <AlertCircle className="w-5 h-5" />
-          <div>
-            <p className="font-medium">Upload service not configured</p>
-            <p className="text-sm">Please check your Cloudflare R2 environment variables.</p>
-          </div>
-        </div>
-      )}
+
 
       {/* Upload Zone */}
       <div className="relative">
         <div
           {...getRootProps()}
           className={cn(
-            'border-2 border-dashed rounded-xl p-12 text-center cursor-pointer transition-all duration-200',
-            'hover:border-primary/50 hover:bg-primary/5',
+            'border-2 border-dashed rounded-xl p-6 md:p-12 text-center cursor-pointer transition-all duration-200',
+            'hover:border-primary/50 hover:bg-primary/5 touch-manipulation',
+            'min-h-[200px] md:min-h-[250px] flex items-center justify-center',
             isDragActive && 'border-primary bg-primary/10 scale-105',
-            (uploading || serviceStatus !== 'ready') && 'pointer-events-none opacity-50'
+            uploading && 'pointer-events-none opacity-50'
           )}
         >
           <input {...getInputProps()} />
-          <div className="space-y-4">
-            <div className="mx-auto w-16 h-16 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center">
-              <Upload className="w-8 h-8 text-white" />
+          <div className="space-y-4 w-full">
+            <div className="mx-auto w-12 h-12 md:w-16 md:h-16 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center">
+              <Upload className="w-6 h-6 md:w-8 md:h-8 text-white" />
             </div>
             {isDragActive ? (
               <div>
-                <p className="text-xl font-semibold text-primary">Drop the files here!</p>
-                <p className="text-sm text-muted-foreground">Release to upload your images</p>
+                <p className="text-lg md:text-xl font-semibold text-primary">Drop images here for instant URL generation!</p>
+                <p className="text-sm text-muted-foreground">Release to upload and get shareable image links</p>
               </div>
             ) : (
               <div>
-                <p className="text-xl font-semibold">Upload your images</p>
-                <p className="text-sm text-muted-foreground">
-                  Drag & drop your files here, or click to browse
+                <p className="text-lg md:text-xl font-semibold">Free Image to URL Converter - Upload Images Get Links</p>
+                <p className="text-sm md:text-base text-muted-foreground">
+                  Drag & drop image upload or click to browse - instant image link generator
                 </p>
-                <p className="text-xs text-muted-foreground mt-2">
-                  Supports JPG, PNG, GIF, WEBP, SVG • Max 10MB per file
+                <p className="text-xs md:text-sm text-muted-foreground mt-2">
+                  Free image hosting: JPG, PNG, GIF, WEBP, SVG • Max 10MB per file • Unlimited uploads
                 </p>
               </div>
             )}
@@ -254,12 +243,10 @@ export default function UploadZone() {
             <h3 className="text-lg font-semibold">Selected Files ({files.length})</h3>
             <button
               onClick={uploadFiles}
-              disabled={uploading || serviceStatus !== 'ready'}
-              className="px-6 py-2 bg-gradient-to-r from-blue-500 to-purple-600 text-white rounded-lg hover:shadow-lg transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
+              disabled={uploading}
+              className="px-6 py-3 md:py-2 bg-gradient-to-r from-blue-500 to-purple-600 text-white rounded-lg hover:shadow-lg transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed touch-manipulation min-h-[44px]"
             >
-              {serviceStatus === 'checking' ? 'Checking...' :
-               serviceStatus === 'error' ? 'Service Unavailable' :
-               uploading ? 'Uploading...' : 'Upload All'}
+              {uploading ? 'Converting Images to URLs...' : 'Upload All & Generate URLs'}
             </button>
           </div>
           
@@ -322,16 +309,26 @@ export default function UploadZone() {
       {uploadedFiles.length > 0 && (
         <div className="space-y-4">
           <div className="flex items-center justify-between">
-            <h3 className="text-lg font-semibold">Uploaded Images ({uploadedFiles.length})</h3>
-            <div className="flex gap-2">
+            <h3 className="text-lg font-semibold">Generated Image URLs - Shareable Links ({uploadedFiles.length})</h3>
+            <div className="flex gap-2 flex-wrap">
               <button
                 onClick={() => {
                   const urls = uploadedFiles.map(f => f.url).join('\n');
                   copyToClipboard(urls);
                 }}
-                className="px-3 py-1 text-sm bg-primary text-primary-foreground rounded-md hover:bg-primary/90 transition-colors"
+                className="px-3 py-1 text-sm bg-primary text-primary-foreground rounded-md hover:bg-primary/90 transition-colors touch-manipulation min-h-[36px]"
               >
                 Copy All URLs
+              </button>
+              <button
+                onClick={() => {
+                  const htmlCodes = uploadedFiles.map(f => generateHtmlEmbed(f.url, f.originalName)).join('\n');
+                  copyToClipboard(htmlCodes);
+                }}
+                className="px-3 py-1 text-sm bg-purple-500 text-white rounded-md hover:bg-purple-600 transition-colors touch-manipulation min-h-[36px] flex items-center gap-1"
+              >
+                <Code className="w-3 h-3" />
+                Copy All HTML
               </button>
               <button
                 onClick={() => {
@@ -398,27 +395,33 @@ export default function UploadZone() {
                       <div className="flex gap-2 flex-wrap">
                         <button
                           onClick={() => copyToClipboard(file.url)}
-                          className="px-3 py-1 text-sm bg-green-500 text-white rounded hover:bg-green-600"
+                          className="px-3 py-1 text-sm bg-green-500 text-white rounded hover:bg-green-600 touch-manipulation min-h-[36px]"
                         >
                           Copy URL
                         </button>
                         <button
+                          onClick={() => copyHtmlEmbed(file.url, file.originalName)}
+                          className="px-3 py-1 text-sm bg-purple-500 text-white rounded hover:bg-purple-600 touch-manipulation min-h-[36px] flex items-center gap-1"
+                        >
+                          <Code className="w-3 h-3" />
+                          Copy HTML
+                        </button>
+                        <button
                           onClick={() => window.open(file.url, '_blank')}
-                          className="px-3 py-1 text-sm bg-blue-500 text-white rounded hover:bg-blue-600"
+                          className="px-3 py-1 text-sm bg-blue-500 text-white rounded hover:bg-blue-600 touch-manipulation min-h-[36px]"
                         >
                           View Image
                         </button>
                         <button
-                          onClick={() => alert('QR Code feature coming soon!')}
-                          className="px-3 py-1 text-sm bg-purple-500 text-white rounded hover:bg-purple-600"
+                          onClick={() => setShareDialog({
+                            isOpen: true,
+                            url: file.url,
+                            title: file.originalName
+                          })}
+                          className="px-3 py-1 text-sm bg-purple-500 text-white rounded hover:bg-purple-600 flex items-center gap-1"
                         >
-                          QR Code
-                        </button>
-                        <button
-                          onClick={() => alert('Share options coming soon!')}
-                          className="px-3 py-1 text-sm bg-orange-500 text-white rounded hover:bg-orange-600"
-                        >
-                          Share
+                          <Share2 className="w-3 h-3" />
+                          Share & QR
                         </button>
                       </div>
                     </div>
@@ -428,6 +431,17 @@ export default function UploadZone() {
             ))}
           </div>
         </div>
+      )}
+
+      {/* Share Dialog */}
+      {shareDialog && (
+        <ShareDialog
+          isOpen={shareDialog.isOpen}
+          onClose={() => setShareDialog(null)}
+          url={shareDialog.url}
+          title={shareDialog.title}
+          type="image"
+        />
       )}
     </div>
   );

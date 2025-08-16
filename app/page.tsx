@@ -3,58 +3,66 @@ import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import UploadZone from '@/components/upload/UploadZone';
 import Stats from '@/components/ui/stats';
+import FAQ from '@/components/seo/FAQ';
+import StructuredData from '@/components/seo/StructuredData';
+import PerformanceOptimizer from '@/components/performance/PerformanceOptimizer';
 
 export default function Home() {
   return (
-    <div className="space-y-16">
+    <>
+      <PerformanceOptimizer />
+      <StructuredData type="service" />
+      <StructuredData type="faq" />
+      <div className="space-y-16">
       {/* Hero Section */}
-      <section className="container mx-auto px-4 py-16">
+      <section className="container mx-auto px-4 py-8 md:py-16">
         <div className="text-center space-y-6 max-w-4xl mx-auto">
-          <h1 className="text-4xl md:text-6xl font-bold bg-gradient-to-r from-blue-600 via-purple-600 to-teal-600 bg-clip-text text-transparent">
-            Convert Images to
+          <h1 className="text-3xl md:text-4xl lg:text-6xl font-bold bg-gradient-to-r from-blue-600 via-purple-600 to-teal-600 bg-clip-text text-transparent">
+            Free Image to URL Converter
             <br />
-            Shareable URLs
+            Upload Images Get Links Instantly
           </h1>
-          <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-            Upload your images and get instant, shareable URLs. Fast, secure, and reliable image hosting 
-            powered by Cloudflare R2 with automatic optimization.
+          <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto">
+            Best free image hosting service with instant URL generation. Upload photos and get shareable links instantly.
+            Drag & drop image uploader with unlimited free uploads - perfect for social media, messaging, websites, forums, and sharing with friends and family.
           </p>
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-            <Button size="lg" className="bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700">
-              Start Uploading
-              <ArrowRight className="ml-2 w-4 h-4" />
-            </Button>
-            <Button variant="outline" size="lg">
-              View API Docs
-            </Button>
-          </div>
-        </div>
-
-        {/* Stats */}
-        <div className="mt-16">
-          <Stats />
         </div>
       </section>
 
-      {/* Upload Section */}
-      <section className="container mx-auto px-4">
-        <div className="text-center space-y-4 mb-12">
-          <h2 className="text-3xl font-bold">Upload Your Images</h2>
+      {/* Mobile-First Upload Section */}
+      <section className="container mx-auto px-4 pb-8 md:pb-16">
+        <div className="text-center space-y-4 mb-8">
+          <h2 className="text-2xl md:text-3xl font-bold">Free Image URL Generator & Photo Hosting</h2>
           <p className="text-muted-foreground max-w-2xl mx-auto">
-            Drag and drop your images or click to browse. We support JPG, PNG, GIF, WEBP, and SVG formats 
-            up to 10MB per file.
+            Convert images to URLs instantly with our free image hosting service. Upload photos and get shareable links -
+            everything you need for easy online image sharing and permanent image links.
+          </p>
+        </div>
+
+        <div className="text-center space-y-4 mb-8">
+          <h3 className="text-xl font-semibold">Upload Your Images</h3>
+          <p className="text-muted-foreground">
+            Simply drag and drop your photos or click to browse. Works with all common image formats
+            and files up to 10MB.
           </p>
         </div>
         <UploadZone />
       </section>
 
+      {/* Stats Section */}
+      <section className="container mx-auto px-4 pb-8 md:pb-16">
+        <Stats />
+      </section>
+
+
+
       {/* Features Section */}
       <section id="features" className="bg-muted/30 py-16">
         <div className="container mx-auto px-4">
           <div className="text-center space-y-4 mb-12">
-            <h2 className="text-3xl font-bold">Powerful Features</h2>
+            <h2 className="text-3xl font-bold">Best Free Image Upload Tool - Why Choose Our Image Hosting Service?</h2>
             <p className="text-muted-foreground max-w-2xl mx-auto">
-              Everything you need for professional image hosting and sharing
+              Fast image uploader with secure image upload tool features. Simple, reliable, and the best image hosting platform for everyone.
             </p>
           </div>
 
@@ -63,10 +71,10 @@ export default function Home() {
               <div className="mx-auto w-12 h-12 bg-gradient-to-br from-green-500 to-emerald-600 rounded-full flex items-center justify-center mb-4">
                 <Zap className="w-6 h-6 text-white" />
               </div>
-              <h3 className="text-xl font-semibold mb-2">Automatic Optimization</h3>
+              <h3 className="text-xl font-semibold mb-2">Automatic Image Optimization</h3>
               <p className="text-muted-foreground">
-                Images are automatically compressed and optimized without losing quality, 
-                reducing file sizes by up to 70%.
+                Our secure image upload tool automatically compresses images up to 70%
+                while maintaining high quality image sharing standards.
               </p>
             </Card>
 
@@ -74,10 +82,10 @@ export default function Home() {
               <div className="mx-auto w-12 h-12 bg-gradient-to-br from-blue-500 to-cyan-600 rounded-full flex items-center justify-center mb-4">
                 <Globe className="w-6 h-6 text-white" />
               </div>
-              <h3 className="text-xl font-semibold mb-2">Global CDN</h3>
+              <h3 className="text-xl font-semibold mb-2">Global CDN - Fast Image Delivery</h3>
               <p className="text-muted-foreground">
-                Your images are served from Cloudflare's global network of 275+ 
-                data centers for lightning-fast loading times.
+                Instant image link generator with global CDN ensures your images load
+                super fast anywhere in the world through 275+ data centers.
               </p>
             </Card>
 
@@ -85,10 +93,10 @@ export default function Home() {
               <div className="mx-auto w-12 h-12 bg-gradient-to-br from-purple-500 to-violet-600 rounded-full flex items-center justify-center mb-4">
                 <Shield className="w-6 h-6 text-white" />
               </div>
-              <h3 className="text-xl font-semibold mb-2">Secure & Reliable</h3>
+              <h3 className="text-xl font-semibold mb-2">Secure Image Upload Tool</h3>
               <p className="text-muted-foreground">
-                Built on Cloudflare R2 with enterprise-grade security, 99.9% uptime SLA, 
-                and automatic backups.
+                Enterprise-grade security protects your uploads with automatic backups.
+                Anonymous image uploader option available for privacy.
               </p>
             </Card>
 
@@ -96,10 +104,10 @@ export default function Home() {
               <div className="mx-auto w-12 h-12 bg-gradient-to-br from-orange-500 to-red-600 rounded-full flex items-center justify-center mb-4">
                 <Upload className="w-6 h-6 text-white" />
               </div>
-              <h3 className="text-xl font-semibold mb-2">Batch Upload</h3>
+              <h3 className="text-xl font-semibold mb-2">Bulk Image URL Generator</h3>
               <p className="text-muted-foreground">
-                Upload multiple images at once with drag-and-drop functionality 
-                and real-time progress tracking.
+                Upload multiple photos at once with our bulk image URL generator.
+                Watch progress as images convert to URLs instantly.
               </p>
             </Card>
 
@@ -107,10 +115,10 @@ export default function Home() {
               <div className="mx-auto w-12 h-12 bg-gradient-to-br from-teal-500 to-cyan-600 rounded-full flex items-center justify-center mb-4">
                 <ArrowRight className="w-6 h-6 text-white" />
               </div>
-              <h3 className="text-xl font-semibold mb-2">Instant URLs</h3>
+              <h3 className="text-xl font-semibold mb-2">One Click Image Sharing</h3>
               <p className="text-muted-foreground">
-                Get shareable URLs immediately after upload with one-click copy 
-                to clipboard functionality.
+                Get shareable image links instantly with one-click copying.
+                Perfect for social media and instant image URL sharing.
               </p>
             </Card>
 
@@ -118,30 +126,34 @@ export default function Home() {
               <div className="mx-auto w-12 h-12 bg-gradient-to-br from-pink-500 to-rose-600 rounded-full flex items-center justify-center mb-4">
                 <Shield className="w-6 h-6 text-white" />
               </div>
-              <h3 className="text-xl font-semibold mb-2">Rate Limiting</h3>
+              <h3 className="text-xl font-semibold mb-2">Permanent Image Links</h3>
               <p className="text-muted-foreground">
-                Built-in rate limiting and abuse prevention to ensure fair usage 
-                and maintain service quality.
+                Reliable public image hosting platform with permanent image links
+                that never expire. Always available when you need them.
               </p>
             </Card>
           </div>
         </div>
       </section>
 
+      {/* FAQ Section */}
+      <FAQ />
+
       {/* CTA Section */}
       <section className="container mx-auto px-4 py-16">
         <div className="text-center space-y-6 max-w-3xl mx-auto">
-          <h2 className="text-3xl font-bold">Ready to get started?</h2>
+          <h2 className="text-3xl font-bold">Ready to Create Image URLs for Free?</h2>
           <p className="text-xl text-muted-foreground">
-            Join thousands of users who trust ImageURL for their image hosting needs.
-            Upload your first image now and experience the difference.
+            Join thousands who use our free image hosting service to convert images to URLs instantly.
+            Upload your first photo and experience the best image URL generator tool online!
           </p>
           <Button size="lg" className="bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700">
-            Upload Your First Image
+            Start Free Image Upload Now
             <ArrowRight className="ml-2 w-4 h-4" />
           </Button>
         </div>
       </section>
-    </div>
+      </div>
+    </>
   );
 }

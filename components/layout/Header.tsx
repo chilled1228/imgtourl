@@ -18,27 +18,21 @@ export default function Header() {
               <ImageIcon className="w-5 h-5 text-white" />
             </div>
             <span className="text-xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-              ImageURL
+              ImageURL - Free Image to URL Converter
             </span>
           </div>
 
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center space-x-4">
             <a href="#features" className="text-sm font-medium hover:text-primary transition-colors">
-              Features
+              Image Hosting Features
             </a>
-            <a href="#pricing" className="text-sm font-medium hover:text-primary transition-colors">
-              Pricing
+            <a href="#faq" className="text-sm font-medium hover:text-primary transition-colors">
+              FAQ - How to Convert Images to URLs
             </a>
-            <a href="/docs" className="text-sm font-medium hover:text-primary transition-colors">
-              API Docs
+            <a href="#about" className="text-sm font-medium hover:text-primary transition-colors">
+              About Free Image Uploader
             </a>
-            <Button variant="outline" size="sm" asChild>
-              <a href="https://github.com" target="_blank" rel="noopener noreferrer">
-                <Github className="w-4 h-4 mr-2" />
-                GitHub
-              </a>
-            </Button>
             <ThemeToggle />
           </nav>
 
@@ -56,20 +50,14 @@ export default function Header() {
           <div className="md:hidden py-4 border-t">
             <nav className="flex flex-col space-y-4">
               <a href="#features" className="text-sm font-medium hover:text-primary transition-colors">
-                Features
+                Image Hosting Features
               </a>
-              <a href="#pricing" className="text-sm font-medium hover:text-primary transition-colors">
-                Pricing
+              <a href="#faq" className="text-sm font-medium hover:text-primary transition-colors">
+                FAQ - How to Convert Images to URLs
               </a>
-              <a href="/docs" className="text-sm font-medium hover:text-primary transition-colors">
-                API Docs
+              <a href="#about" className="text-sm font-medium hover:text-primary transition-colors">
+                About Free Image Uploader
               </a>
-              <Button variant="outline" size="sm" className="self-start" asChild>
-                <a href="https://github.com" target="_blank" rel="noopener noreferrer">
-                  <Github className="w-4 h-4 mr-2" />
-                  GitHub
-                </a>
-              </Button>
             </nav>
           </div>
         )}
