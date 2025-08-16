@@ -174,32 +174,44 @@ export const optimizeImageLoading = () => {
 
 // Performance monitoring for Core Web Vitals
 export const measureWebVitals = () => {
-  if (typeof window !== 'undefined' && 'performance' in window) {
-    // Measure Largest Contentful Paint (LCP)
-    new PerformanceObserver((list) => {
-      const entries = list.getEntries();
-      const lastEntry = entries[entries.length - 1];
-      console.log('LCP:', lastEntry.startTime);
-    }).observe({ entryTypes: ['largest-contentful-paint'] });
-
-    // Measure First Input Delay (FID)
-    new PerformanceObserver((list) => {
-      const entries = list.getEntries();
-      entries.forEach(entry => {
-        console.log('FID:', entry.processingStart - entry.startTime);
-      });
-    }).observe({ entryTypes: ['first-input'] });
-
-    // Measure Cumulative Layout Shift (CLS)
-    let clsValue = 0;
-    new PerformanceObserver((list) => {
-      const entries = list.getEntries();
-      entries.forEach(entry => {
-        if (!entry.hadRecentInput) {
-          clsValue += entry.value;
+  if (typeof window !== 'undefined' && 'performance' in window && 'PerformanceObserver' in window) {
+    try {
+      // Measure Largest Contentful Paint (LCP)
+      new PerformanceObserver((list) => {
+        const entries = list.getEntries();
+        const lastEntry = entries[entries.length - 1];
+        if (lastEntry) {
+          console.log('LCP:', lastEntry.startTime);
         }
-      });
-      console.log('CLS:', clsValue);
-    }).observe({ entryTypes: ['layout-shift'] });
+      }).observe({ entryTypes: ['largest-contentful-paint'] });
+
+      // Measure First Input Delay (FID)
+      new PerformanceObserver((list) => {
+        const entries = list.getEntries();
+        entries.forEach(entry => {
+          // Type assertion for first-input entries which have processingStart
+          const fidEntry = entry as any;
+          if (fidEntry.processingStart && fidEntry.startTime) {
+            console.log('FID:', fidEntry.processingStart - fidEntry.startTime);
+          }
+        });
+      }).observe({ entryTypes: ['first-input'] });
+
+      // Measure Cumulative Layout Shift (CLS)
+      let clsValue = 0;
+      new PerformanceObserver((list) => {
+        const entries = list.getEntries();
+        entries.forEach(entry => {
+          // Type assertion for layout-shift entries which have value and hadRecentInput
+          const clsEntry = entry as any;
+          if (clsEntry.value !== undefined && !clsEntry.hadRecentInput) {
+            clsValue += clsEntry.value;
+          }
+        });
+        console.log('CLS:', clsValue);
+      }).observe({ entryTypes: ['layout-shift'] });
+    } catch (error) {
+      console.warn('Performance monitoring not supported:', error);
+    }
   }
 };
