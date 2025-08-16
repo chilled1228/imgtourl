@@ -26,35 +26,39 @@ export default function Home() {
             Best free image hosting service with instant URL generation. Upload photos and get shareable links instantly.
             Drag & drop image uploader with unlimited free uploads - perfect for social media, messaging, websites, forums, and sharing with friends and family.
           </p>
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mt-8">
+            <Button
+              size="lg"
+              className="bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-lg px-8 py-4"
+              onClick={() => document.getElementById('upload-section')?.scrollIntoView({ behavior: 'smooth' })}
+            >
+              Start Uploading Images
+              <ArrowRight className="ml-2 w-5 h-5" />
+            </Button>
+          </div>
         </div>
       </section>
 
-      {/* Mobile-First Upload Section */}
-      <section className="container mx-auto px-4 pb-8 md:pb-16">
+      {/* Primary Upload Section - Positioned for Immediate Access */}
+      <section id="upload-section" className="container mx-auto px-4 pb-12 md:pb-16 bg-gradient-to-b from-background to-muted/20">
         <div className="text-center space-y-4 mb-8">
-          <h2 className="text-2xl md:text-3xl font-bold">Free Image URL Generator & Photo Hosting</h2>
+          <h2 className="text-2xl md:text-3xl font-bold">Upload Your Images - Get URLs Instantly</h2>
           <p className="text-muted-foreground max-w-2xl mx-auto">
-            Convert images to URLs instantly with our free image hosting service. Upload photos and get shareable links -
-            everything you need for easy online image sharing and permanent image links.
-          </p>
-        </div>
-
-        <div className="text-center space-y-4 mb-8">
-          <h3 className="text-xl font-semibold">Upload Your Images</h3>
-          <p className="text-muted-foreground">
             Simply drag and drop your photos or click to browse. Works with all common image formats
-            and files up to 10MB.
+            and files up to 10MB. Get shareable URLs and HTML embed codes instantly.
           </p>
         </div>
-        <UploadZone />
+        <div className="max-w-4xl mx-auto">
+          <UploadZone />
+        </div>
       </section>
 
-      {/* Stats Section */}
-      <section className="container mx-auto px-4 pb-8 md:pb-16">
+
+
+      {/* Stats Section - Quick Overview */}
+      <section className="container mx-auto px-4 pb-12 md:pb-16">
         <Stats />
       </section>
-
-
 
       {/* Features Section */}
       <section id="features" className="bg-muted/30 py-16">
