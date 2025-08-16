@@ -85,34 +85,36 @@ export default function FAQ() {
   };
 
   return (
-    <section id="faq" className="py-16 bg-muted/30">
+    <section id="faq" className="py-20 bg-muted/30">
       <div className="container mx-auto px-4">
-        <div className="text-center space-y-4 mb-12">
-          <h2 className="text-3xl font-bold">Frequently Asked Questions - Free Image Hosting & URL Generator</h2>
-          <p className="text-muted-foreground max-w-2xl mx-auto">
-            Common questions about our free image to URL converter, image hosting service, and how to upload images get links instantly.
+        <div className="text-center space-y-6 mb-16">
+          <h2 className="text-3xl md:text-4xl font-bold">Frequently Asked Questions</h2>
+          <p className="text-lg text-muted-foreground max-w-2xl mx-auto leading-relaxed">
+            Everything you need to know about uploading images and creating shareable links.
           </p>
         </div>
         
-        <div className="max-w-4xl mx-auto space-y-4">
+        <div className="max-w-4xl mx-auto space-y-3">
           {faqData.map((item, index) => (
-            <Card key={index} className="overflow-hidden">
+            <Card key={index} className="overflow-hidden border-0 shadow-sm hover:shadow-md transition-all duration-200">
               <button
                 onClick={() => toggleItem(index)}
-                className="w-full p-6 text-left flex items-center justify-between hover:bg-muted/50 transition-colors"
+                className="w-full p-6 md:p-8 text-left flex items-center justify-between hover:bg-muted/30 transition-colors touch-target"
               >
-                <h3 className="text-lg font-semibold pr-4">{item.question}</h3>
-                {openItems.includes(index) ? (
-                  <ChevronUp className="w-5 h-5 flex-shrink-0" />
-                ) : (
-                  <ChevronDown className="w-5 h-5 flex-shrink-0" />
-                )}
+                <h3 className="text-lg md:text-xl font-semibold pr-4 leading-snug">{item.question}</h3>
+                <div className="flex-shrink-0 w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center">
+                  {openItems.includes(index) ? (
+                    <ChevronUp className="w-4 h-4 text-primary" />
+                  ) : (
+                    <ChevronDown className="w-4 h-4 text-primary" />
+                  )}
+                </div>
               </button>
-              
+
               {openItems.includes(index) && (
-                <div className="px-6 pb-6">
-                  <div className="pt-4 border-t">
-                    <p className="text-muted-foreground leading-relaxed">
+                <div className="px-6 md:px-8 pb-6 md:pb-8">
+                  <div className="pt-4 border-t border-muted">
+                    <p className="text-muted-foreground leading-relaxed text-base">
                       {item.answer}
                     </p>
                   </div>
@@ -122,10 +124,19 @@ export default function FAQ() {
           ))}
         </div>
         
-        <div className="text-center mt-12">
-          <p className="text-muted-foreground">
-            Still have questions about our free image hosting service? 
-            <a href="#contact" className="text-primary hover:underline ml-1">Contact us</a> for help with image URL generation.
+        <div className="text-center mt-16">
+          <div className="bg-primary/5 rounded-2xl p-8 max-w-2xl mx-auto">
+            <p className="text-muted-foreground text-lg leading-relaxed">
+              Still have questions?
+              <a href="#contact" className="text-primary hover:underline font-medium ml-1">Contact us</a>
+              and we'll help you get started with image sharing.
+            </p>
+          </div>
+
+          {/* SEO content preserved */}
+          <p className="text-sm text-muted-foreground mt-8 max-w-3xl mx-auto">
+            Free image hosting service FAQ covering image URL generation, secure image upload tool,
+            and instant image link generator questions.
           </p>
         </div>
       </div>

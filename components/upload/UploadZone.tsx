@@ -226,54 +226,91 @@ export default function UploadZone() {
 
 
 
-      {/* Upload Zone */}
+      {/* Upload Zone - Redesigned for clarity */}
       <div className="relative">
         <div
           {...getRootProps()}
           className={cn(
-            'border-2 border-dashed rounded-xl p-6 md:p-12 text-center cursor-pointer transition-all duration-200',
-            'hover:border-primary/50 hover:bg-primary/5 touch-manipulation',
-            'min-h-[200px] md:min-h-[250px] flex items-center justify-center',
-            isDragActive && 'border-primary bg-primary/10 scale-105',
+            'border-2 border-dashed rounded-2xl p-8 md:p-16 text-center cursor-pointer transition-all duration-300',
+            'hover:border-primary/60 hover:bg-primary/5 touch-manipulation',
+            'min-h-[280px] md:min-h-[320px] flex items-center justify-center',
+            'border-muted-foreground/30',
+            isDragActive && 'border-primary bg-primary/10 scale-[1.02] shadow-lg',
             uploading && 'pointer-events-none opacity-50'
           )}
         >
           <input {...getInputProps()} />
-          <div className="space-y-4 w-full">
-            <div className="mx-auto w-12 h-12 md:w-16 md:h-16 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center">
-              <Upload className="w-6 h-6 md:w-8 md:h-8 text-white" />
+          <div className="space-y-6 w-full max-w-md mx-auto">
+            {/* Visual Icon */}
+            <div className="mx-auto w-16 h-16 md:w-20 md:h-20 bg-gradient-to-br from-blue-500 to-purple-600 rounded-2xl flex items-center justify-center shadow-lg">
+              <Upload className="w-8 h-8 md:w-10 md:h-10 text-white" />
             </div>
+
             {isDragActive ? (
-              <div>
-                <p className="text-lg md:text-xl font-semibold text-primary">Drop images here for instant URL generation!</p>
-                <p className="text-sm text-muted-foreground">Release to upload and get shareable image links</p>
+              <div className="space-y-2">
+                <p className="text-xl md:text-2xl font-bold text-primary">Drop your images here!</p>
+                <p className="text-base text-muted-foreground">Release to start uploading</p>
               </div>
             ) : (
-              <div>
-                <p className="text-lg md:text-xl font-semibold">Free Image to URL Converter - Upload Images Get Links</p>
-                <p className="text-sm md:text-base text-muted-foreground">
-                  Drag & drop image upload or click to browse - instant image link generator
-                </p>
-                <p className="text-xs md:text-sm text-muted-foreground mt-2">
-                  Free image hosting: JPG, PNG, GIF, WEBP, SVG • Max 10MB per file • Unlimited uploads
-                </p>
+              <div className="space-y-4">
+                <div className="space-y-2">
+                  <p className="text-xl md:text-2xl font-bold text-foreground">
+                    Choose Your Images
+                  </p>
+                  <p className="text-base md:text-lg text-muted-foreground">
+                    Drag photos here or click to browse
+                  </p>
+                </div>
+
+                {/* Simple format info */}
+                <div className="bg-muted/50 rounded-lg p-4 text-sm text-muted-foreground">
+                  <div className="flex items-center justify-center space-x-4 flex-wrap gap-2">
+                    <span className="flex items-center space-x-1">
+                      <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+                      <span>JPG, PNG, GIF</span>
+                    </span>
+                    <span className="flex items-center space-x-1">
+                      <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
+                      <span>Up to 10MB</span>
+                    </span>
+                    <span className="flex items-center space-x-1">
+                      <div className="w-2 h-2 bg-purple-500 rounded-full"></div>
+                      <span>Multiple files OK</span>
+                    </span>
+                  </div>
+                </div>
               </div>
             )}
           </div>
         </div>
       </div>
 
-      {/* File Previews */}
+      {/* File Previews - Improved UX */}
       {files.length > 0 && (
-        <div className="space-y-4">
-          <div className="flex items-center justify-between">
-            <h3 className="text-lg font-semibold">Selected Files ({files.length})</h3>
+        <div className="space-y-6">
+          <div className="flex items-center justify-between flex-wrap gap-4">
+            <div>
+              <h3 className="text-xl font-semibold">Ready to Upload</h3>
+              <p className="text-sm text-muted-foreground">
+                {files.length} image{files.length > 1 ? 's' : ''} selected
+              </p>
+            </div>
             <button
               onClick={uploadFiles}
               disabled={uploading}
-              className="px-6 py-3 md:py-2 bg-gradient-to-r from-blue-500 to-purple-600 text-white rounded-lg hover:shadow-lg transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed touch-manipulation min-h-[44px]"
+              className="px-8 py-4 bg-gradient-to-r from-blue-500 to-purple-600 text-white rounded-xl hover:shadow-lg transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed touch-manipulation min-h-[52px] font-semibold text-lg"
             >
-              {uploading ? 'Converting Images to URLs...' : 'Upload All & Generate URLs'}
+              {uploading ? (
+                <span className="flex items-center space-x-2">
+                  <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
+                  <span>Creating Links...</span>
+                </span>
+              ) : (
+                <span className="flex items-center space-x-2">
+                  <Upload className="w-5 h-5" />
+                  <span>Create Shareable Links</span>
+                </span>
+              )}
             </button>
           </div>
           
@@ -332,125 +369,130 @@ export default function UploadZone() {
         </div>
       )}
 
-      {/* Uploaded Files */}
+      {/* Uploaded Files - Improved Results Display */}
       {uploadedFiles.length > 0 && (
-        <div className="space-y-4">
-          <div className="flex items-center justify-between">
-            <h3 className="text-lg font-semibold">Generated Image URLs - Shareable Links ({uploadedFiles.length})</h3>
-            <div className="flex gap-2 flex-wrap">
-              <button
-                onClick={() => {
-                  const urls = uploadedFiles.map(f => f.url).join('\n');
-                  copyToClipboard(urls);
-                }}
-                className="px-3 py-1 text-sm bg-primary text-primary-foreground rounded-md hover:bg-primary/90 transition-colors touch-manipulation min-h-[36px]"
-              >
-                Copy All URLs
-              </button>
-              <button
-                onClick={() => {
-                  const htmlCodes = uploadedFiles.map(f => generateHtmlEmbed(f.url, f.originalName)).join('\n');
-                  copyToClipboard(htmlCodes);
-                }}
-                className="px-3 py-1 text-sm bg-purple-500 text-white rounded-md hover:bg-purple-600 transition-colors touch-manipulation min-h-[36px] flex items-center gap-1"
-              >
-                <Code className="w-3 h-3" />
-                Copy All HTML
-              </button>
-              <button
-                onClick={() => {
-                  const data = JSON.stringify(uploadedFiles, null, 2);
-                  const blob = new Blob([data], { type: 'application/json' });
-                  const url = URL.createObjectURL(blob);
-                  const link = document.createElement('a');
-                  link.href = url;
-                  link.download = `uploaded-images-${new Date().toISOString().split('T')[0]}.json`;
-                  link.click();
-                  URL.revokeObjectURL(url);
-                  showSuccessToast('Image data exported successfully!');
-                }}
-                className="px-3 py-1 text-sm bg-secondary text-secondary-foreground rounded-md hover:bg-secondary/90 transition-colors"
-              >
-                Export Data
-              </button>
+        <div className="space-y-6">
+          <div className="text-center space-y-4">
+            <div className="inline-flex items-center space-x-2 bg-green-50 dark:bg-green-900/20 text-green-700 dark:text-green-300 px-4 py-2 rounded-full">
+              <CheckCircle2 className="w-5 h-5" />
+              <span className="font-medium">
+                {uploadedFiles.length} image{uploadedFiles.length > 1 ? 's' : ''} uploaded successfully!
+              </span>
             </div>
+            <h3 className="text-2xl font-bold">Your Shareable Links Are Ready</h3>
+            <p className="text-muted-foreground">
+              Copy the links below to share your images anywhere
+            </p>
           </div>
-          <div className="space-y-4">
+
+          {/* Bulk Actions - Simplified */}
+          <div className="flex justify-center gap-3 flex-wrap">
+            <button
+              onClick={() => {
+                const urls = uploadedFiles.map(f => f.url).join('\n');
+                copyToClipboard(urls);
+              }}
+              className="px-6 py-3 bg-primary text-primary-foreground rounded-xl hover:bg-primary/90 transition-colors touch-manipulation font-medium flex items-center space-x-2"
+            >
+              <Copy className="w-4 h-4" />
+              <span>Copy All Links</span>
+            </button>
+            <button
+              onClick={() => {
+                const htmlCodes = uploadedFiles.map(f => generateHtmlEmbed(f.url, f.originalName)).join('\n');
+                copyToClipboard(htmlCodes);
+              }}
+              className="px-6 py-3 bg-purple-500 text-white rounded-xl hover:bg-purple-600 transition-colors touch-manipulation font-medium flex items-center space-x-2"
+            >
+              <Code className="w-4 h-4" />
+              <span>Copy HTML Code</span>
+            </button>
+          </div>
+          {/* Individual File Results - Simplified Cards */}
+          <div className="space-y-6">
             {uploadedFiles.map((file) => (
-              <div key={file.id} className="bg-card border rounded-lg p-6">
+              <div key={file.id} className="bg-card border rounded-2xl p-6 shadow-sm hover:shadow-md transition-shadow">
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                  <div>
+                  {/* Image Preview */}
+                  <div className="space-y-3">
                     <img
                       src={file.url}
                       alt={file.originalName}
-                      className="w-full h-48 object-cover rounded-md"
+                      className="w-full h-48 object-cover rounded-xl border"
                     />
-                  </div>
-                  <div className="space-y-4">
-                    <div>
-                      <h4 className="font-semibold">{file.originalName}</h4>
-                      <div className="text-sm text-muted-foreground space-y-1">
-                        <p>Size: {formatFileSize(file.size)}</p>
+                    <div className="text-sm text-muted-foreground">
+                      <p className="font-medium text-foreground truncate">{file.originalName}</p>
+                      <div className="flex items-center space-x-4 mt-1">
+                        <span>{formatFileSize(file.size)}</span>
                         {file.optimized && (
-                          <p className="text-green-600">
-                            Optimized: {formatFileSize(file.originalSize - file.size)} saved
-                          </p>
+                          <span className="text-green-600 font-medium">
+                            ✓ Optimized
+                          </span>
                         )}
-                        <p>Uploaded: {new Date(file.uploadedAt).toLocaleString()}</p>
                       </div>
                     </div>
-                    
-                    <div className="space-y-3">
-                      <div>
-                        <label className="text-sm font-medium">Direct URL:</label>
-                        <div className="flex gap-2 mt-1">
-                          <input
-                            type="text"
-                            value={file.url}
-                            readOnly
-                            className="flex-1 px-3 py-2 border rounded-md bg-muted text-sm"
-                          />
-                          <button
-                            onClick={() => copyToClipboard(file.url)}
-                            className="px-3 py-2 bg-primary text-primary-foreground rounded-md hover:bg-primary/90 transition-colors text-sm"
-                          >
-                            <Copy className="w-4 h-4" />
-                          </button>
-                        </div>
-                      </div>
+                  </div>
 
-                      <div className="flex gap-2 flex-wrap">
+                  {/* Actions and Link */}
+                  <div className="space-y-4">
+                    <div>
+                      <label className="text-sm font-medium text-muted-foreground">Your shareable link:</label>
+                      <div className="flex gap-2 mt-2">
+                        <input
+                          type="text"
+                          value={file.url}
+                          readOnly
+                          className="flex-1 px-4 py-3 border rounded-xl bg-muted/50 text-sm font-mono"
+                          onClick={(e) => e.currentTarget.select()}
+                        />
                         <button
                           onClick={() => copyToClipboard(file.url)}
-                          className="px-3 py-1 text-sm bg-green-500 text-white rounded hover:bg-green-600 touch-manipulation min-h-[36px]"
+                          className="px-4 py-3 bg-primary text-primary-foreground rounded-xl hover:bg-primary/90 transition-colors"
+                          title="Copy link"
                         >
-                          Copy URL
-                        </button>
-                        <button
-                          onClick={() => copyHtmlEmbed(file.url, file.originalName)}
-                          className="px-3 py-1 text-sm bg-purple-500 text-white rounded hover:bg-purple-600 touch-manipulation min-h-[36px] flex items-center gap-1"
-                        >
-                          <Code className="w-3 h-3" />
-                          Copy HTML
-                        </button>
-                        <button
-                          onClick={() => window.open(file.url, '_blank')}
-                          className="px-3 py-1 text-sm bg-blue-500 text-white rounded hover:bg-blue-600 touch-manipulation min-h-[36px]"
-                        >
-                          View Image
-                        </button>
-                        <button
-                          onClick={() => setShareDialog({
-                            isOpen: true,
-                            url: file.url,
-                            title: file.originalName
-                          })}
-                          className="px-3 py-1 text-sm bg-purple-500 text-white rounded hover:bg-purple-600 flex items-center gap-1"
-                        >
-                          <Share2 className="w-3 h-3" />
-                          Share & QR
+                          <Copy className="w-4 h-4" />
                         </button>
                       </div>
+                    </div>
+
+                    {/* Primary Actions - Simplified */}
+                    <div className="grid grid-cols-2 gap-3">
+                      <button
+                        onClick={() => copyToClipboard(file.url)}
+                        className="px-4 py-3 bg-green-500 text-white rounded-xl hover:bg-green-600 transition-colors font-medium flex items-center justify-center space-x-2"
+                      >
+                        <Copy className="w-4 h-4" />
+                        <span>Copy Link</span>
+                      </button>
+                      <button
+                        onClick={() => window.open(file.url, '_blank')}
+                        className="px-4 py-3 bg-blue-500 text-white rounded-xl hover:bg-blue-600 transition-colors font-medium flex items-center justify-center space-x-2"
+                      >
+                        <ImageIcon className="w-4 h-4" />
+                        <span>View Image</span>
+                      </button>
+                    </div>
+
+                    {/* Secondary Actions */}
+                    <div className="grid grid-cols-2 gap-3">
+                      <button
+                        onClick={() => copyHtmlEmbed(file.url, file.originalName)}
+                        className="px-4 py-2 bg-muted text-muted-foreground rounded-lg hover:bg-muted/80 transition-colors text-sm flex items-center justify-center space-x-2"
+                      >
+                        <Code className="w-3 h-3" />
+                        <span>Copy HTML</span>
+                      </button>
+                      <button
+                        onClick={() => setShareDialog({
+                          isOpen: true,
+                          url: file.url,
+                          title: file.originalName
+                        })}
+                        className="px-4 py-2 bg-muted text-muted-foreground rounded-lg hover:bg-muted/80 transition-colors text-sm flex items-center justify-center space-x-2"
+                      >
+                        <Share2 className="w-3 h-3" />
+                        <span>Share & QR</span>
+                      </button>
                     </div>
                   </div>
                 </div>
