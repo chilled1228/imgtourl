@@ -6,10 +6,56 @@ import { r2Client, R2_CONFIG } from '@/lib/r2-client';
 import { validateFile, generateUniqueFileName, validateFileContent } from '@/lib/validations';
 import { checkRateLimit } from '@/lib/rate-limit';
 
+// Handle CORS preflight requests
+export async function OPTIONS(request: NextRequest) {
+  return new NextResponse(null, {
+    status: 200,
+    headers: {
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
+      'Access-Control-Allow-Headers': 'Content-Type',
+    },
+  });
+}
+
+// Add a GET handler for health check
+export async function GET(request: NextRequest) {
+  console.log('Upload API GET called for health check');
+
+  return NextResponse.json({
+    status: 'Upload API is running',
+    timestamp: new Date().toISOString(),
+    environment: process.env.NODE_ENV,
+    r2Config: {
+      hasClient: !!r2Client,
+      hasBucket: !!R2_CONFIG.bucketName,
+      hasPublicUrl: !!R2_CONFIG.publicUrl,
+    }
+  });
+}
+
 export async function POST(request: NextRequest) {
+  console.log('=== UPLOAD API CALLED ===');
+  console.log('Environment:', process.env.NODE_ENV);
+  console.log('Request URL:', request.url);
+  console.log('Request method:', request.method);
+  console.log('Request headers:', Object.fromEntries(request.headers.entries()));
+  console.log('Environment variables check:', {
+    R2_ACCOUNT_ID: !!process.env.R2_ACCOUNT_ID,
+    R2_ACCESS_KEY_ID: !!process.env.R2_ACCESS_KEY_ID,
+    R2_SECRET_ACCESS_KEY: !!process.env.R2_SECRET_ACCESS_KEY,
+    R2_BUCKET_NAME: !!process.env.R2_BUCKET_NAME,
+    R2_PUBLIC_URL: !!process.env.R2_PUBLIC_URL
+  });
+
   try {
     // Check if R2 client is available
     if (!r2Client || !R2_CONFIG.bucketName || !R2_CONFIG.publicUrl) {
+      console.error('R2 configuration missing:', {
+        r2Client: !!r2Client,
+        bucketName: !!R2_CONFIG.bucketName,
+        publicUrl: !!R2_CONFIG.publicUrl
+      });
       return NextResponse.json(
         { error: 'Upload service is not configured. Please check environment variables.' },
         { status: 500 }
@@ -25,10 +71,19 @@ export async function POST(request: NextRequest) {
       );
     }
 
+    console.log('Parsing form data...');
     const formData = await request.formData();
+    console.log('Form data entries:', Array.from(formData.entries()).map(([key, value]) => [key, value instanceof File ? `File: ${value.name}` : value]));
+
     const file = formData.get('file') as File;
+    console.log('File received:', {
+      name: file?.name,
+      size: file?.size,
+      type: file?.type
+    });
 
     if (!file || !file.size) {
+      console.error('No file in request');
       return NextResponse.json(
         { error: 'No file uploaded' },
         { status: 400 }
@@ -136,9 +191,11 @@ export async function POST(request: NextRequest) {
 
   } catch (error: any) {
     console.error('Upload error:', error);
+    console.error('Error stack:', error.stack);
 
     // Provide more specific error messages
     let errorMessage = 'Upload failed. Please try again.';
+    let statusCode = 500;
 
     if (error.code === 'EPROTO' || error.message?.includes('SSL')) {
       errorMessage = 'SSL connection error. Please check your Cloudflare R2 configuration.';
@@ -148,12 +205,41 @@ export async function POST(request: NextRequest) {
       errorMessage = 'Invalid access key. Please check your R2 credentials.';
     } else if (error.code === 'SignatureDoesNotMatch') {
       errorMessage = 'Invalid secret key. Please check your R2 credentials.';
+    } else if (error.code === 'NetworkingError' || error.message?.includes('fetch')) {
+      errorMessage = 'Network error. Please check your internet connection.';
+    } else if (error.message?.includes('timeout')) {
+      errorMessage = 'Upload timeout. Please try again with a smaller file.';
+    } else if (error.message) {
+      errorMessage = error.message;
     }
 
-    return NextResponse.json(
-      { error: errorMessage, details: error.message },
-      { status: 500 }
-    );
+    // Ensure we always return a proper JSON response
+    try {
+      return NextResponse.json(
+        {
+          error: errorMessage,
+          code: error.code || 'UNKNOWN_ERROR',
+          details: error.message,
+          timestamp: new Date().toISOString()
+        },
+        {
+          status: statusCode,
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        }
+      );
+    } catch (responseError) {
+      console.error('Failed to create error response:', responseError);
+      // Fallback to basic response
+      return new Response(
+        JSON.stringify({ error: 'Internal server error' }),
+        {
+          status: 500,
+          headers: { 'Content-Type': 'application/json' }
+        }
+      );
+    }
   }
 }
 

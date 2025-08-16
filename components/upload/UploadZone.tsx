@@ -126,15 +126,42 @@ export default function UploadZone() {
 
         clearInterval(progressInterval);
         console.log('Upload response status:', response.status);
+        console.log('Upload response headers:', Object.fromEntries(response.headers.entries()));
 
         if (!response.ok) {
-          const errorData = await response.json();
-          console.error('Upload error response:', errorData);
-          throw new Error(errorData.error || 'Upload failed');
+          let errorMessage = 'Upload failed';
+          try {
+            const contentType = response.headers.get('content-type');
+            if (contentType && contentType.includes('application/json')) {
+              const errorData = await response.json();
+              console.error('Upload error response:', errorData);
+              errorMessage = errorData.error || 'Upload failed';
+            } else {
+              const textResponse = await response.text();
+              console.error('Upload error response (non-JSON):', textResponse);
+              errorMessage = `Server error (${response.status}): ${textResponse.substring(0, 100)}`;
+            }
+          } catch (parseError) {
+            console.error('Failed to parse error response:', parseError);
+            errorMessage = `Upload failed with status ${response.status}`;
+          }
+          throw new Error(errorMessage);
         }
 
-        const result: UploadedFile = await response.json();
-        console.log('Upload successful:', result);
+        let result: UploadedFile;
+        try {
+          const contentType = response.headers.get('content-type');
+          if (!contentType || !contentType.includes('application/json')) {
+            const textResponse = await response.text();
+            console.error('Expected JSON but got:', contentType, textResponse);
+            throw new Error('Server returned invalid response format');
+          }
+          result = await response.json();
+          console.log('Upload successful:', result);
+        } catch (parseError) {
+          console.error('Failed to parse success response:', parseError);
+          throw new Error('Upload completed but response format was invalid');
+        }
 
         setUploadProgress(prev => ({
           ...prev,
