@@ -1,10 +1,5 @@
 import { S3Client } from '@aws-sdk/client-s3';
 
-// Disable SSL verification for development (not recommended for production)
-if (process.env.NODE_ENV === 'development') {
-  process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
-}
-
 // Create R2 client only when environment variables are available
 function createR2Client() {
   if (!process.env.R2_ACCOUNT_ID || !process.env.R2_ACCESS_KEY_ID || !process.env.R2_SECRET_ACCESS_KEY) {
