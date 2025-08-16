@@ -1,6 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { PutObjectCommand } from '@aws-sdk/client-s3';
-import sharp from 'sharp';
 import { nanoid } from 'nanoid';
 import { r2Client, R2_CONFIG } from '@/lib/r2-client';
 import { validateFile, generateUniqueFileName, validateFileContent } from '@/lib/validations';
@@ -121,6 +120,18 @@ export async function POST(request: NextRequest) {
     // Optimize image based on type
     try {
       if (file.type.startsWith('image/') && file.type !== 'image/svg+xml') {
+        // Try to import sharp dynamically to handle platform issues
+        let sharpModule;
+        try {
+          sharpModule = await import('sharp');
+        } catch (sharpImportError) {
+          console.warn('Sharp module could not be loaded, using original image:', sharpImportError);
+          optimizedBuffer = buffer;
+          contentType = file.type;
+          throw sharpImportError; // Re-throw to go to outer catch block
+        }
+
+        const sharp = sharpModule.default;
         const sharpImage = sharp(buffer);
         const metadata = await sharpImage.metadata();
 
@@ -152,6 +163,7 @@ export async function POST(request: NextRequest) {
       }
     } catch (error) {
       console.error('Image optimization error:', error);
+      console.error('Falling back to original image without optimization');
       optimizedBuffer = buffer;
       contentType = file.type;
     }

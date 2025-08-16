@@ -1,6 +1,7 @@
 import { ArrowRight, Shield, Zap, Globe, Upload } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
+import ScrollButton from '@/components/ui/scroll-button';
 import UploadZone from '@/components/upload/UploadZone';
 import Stats from '@/components/ui/stats';
 import FAQ from '@/components/seo/FAQ';
@@ -27,14 +28,14 @@ export default function Home() {
             Drag & drop image uploader with unlimited free uploads - perfect for social media, messaging, websites, forums, and sharing with friends and family.
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mt-8">
-            <Button
+            <ScrollButton
+              targetId="upload-section"
               size="lg"
               className="bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-lg px-8 py-4"
-              onClick={() => document.getElementById('upload-section')?.scrollIntoView({ behavior: 'smooth' })}
             >
               Start Uploading Images
               <ArrowRight className="ml-2 w-5 h-5" />
-            </Button>
+            </ScrollButton>
           </div>
         </div>
       </section>
