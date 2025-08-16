@@ -1,0 +1,43 @@
+import { NextResponse } from 'next/server';
+import type { NextRequest } from 'next/server';
+
+// Rate limiting map (in production, use Redis or similar)
+const rateLimitMap = new Map<string, { count: number; lastReset: number }>();
+
+export function middleware(request: NextRequest) {
+  // Apply rate limiting only to upload API
+  if (request.nextUrl.pathname.startsWith('/api/upload')) {
+    const ip = request.ip ?? request.headers.get('x-forwarded-for') ?? '127.0.0.1';
+    const limit = 10; // requests per hour
+    const windowMs = 60 * 60 * 1000; // 1 hour
+
+    if (!rateLimitMap.has(ip)) {
+      rateLimitMap.set(ip, {
+        count: 0,
+        lastReset: Date.now(),
+      });
+    }
+
+    const ipData = rateLimitMap.get(ip)!;
+
+    if (Date.now() - ipData.lastReset > windowMs) {
+      ipData.count = 0;
+      ipData.lastReset = Date.now();
+    }
+
+    if (ipData.count >= limit) {
+      return NextResponse.json(
+        { error: 'Too many requests. Please try again later.' },
+        { status: 429 }
+      );
+    }
+
+    ipData.count += 1;
+  }
+
+  return NextResponse.next();
+}
+
+export const config = {
+  matcher: '/api/:path*',
+};
