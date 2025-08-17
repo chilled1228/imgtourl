@@ -6,7 +6,7 @@ import { Card } from '@/components/ui/card';
 import Link from 'next/link';
 import StructuredData from '@/components/seo/StructuredData';
 import BlogJsonLd from '@/components/seo/BlogJsonLd';
-import { getAllPosts, getPostBySlug, getRelatedPosts } from '@/lib/blog-data';
+import { getPublishedPosts, getBlogPostBySlug, getRelatedPosts } from '@/lib/blog-storage';
 import BlogPostCard from '@/components/blog/BlogPostCard';
 import Breadcrumbs from '@/components/blog/Breadcrumbs';
 
@@ -17,7 +17,7 @@ interface BlogPostPageProps {
 }
 
 export async function generateMetadata({ params }: BlogPostPageProps): Promise<Metadata> {
-  const post = getPostBySlug(params.slug);
+  const post = await getBlogPostBySlug(params.slug);
 
   if (!post) {
     return {
@@ -52,7 +52,7 @@ export async function generateMetadata({ params }: BlogPostPageProps): Promise<M
 }
 
 export async function generateStaticParams() {
-  const posts = getAllPosts();
+  const posts = await getPublishedPosts();
   return posts.map((post) => ({
     slug: post.slug,
   }));
@@ -62,14 +62,14 @@ export async function generateStaticParams() {
 
 
 
-export default function BlogPostPage({ params }: BlogPostPageProps) {
-  const post = getPostBySlug(params.slug);
+export default async function BlogPostPage({ params }: BlogPostPageProps) {
+  const post = await getBlogPostBySlug(params.slug);
 
   if (!post) {
     notFound();
   }
 
-  const relatedPosts = getRelatedPosts(post, 3);
+  const relatedPosts = await getRelatedPosts(post, 3);
 
   const breadcrumbItems = [
     { label: 'Home', href: '/' },
@@ -103,8 +103,18 @@ export default function BlogPostPage({ params }: BlogPostPageProps) {
             <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-foreground leading-tight">
               {post.title}
             </h1>
-            
-            <p className="text-xl text-muted-foreground leading-relaxed">
+
+            {post.featuredImage && (
+              <div className="aspect-video overflow-hidden rounded-lg">
+                <img
+                  src={post.featuredImage}
+                  alt={post.title}
+                  className="w-full h-full object-cover"
+                />
+              </div>
+            )}
+
+            <p className="text-xl text-muted-foreground leading-relaxed max-w-3xl">
               {post.excerpt}
             </p>
             
@@ -137,24 +147,14 @@ export default function BlogPostPage({ params }: BlogPostPageProps) {
         </header>
 
         {/* Article Content */}
-        <div className="prose prose-lg max-w-none prose-headings:text-foreground prose-p:text-muted-foreground prose-a:text-brand-orange prose-a:no-underline hover:prose-a:underline prose-strong:text-foreground prose-code:text-brand-orange prose-code:bg-brand-beige/20 prose-code:px-1 prose-code:py-0.5 prose-code:rounded prose-pre:bg-brand-blue-gray/5 prose-pre:border prose-blockquote:border-l-brand-orange prose-blockquote:border-l-4 prose-blockquote:pl-4 prose-blockquote:italic prose-h1:text-3xl prose-h2:text-2xl prose-h3:text-xl prose-h4:text-lg prose-h5:text-base prose-h6:text-sm">
-          <div dangerouslySetInnerHTML={{
-            __html: post.content
-              .replace(/\n/g, '<br />')
-              .replace(/^# (.+)$/gm, '<h2>$1</h2>')
-              .replace(/^## (.+)$/gm, '<h3>$1</h3>')
-              .replace(/^### (.+)$/gm, '<h4>$1</h4>')
-              .replace(/^#### (.+)$/gm, '<h5>$1</h5>')
-              .replace(/^##### (.+)$/gm, '<h6>$1</h6>')
-              .replace(/<br \/><br \/>/g, '</p><p>')
-              .replace(/^<br \/>/, '<p>')
-              .replace(/<br \/>$/, '</p>')
-              .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
-              .replace(/\*(.+?)\*/g, '<em>$1</em>')
-              .replace(/`(.+?)`/g, '<code>$1</code>')
-              .replace(/\[(.+?)\]\((.+?)\)/g, '<a href="$2">$1</a>')
-          }} />
-        </div>
+        <section className="mb-12">
+          <div className="bg-white rounded-lg shadow-sm border border-border p-6 md:p-10 lg:p-12">
+            <div
+              className="blog-content max-w-none"
+              dangerouslySetInnerHTML={{ __html: post.content }}
+            />
+          </div>
+        </section>
 
         {/* Tags */}
         <div className="mt-12 pt-8 border-t">

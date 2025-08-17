@@ -11,6 +11,7 @@ export interface BlogPost {
   tags: string[];
   featured: boolean;
   slug: string;
+  featuredImage?: string;
   metaDescription?: string;
   keywords?: string[];
   status: 'draft' | 'published' | 'archived';
@@ -455,7 +456,7 @@ For more tips on image hosting and optimization, check out our comprehensive gui
 
 // Helper functions for blog data management
 export function getAllPosts(): BlogPost[] {
-  return blogPosts.filter(post => post.status === 'published').sort((a, b) => 
+  return blogPosts.filter(post => post.status === 'published').sort((a, b) =>
     new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime()
   );
 }

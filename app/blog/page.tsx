@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import StructuredData from '@/components/seo/StructuredData';
 import BlogListingJsonLd from '@/components/seo/BlogListingJsonLd';
-import { getAllPosts, getFeaturedPosts, getCategories } from '@/lib/blog-data';
+import { getPublishedPosts, getFeaturedPosts as getStorageFeaturedPosts, getCategories } from '@/lib/blog-storage';
 import BlogPostCard from '@/components/blog/BlogPostCard';
 import Breadcrumbs from '@/components/blog/Breadcrumbs';
 
@@ -33,10 +33,10 @@ export const metadata: Metadata = {
   },
 };
 
-export default function BlogPage() {
-  const allPosts = getAllPosts();
-  const featuredPosts = getFeaturedPosts();
-  const categories = getCategories();
+export default async function BlogPage() {
+  const allPosts = await getPublishedPosts();
+  const featuredPosts = await getStorageFeaturedPosts();
+  const categories = await getCategories();
   const recentPosts = allPosts.slice(0, 6);
 
   const breadcrumbItems = [

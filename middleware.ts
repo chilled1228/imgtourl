@@ -1,10 +1,25 @@
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
+import { getAdminFromRequest, isAdminRoute } from '@/lib/auth';
 
 // Rate limiting map (in production, use Redis or similar)
 const rateLimitMap = new Map<string, { count: number; lastReset: number }>();
 
-export function middleware(request: NextRequest) {
+export async function middleware(request: NextRequest) {
+  // Check admin authentication for admin routes
+  if (isAdminRoute(request.nextUrl.pathname)) {
+    // Allow access to login page
+    if (request.nextUrl.pathname === '/admin/login') {
+      return NextResponse.next();
+    }
+
+    // Check if user is authenticated
+    const admin = await getAdminFromRequest(request);
+    if (!admin) {
+      return NextResponse.redirect(new URL('/admin/login', request.url));
+    }
+  }
+
   // Apply rate limiting only to upload API
   if (request.nextUrl.pathname.startsWith('/api/upload')) {
     const ip = request.ip ?? request.headers.get('x-forwarded-for') ?? '127.0.0.1';
@@ -39,5 +54,5 @@ export function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: '/api/:path*',
+  matcher: ['/api/:path*', '/admin/:path*'],
 };

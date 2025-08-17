@@ -214,3 +214,179 @@
     }
   }
 }
+
+/* Blog Content Styling */
+.blog-content {
+  @apply text-base leading-relaxed;
+}
+
+.blog-content h1 {
+  @apply text-3xl font-bold text-foreground mt-8 mb-4 leading-tight;
+}
+
+.blog-content h2 {
+  @apply text-2xl font-bold text-foreground mt-6 mb-3 leading-tight;
+}
+
+.blog-content h3 {
+  @apply text-xl font-semibold text-foreground mt-5 mb-3 leading-tight;
+}
+
+.blog-content h4 {
+  @apply text-lg font-semibold text-foreground mt-4 mb-2 leading-tight;
+}
+
+.blog-content h5 {
+  @apply text-base font-semibold text-foreground mt-3 mb-2 leading-tight;
+}
+
+.blog-content h6 {
+  @apply text-sm font-semibold text-foreground mt-3 mb-2 leading-tight;
+}
+
+.blog-content p {
+  @apply text-muted-foreground mb-4 leading-relaxed;
+}
+
+.blog-content ul {
+  @apply list-disc list-inside mb-4 text-muted-foreground space-y-1;
+}
+
+.blog-content ol {
+  @apply list-decimal list-inside mb-4 text-muted-foreground space-y-1;
+}
+
+.blog-content li {
+  @apply leading-relaxed;
+}
+
+.blog-content li ul,
+.blog-content li ol {
+  @apply mt-2 mb-2 ml-4;
+}
+
+.blog-content a {
+  @apply text-brand-orange no-underline hover:underline font-medium;
+}
+
+.blog-content strong {
+  @apply font-bold text-foreground;
+}
+
+.blog-content em {
+  @apply italic;
+}
+
+.blog-content code {
+  @apply bg-brand-beige/20 text-brand-orange px-1 py-0.5 rounded text-sm font-mono;
+}
+
+.blog-content pre {
+  @apply bg-brand-blue-gray/5 border border-border rounded-lg p-4 mb-4 overflow-x-auto;
+}
+
+.blog-content pre code {
+  @apply bg-transparent text-foreground px-0 py-0 rounded-none text-sm;
+}
+
+.blog-content blockquote {
+  @apply border-l-4 border-brand-orange pl-4 italic text-muted-foreground mb-4 bg-brand-beige/10 py-2;
+}
+
+.blog-content img {
+  @apply rounded-lg shadow-md mb-4 max-w-full h-auto;
+}
+
+.blog-content table {
+  @apply w-full border-collapse border border-border mb-4 rounded-lg overflow-hidden;
+}
+
+.blog-content th {
+  @apply border border-border bg-brand-beige/20 p-3 text-left font-semibold text-foreground;
+}
+
+.blog-content td {
+  @apply border border-border p-3 text-muted-foreground;
+}
+
+.blog-content hr {
+  @apply border-0 border-t border-border my-8;
+}
+
+/* First paragraph after headings */
+.blog-content h1 + p,
+.blog-content h2 + p,
+.blog-content h3 + p,
+.blog-content h4 + p,
+.blog-content h5 + p,
+.blog-content h6 + p {
+  @apply mt-0;
+}
+
+/* Remove top margin from first element */
+.blog-content > *:first-child {
+  @apply mt-0;
+}
+
+/* Remove bottom margin from last element */
+.blog-content > *:last-child {
+  @apply mb-0;
+}
+
+/* Improve readability with better line height and spacing */
+.blog-content {
+  @apply text-base leading-7;
+  line-height: 1.75;
+}
+
+/* Better spacing for nested lists */
+.blog-content ul ul,
+.blog-content ol ol,
+.blog-content ul ol,
+.blog-content ol ul {
+  @apply mt-1 mb-1;
+}
+
+/* Improve link styling */
+.blog-content a:hover {
+  @apply text-brand-orange/80;
+}
+
+/* Better spacing for headings */
+.blog-content h1:not(:first-child),
+.blog-content h2:not(:first-child),
+.blog-content h3:not(:first-child) {
+  @apply mt-12;
+}
+
+.blog-content h4:not(:first-child),
+.blog-content h5:not(:first-child),
+.blog-content h6:not(:first-child) {
+  @apply mt-8;
+}
+
+/* Improve blockquote styling */
+.blog-content blockquote {
+  @apply my-6 py-4;
+}
+
+/* Better table styling */
+.blog-content table {
+  @apply text-sm;
+}
+
+/* Responsive images */
+.blog-content img {
+  @apply mx-auto;
+}
+
+/* Code block improvements */
+.blog-content pre {
+  @apply text-sm leading-relaxed;
+}
+
+/* Better spacing for paragraphs after lists */
+.blog-content ul + p,
+.blog-content ol + p {
+  @apply mt-4;
+}

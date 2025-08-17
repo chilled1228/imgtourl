@@ -14,6 +14,7 @@ interface BlogPost {
   tags: string[];
   featured: boolean;
   slug: string;
+  featuredImage?: string;
 }
 
 interface BlogPostCardProps {
@@ -33,6 +34,15 @@ export default function BlogPostCard({ post, variant = 'default' }: BlogPostCard
   if (variant === 'featured') {
     return (
       <Card className="overflow-hidden hover:shadow-lg transition-shadow duration-300 h-full">
+        {post.featuredImage && (
+          <div className="aspect-video overflow-hidden">
+            <img
+              src={post.featuredImage}
+              alt={post.title}
+              className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+            />
+          </div>
+        )}
         <div className="p-6 h-full flex flex-col">
           <div className="flex items-center space-x-4 text-sm text-muted-foreground mb-4">
             <div className="flex items-center space-x-1">
