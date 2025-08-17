@@ -1,10 +1,21 @@
 import Script from 'next/script';
 
-interface StructuredDataProps {
-  type?: 'website' | 'service' | 'faq';
+interface BlogPost {
+  title: string;
+  excerpt: string;
+  author: string;
+  publishedAt: string;
+  slug: string;
+  category: string;
+  tags: string[];
 }
 
-export default function StructuredData({ type = 'website' }: StructuredDataProps) {
+interface StructuredDataProps {
+  type?: 'website' | 'service' | 'faq' | 'blog' | 'article';
+  data?: BlogPost;
+}
+
+export default function StructuredData({ type = 'website', data }: StructuredDataProps) {
   const getWebsiteSchema = () => ({
     "@context": "https://schema.org",
     "@type": "WebSite",
@@ -170,7 +181,7 @@ export default function StructuredData({ type = 'website' }: StructuredDataProps
     "featureList": [
       "Instant image link generator",
       "Drag & drop image upload",
-      "Bulk image URL generator", 
+      "Bulk image URL generator",
       "Secure image upload tool",
       "Anonymous image uploader",
       "Unlimited free image uploads",
@@ -181,12 +192,68 @@ export default function StructuredData({ type = 'website' }: StructuredDataProps
     "url": process.env.NEXT_PUBLIC_APP_URL || "https://imagetourl.cloud"
   });
 
+  const getBlogSchema = () => ({
+    "@context": "https://schema.org",
+    "@type": "Blog",
+    "name": "ImageURL Blog - Image Hosting Tips & Tutorials",
+    "description": "Expert tips, tutorials, and best practices for image hosting, optimization, and sharing. Stay updated with the latest trends in digital asset management.",
+    "url": `${process.env.NEXT_PUBLIC_APP_URL || "https://imagetourl.cloud"}/blog`,
+    "publisher": {
+      "@type": "Organization",
+      "name": "ImageURL",
+      "logo": {
+        "@type": "ImageObject",
+        "url": `${process.env.NEXT_PUBLIC_APP_URL || "https://imagetourl.cloud"}/logo.png`
+      }
+    },
+    "inLanguage": "en-US",
+    "keywords": "image hosting, image optimization, url generation, web performance, digital asset management"
+  });
+
+  const getArticleSchema = () => {
+    if (!data) return null;
+
+    return {
+      "@context": "https://schema.org",
+      "@type": "BlogPosting",
+      "headline": data.title,
+      "description": data.excerpt,
+      "author": {
+        "@type": "Organization",
+        "name": data.author
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "ImageURL",
+        "logo": {
+          "@type": "ImageObject",
+          "url": `${process.env.NEXT_PUBLIC_APP_URL || "https://imagetourl.cloud"}/logo.png`
+        }
+      },
+      "datePublished": data.publishedAt,
+      "dateModified": data.publishedAt,
+      "url": `${process.env.NEXT_PUBLIC_APP_URL || "https://imagetourl.cloud"}/blog/${data.slug}`,
+      "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": `${process.env.NEXT_PUBLIC_APP_URL || "https://imagetourl.cloud"}/blog/${data.slug}`
+      },
+      "articleSection": data.category,
+      "keywords": data.tags.join(", "),
+      "inLanguage": "en-US"
+    };
+  };
+
   const renderSchema = () => {
     switch (type) {
       case 'service':
         return [getServiceSchema(), getOrganizationSchema(), getSoftwareApplicationSchema()];
       case 'faq':
         return getFAQSchema();
+      case 'blog':
+        return [getBlogSchema(), getOrganizationSchema()];
+      case 'article':
+        const articleSchema = getArticleSchema();
+        return articleSchema ? [articleSchema, getOrganizationSchema()] : [getOrganizationSchema()];
       default:
         return [getWebsiteSchema(), getOrganizationSchema(), getSoftwareApplicationSchema()];
     }
