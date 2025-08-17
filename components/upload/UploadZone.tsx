@@ -2,12 +2,13 @@
 
 import { useCallback, useState, useEffect } from 'react';
 import { useDropzone } from 'react-dropzone';
-import { Upload, Image as ImageIcon, X, CheckCircle2, Copy, Share2, QrCode, Code } from 'lucide-react';
+import { Upload, Image as ImageIcon, X, CheckCircle2, Copy, Share2, QrCode, Code, Check } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { formatFileSize } from '@/lib/validations';
 import { UploadHistoryManager } from '@/lib/upload-history';
 import { showSuccessToast, showErrorToast, handleError } from '@/lib/error-handler';
 import ShareDialog from '@/components/sharing/ShareDialog';
+import { SEMANTIC_COLORS, BRAND_CLASSES } from '@/lib/brand-colors';
 
 interface UploadedFile {
   id: string;
@@ -31,6 +32,7 @@ export default function UploadZone() {
   const [uploading, setUploading] = useState(false);
   const [uploadProgress, setUploadProgress] = useState<Record<string, number>>({});
   const [shareDialog, setShareDialog] = useState<{ isOpen: boolean; url: string; title: string } | null>(null);
+  const [copiedStates, setCopiedStates] = useState<Record<string, boolean>>({});
 
   const onDrop = useCallback((acceptedFiles: File[]) => {
     const newFiles = acceptedFiles.map(file => {
@@ -38,7 +40,14 @@ export default function UploadZone() {
       fileWithPreview.preview = URL.createObjectURL(file);
       return fileWithPreview;
     });
-    setFiles(prev => [...prev, ...newFiles]);
+    setFiles(prev => {
+      const updatedFiles = [...prev, ...newFiles];
+      // Auto-upload after files are added
+      setTimeout(() => {
+        uploadFiles(updatedFiles);
+      }, 100);
+      return updatedFiles;
+    });
   }, []);
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
@@ -77,9 +86,18 @@ export default function UploadZone() {
     showSuccessToast('Image resized successfully!');
   };
 
-  const copyToClipboard = async (text: string) => {
+  const copyToClipboard = async (text: string, key?: string) => {
     try {
       await navigator.clipboard.writeText(text);
+
+      // Show visual feedback
+      if (key) {
+        setCopiedStates(prev => ({ ...prev, [key]: true }));
+        setTimeout(() => {
+          setCopiedStates(prev => ({ ...prev, [key]: false }));
+        }, 2000);
+      }
+
       showSuccessToast('Copied to clipboard!');
     } catch (error) {
       showErrorToast('Failed to copy');
@@ -96,14 +114,15 @@ export default function UploadZone() {
     await copyToClipboard(htmlCode);
   };
 
-  const uploadFiles = async () => {
-    if (files.length === 0) return;
+  const uploadFiles = async (filesToUpload?: FileWithPreview[]) => {
+    const targetFiles = filesToUpload || files;
+    if (targetFiles.length === 0) return;
 
-    console.log('Starting upload for', files.length, 'files');
+    console.log('Starting upload for', targetFiles.length, 'files');
     setUploading(true);
     setUploadProgress({});
 
-    const uploadPromises = files.map(async (file, index) => {
+    const uploadPromises = targetFiles.map(async (file, index) => {
       console.log('Uploading file:', file.name, 'Size:', file.size, 'Type:', file.type);
 
       const formData = new FormData();
@@ -201,7 +220,8 @@ export default function UploadZone() {
       setUploading(false);
       // Clear files after upload
       setTimeout(() => {
-        files.forEach(file => {
+        const filesToClear = filesToUpload || files;
+        filesToClear.forEach(file => {
           if (file.preview) {
             URL.revokeObjectURL(file.preview);
           }
@@ -218,7 +238,7 @@ export default function UploadZone() {
       <div className="flex justify-end gap-2">
         <button
           onClick={() => alert('Upload history feature coming soon!')}
-          className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+          className={cn("px-4 py-2 rounded-lg transition-colors", BRAND_CLASSES.buttons.secondary)}
         >
           Image Upload History
         </button>
@@ -231,50 +251,52 @@ export default function UploadZone() {
         <div
           {...getRootProps()}
           className={cn(
-            'border-2 border-dashed rounded-2xl p-8 md:p-16 text-center cursor-pointer transition-all duration-300',
-            'hover:border-primary/60 hover:bg-primary/5 touch-manipulation',
-            'min-h-[280px] md:min-h-[320px] flex items-center justify-center',
-            'border-muted-foreground/30',
-            isDragActive && 'border-primary bg-primary/10 scale-[1.02] shadow-lg',
+            'border-2 border-dashed rounded-2xl p-6 md:p-16 text-center cursor-pointer transition-all duration-300',
+            'touch-manipulation min-h-[320px] md:min-h-[360px] flex items-center justify-center',
+            SEMANTIC_COLORS.uploadZone.container,
+            isDragActive && SEMANTIC_COLORS.uploadZone.dragActive,
             uploading && 'pointer-events-none opacity-50'
           )}
         >
           <input {...getInputProps()} />
           <div className="space-y-6 w-full max-w-md mx-auto">
-            {/* Visual Icon */}
-            <div className="mx-auto w-16 h-16 md:w-20 md:h-20 bg-gradient-to-br from-blue-500 to-purple-600 rounded-2xl flex items-center justify-center shadow-lg">
-              <Upload className="w-8 h-8 md:w-10 md:h-10 text-white" />
+            {/* Visual Icon - Larger for mobile */}
+            <div className={cn(
+              "mx-auto w-20 h-20 md:w-24 md:h-24 rounded-2xl flex items-center justify-center",
+              SEMANTIC_COLORS.uploadZone.icon
+            )}>
+              <Upload className={cn("w-10 h-10 md:w-12 md:h-12", SEMANTIC_COLORS.uploadZone.iconText)} />
             </div>
 
             {isDragActive ? (
               <div className="space-y-2">
-                <p className="text-xl md:text-2xl font-bold text-primary">Drop your images here!</p>
-                <p className="text-base text-muted-foreground">Release to start uploading</p>
+                <p className={cn("text-xl md:text-2xl font-bold", BRAND_CLASSES.text.accent)}>Drop your images here!</p>
+                <p className={cn("text-base", SEMANTIC_COLORS.uploadZone.subtitle)}>Release to start uploading</p>
               </div>
             ) : (
               <div className="space-y-4">
                 <div className="space-y-2">
-                  <p className="text-xl md:text-2xl font-bold text-foreground">
+                  <p className={cn("text-xl md:text-2xl font-bold", SEMANTIC_COLORS.uploadZone.title)}>
                     Choose Your Images
                   </p>
-                  <p className="text-base md:text-lg text-muted-foreground">
-                    Drag photos here or click to browse
+                  <p className={cn("text-base md:text-lg", SEMANTIC_COLORS.uploadZone.subtitle)}>
+                    Drag photos here or click to browse • Links created instantly
                   </p>
                 </div>
 
                 {/* Simple format info */}
-                <div className="bg-muted/50 rounded-lg p-4 text-sm text-muted-foreground">
+                <div className={cn("rounded-lg p-4 text-sm", SEMANTIC_COLORS.uploadZone.info)}>
                   <div className="flex items-center justify-center space-x-4 flex-wrap gap-2">
                     <span className="flex items-center space-x-1">
-                      <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+                      <div className="w-2 h-2 bg-brand-orange rounded-sm"></div>
                       <span>JPG, PNG, GIF</span>
                     </span>
                     <span className="flex items-center space-x-1">
-                      <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
+                      <div className="w-2 h-2 bg-brand-blue-gray rounded-sm"></div>
                       <span>Up to 10MB</span>
                     </span>
                     <span className="flex items-center space-x-1">
-                      <div className="w-2 h-2 bg-purple-500 rounded-full"></div>
+                      <div className="w-2 h-2 bg-brand-orange rounded-sm"></div>
                       <span>Multiple files OK</span>
                     </span>
                   </div>
@@ -285,38 +307,29 @@ export default function UploadZone() {
         </div>
       </div>
 
-      {/* File Previews - Improved UX */}
+      {/* File Previews - Auto-upload UX */}
       {files.length > 0 && (
         <div className="space-y-6">
-          <div className="flex items-center justify-between flex-wrap gap-4">
-            <div>
-              <h3 className="text-xl font-semibold">Ready to Upload</h3>
-              <p className="text-sm text-muted-foreground">
-                {files.length} image{files.length > 1 ? 's' : ''} selected
-              </p>
-            </div>
-            <button
-              onClick={uploadFiles}
-              disabled={uploading}
-              className="px-8 py-4 bg-gradient-to-r from-blue-500 to-purple-600 text-white rounded-xl hover:shadow-lg transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed touch-manipulation min-h-[52px] font-semibold text-lg"
-            >
-              {uploading ? (
-                <span className="flex items-center space-x-2">
-                  <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
-                  <span>Creating Links...</span>
-                </span>
-              ) : (
-                <span className="flex items-center space-x-2">
-                  <Upload className="w-5 h-5" />
-                  <span>Create Shareable Links</span>
-                </span>
-              )}
-            </button>
+          <div className="text-center">
+            <h3 className="text-xl font-semibold">
+              {uploading ? 'Creating Your Links...' : 'Processing Images'}
+            </h3>
+            <p className="text-sm text-muted-foreground">
+              {uploading
+                ? `Uploading ${files.length} image${files.length > 1 ? 's' : ''} and generating shareable links`
+                : `${files.length} image${files.length > 1 ? 's' : ''} ready for upload`
+              }
+            </p>
+            {uploading && (
+              <div className="flex items-center justify-center mt-4">
+                <div className="w-6 h-6 border-2 border-brand-orange/30 border-t-brand-orange rounded-full animate-spin"></div>
+              </div>
+            )}
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             {files.map((file, index) => (
-              <div key={index} className="relative bg-card border rounded-lg p-4 space-y-3">
+              <div key={index} className={cn("relative rounded-lg p-4 space-y-3", SEMANTIC_COLORS.filePreview.container)}>
                 <div className="relative">
                   <img
                     src={file.preview}
@@ -326,7 +339,10 @@ export default function UploadZone() {
                   {!uploading && (
                     <button
                       onClick={() => removeFile(index)}
-                      className="absolute -top-2 -right-2 w-6 h-6 bg-red-500 text-white rounded-full flex items-center justify-center hover:bg-red-600 transition-colors"
+                      className={cn(
+                        "absolute -top-2 -right-2 w-6 h-6 rounded-full flex items-center justify-center transition-colors",
+                        SEMANTIC_COLORS.filePreview.removeButton
+                      )}
                     >
                       <X className="w-3 h-3" />
                     </button>
@@ -334,14 +350,14 @@ export default function UploadZone() {
                   
                   {/* Progress Overlay */}
                   {uploading && uploadProgress[file.name] !== undefined && (
-                    <div className="absolute inset-0 bg-black/50 rounded-md flex items-center justify-center">
+                    <div className={cn("absolute inset-0 rounded-md flex items-center justify-center", SEMANTIC_COLORS.filePreview.progressOverlay)}>
                       {uploadProgress[file.name] === -1 ? (
-                        <div className="text-red-400 text-center">
+                        <div className={cn("text-center", SEMANTIC_COLORS.filePreview.errorIcon)}>
                           <X className="w-6 h-6 mx-auto mb-1" />
                           <span className="text-xs">Failed</span>
                         </div>
                       ) : uploadProgress[file.name] === 100 ? (
-                        <div className="text-green-400 text-center">
+                        <div className={cn("text-center", SEMANTIC_COLORS.filePreview.successIcon)}>
                           <CheckCircle2 className="w-6 h-6 mx-auto mb-1" />
                           <span className="text-xs">Complete</span>
                         </div>
@@ -373,7 +389,7 @@ export default function UploadZone() {
       {uploadedFiles.length > 0 && (
         <div className="space-y-6">
           <div className="text-center space-y-4">
-            <div className="inline-flex items-center space-x-2 bg-green-50 dark:bg-green-900/20 text-green-700 dark:text-green-300 px-4 py-2 rounded-full">
+            <div className={cn("inline-flex items-center space-x-2 px-4 py-2 rounded-full", SEMANTIC_COLORS.results.successBadge)}>
               <CheckCircle2 className="w-5 h-5" />
               <span className="font-medium">
                 {uploadedFiles.length} image{uploadedFiles.length > 1 ? 's' : ''} uploaded successfully!
@@ -385,33 +401,61 @@ export default function UploadZone() {
             </p>
           </div>
 
-          {/* Bulk Actions - Simplified */}
-          <div className="flex justify-center gap-3 flex-wrap">
+          {/* Bulk Actions - Mobile Optimized */}
+          <div className="flex flex-col sm:flex-row justify-center gap-4 mb-6">
             <button
               onClick={() => {
                 const urls = uploadedFiles.map(f => f.url).join('\n');
-                copyToClipboard(urls);
+                copyToClipboard(urls, 'bulk-copy');
               }}
-              className="px-6 py-3 bg-primary text-primary-foreground rounded-xl hover:bg-primary/90 transition-colors touch-manipulation font-medium flex items-center space-x-2"
+              className={cn(
+                "px-8 py-4 rounded-xl transition-all duration-200 touch-manipulation font-medium flex items-center justify-center space-x-3 transform hover:scale-105 active:scale-95 min-h-[52px]",
+                copiedStates['bulk-copy']
+                  ? "bg-green-500 text-white"
+                  : SEMANTIC_COLORS.actions.copy
+              )}
             >
-              <Copy className="w-4 h-4" />
-              <span>Copy All Links</span>
+              {copiedStates['bulk-copy'] ? (
+                <>
+                  <Check className="w-5 h-5" />
+                  <span className="text-base">Copied All!</span>
+                </>
+              ) : (
+                <>
+                  <Copy className="w-5 h-5" />
+                  <span className="text-base">Copy All Links</span>
+                </>
+              )}
             </button>
             <button
               onClick={() => {
                 const htmlCodes = uploadedFiles.map(f => generateHtmlEmbed(f.url, f.originalName)).join('\n');
-                copyToClipboard(htmlCodes);
+                copyToClipboard(htmlCodes, 'bulk-html');
               }}
-              className="px-6 py-3 bg-purple-500 text-white rounded-xl hover:bg-purple-600 transition-colors touch-manipulation font-medium flex items-center space-x-2"
+              className={cn(
+                "px-8 py-4 rounded-xl transition-all duration-200 touch-manipulation font-medium flex items-center justify-center space-x-3 transform hover:scale-105 active:scale-95 min-h-[52px]",
+                copiedStates['bulk-html']
+                  ? "bg-green-500 text-white"
+                  : SEMANTIC_COLORS.actions.bulk
+              )}
             >
-              <Code className="w-4 h-4" />
-              <span>Copy HTML Code</span>
+              {copiedStates['bulk-html'] ? (
+                <>
+                  <Check className="w-5 h-5" />
+                  <span className="text-base">HTML Copied!</span>
+                </>
+              ) : (
+                <>
+                  <Code className="w-5 h-5" />
+                  <span className="text-base">Copy HTML Code</span>
+                </>
+              )}
             </button>
           </div>
           {/* Individual File Results - Simplified Cards */}
           <div className="space-y-6">
             {uploadedFiles.map((file) => (
-              <div key={file.id} className="bg-card border rounded-2xl p-6 shadow-sm hover:shadow-md transition-shadow">
+              <div key={file.id} className={cn("rounded-2xl p-6 transition-colors", SEMANTIC_COLORS.filePreview.container)}>
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                   {/* Image Preview */}
                   <div className="space-y-3">
@@ -425,7 +469,7 @@ export default function UploadZone() {
                       <div className="flex items-center space-x-4 mt-1">
                         <span>{formatFileSize(file.size)}</span>
                         {file.optimized && (
-                          <span className="text-green-600 font-medium">
+                          <span className={cn("font-medium", BRAND_CLASSES.text.accent)}>
                             ✓ Optimized
                           </span>
                         )}
@@ -433,54 +477,67 @@ export default function UploadZone() {
                     </div>
                   </div>
 
-                  {/* Actions and Link */}
-                  <div className="space-y-4">
-                    <div>
-                      <label className="text-sm font-medium text-muted-foreground">Your shareable link:</label>
-                      <div className="flex gap-2 mt-2">
+                  {/* Prominent URL Display */}
+                  <div className="space-y-6">
+                    {/* Success Message */}
+                    <div className="text-center">
+                      <div className="inline-flex items-center space-x-2 text-green-600 bg-green-50 px-4 py-2 rounded-full text-sm font-medium">
+                        <CheckCircle2 className="w-4 h-4" />
+                        <span>Link Created Successfully!</span>
+                      </div>
+                    </div>
+
+                    {/* Prominent URL Field */}
+                    <div className="space-y-3">
+                      <label className="text-lg font-semibold text-foreground block text-center">Your Shareable Link</label>
+                      <div className="relative">
                         <input
                           type="text"
                           value={file.url}
                           readOnly
-                          className="flex-1 px-4 py-3 border rounded-xl bg-muted/50 text-sm font-mono"
+                          className={cn(
+                            "w-full px-6 py-4 border-2 rounded-2xl text-base font-mono text-center bg-gray-50 dark:bg-gray-800 border-gray-200 dark:border-gray-700 focus:border-brand-orange focus:ring-2 focus:ring-brand-orange/20",
+                            "selection:bg-brand-orange/20"
+                          )}
                           onClick={(e) => e.currentTarget.select()}
                         />
-                        <button
-                          onClick={() => copyToClipboard(file.url)}
-                          className="px-4 py-3 bg-primary text-primary-foreground rounded-xl hover:bg-primary/90 transition-colors"
-                          title="Copy link"
-                        >
-                          <Copy className="w-4 h-4" />
-                        </button>
+                        <div className="absolute inset-y-0 right-3 flex items-center">
+                          <button
+                            onClick={() => copyToClipboard(file.url, `copy-${file.id}`)}
+                            className={cn(
+                              "px-4 py-2 rounded-xl transition-all duration-200 transform hover:scale-105 active:scale-95 font-medium",
+                              copiedStates[`copy-${file.id}`]
+                                ? "bg-green-500 text-white"
+                                : "bg-brand-orange text-white hover:bg-brand-orange/90"
+                            )}
+                          >
+                            {copiedStates[`copy-${file.id}`] ? (
+                              <span className="flex items-center space-x-1">
+                                <Check className="w-4 h-4" />
+                                <span className="hidden sm:inline">Copied!</span>
+                              </span>
+                            ) : (
+                              <span className="flex items-center space-x-1">
+                                <Copy className="w-4 h-4" />
+                                <span className="hidden sm:inline">Copy</span>
+                              </span>
+                            )}
+                          </button>
+                        </div>
                       </div>
                     </div>
 
-                    {/* Primary Actions - Simplified */}
-                    <div className="grid grid-cols-2 gap-3">
-                      <button
-                        onClick={() => copyToClipboard(file.url)}
-                        className="px-4 py-3 bg-green-500 text-white rounded-xl hover:bg-green-600 transition-colors font-medium flex items-center justify-center space-x-2"
-                      >
-                        <Copy className="w-4 h-4" />
-                        <span>Copy Link</span>
-                      </button>
+                    {/* Simplified Actions */}
+                    <div className="flex flex-wrap justify-center gap-3">
                       <button
                         onClick={() => window.open(file.url, '_blank')}
-                        className="px-4 py-3 bg-blue-500 text-white rounded-xl hover:bg-blue-600 transition-colors font-medium flex items-center justify-center space-x-2"
+                        className={cn(
+                          "px-6 py-3 rounded-xl transition-all duration-200 font-medium flex items-center space-x-2 transform hover:scale-105 active:scale-95 min-h-[44px]",
+                          "bg-gray-100 hover:bg-gray-200 text-gray-700 dark:bg-gray-700 dark:hover:bg-gray-600 dark:text-gray-200"
+                        )}
                       >
                         <ImageIcon className="w-4 h-4" />
-                        <span>View Image</span>
-                      </button>
-                    </div>
-
-                    {/* Secondary Actions */}
-                    <div className="grid grid-cols-2 gap-3">
-                      <button
-                        onClick={() => copyHtmlEmbed(file.url, file.originalName)}
-                        className="px-4 py-2 bg-muted text-muted-foreground rounded-lg hover:bg-muted/80 transition-colors text-sm flex items-center justify-center space-x-2"
-                      >
-                        <Code className="w-3 h-3" />
-                        <span>Copy HTML</span>
+                        <span>View</span>
                       </button>
                       <button
                         onClick={() => setShareDialog({
@@ -488,10 +545,23 @@ export default function UploadZone() {
                           url: file.url,
                           title: file.originalName
                         })}
-                        className="px-4 py-2 bg-muted text-muted-foreground rounded-lg hover:bg-muted/80 transition-colors text-sm flex items-center justify-center space-x-2"
+                        className={cn(
+                          "px-6 py-3 rounded-xl transition-all duration-200 font-medium flex items-center space-x-2 transform hover:scale-105 active:scale-95 min-h-[44px]",
+                          "bg-gray-100 hover:bg-gray-200 text-gray-700 dark:bg-gray-700 dark:hover:bg-gray-600 dark:text-gray-200"
+                        )}
                       >
-                        <Share2 className="w-3 h-3" />
-                        <span>Share & QR</span>
+                        <Share2 className="w-4 h-4" />
+                        <span>Share</span>
+                      </button>
+                      <button
+                        onClick={() => copyHtmlEmbed(file.url, file.originalName)}
+                        className={cn(
+                          "px-6 py-3 rounded-xl transition-all duration-200 font-medium flex items-center space-x-2 transform hover:scale-105 active:scale-95 min-h-[44px]",
+                          "bg-gray-100 hover:bg-gray-200 text-gray-700 dark:bg-gray-700 dark:hover:bg-gray-600 dark:text-gray-200"
+                        )}
+                      >
+                        <Code className="w-4 h-4" />
+                        <span>HTML</span>
                       </button>
                     </div>
                   </div>

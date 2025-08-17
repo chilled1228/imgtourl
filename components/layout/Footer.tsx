@@ -8,12 +8,12 @@ export default function Footer() {
           {/* Brand - Simplified */}
           <div className="space-y-4 md:col-span-2">
             <div className="flex items-center space-x-3">
-              <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-purple-600 rounded-xl flex items-center justify-center shadow-lg">
+              <div className="w-10 h-10 bg-brand-orange rounded-lg flex items-center justify-center">
                 <ImageIcon className="w-6 h-6 text-white" />
               </div>
               <div>
                 <span className="text-xl font-bold text-foreground">ImageURL</span>
-                <p className="text-sm text-muted-foreground">Free Image Hosting</p>
+                <p className="text-sm text-brand-blue-gray">Free Image Hosting</p>
               </div>
             </div>
             <p className="text-sm text-muted-foreground leading-relaxed max-w-md">
@@ -26,10 +26,10 @@ export default function Footer() {
           <div>
             <h3 className="font-semibold mb-4">Quick Links</h3>
             <ul className="space-y-3 text-sm">
-              <li><a href="/free-image-hosting" className="text-muted-foreground hover:text-primary transition-colors">Free Hosting</a></li>
-              <li><a href="/image-url-generator" className="text-muted-foreground hover:text-primary transition-colors">URL Generator</a></li>
-              <li><a href="/bulk-image-upload" className="text-muted-foreground hover:text-primary transition-colors">Bulk Upload</a></li>
-              <li><a href="#faq" className="text-muted-foreground hover:text-primary transition-colors">Help & FAQ</a></li>
+              <li><a href="/free-image-hosting" className="text-brand-blue-gray hover:text-brand-orange transition-colors">Free Hosting</a></li>
+              <li><a href="/image-url-generator" className="text-brand-blue-gray hover:text-brand-orange transition-colors">URL Generator</a></li>
+              <li><a href="/bulk-image-upload" className="text-brand-blue-gray hover:text-brand-orange transition-colors">Bulk Upload</a></li>
+              <li><a href="#faq" className="text-brand-blue-gray hover:text-brand-orange transition-colors">Help & FAQ</a></li>
             </ul>
           </div>
 
@@ -37,17 +37,17 @@ export default function Footer() {
           <div>
             <h3 className="font-semibold mb-4">Support</h3>
             <ul className="space-y-3 text-sm">
-              <li><a href="#" className="text-muted-foreground hover:text-primary transition-colors">Contact Us</a></li>
-              <li><a href="#" className="text-muted-foreground hover:text-primary transition-colors">Privacy Policy</a></li>
-              <li><a href="#" className="text-muted-foreground hover:text-primary transition-colors">Terms of Service</a></li>
-              <li><a href="#" className="text-muted-foreground hover:text-primary transition-colors">GDPR</a></li>
+              <li><a href="#" className="text-brand-blue-gray hover:text-brand-orange transition-colors">Contact Us</a></li>
+              <li><a href="#" className="text-brand-blue-gray hover:text-brand-orange transition-colors">Privacy Policy</a></li>
+              <li><a href="#" className="text-brand-blue-gray hover:text-brand-orange transition-colors">Terms of Service</a></li>
+              <li><a href="#" className="text-brand-blue-gray hover:text-brand-orange transition-colors">GDPR</a></li>
             </ul>
           </div>
         </div>
 
         <div className="border-t mt-12 pt-8 flex flex-col md:flex-row items-center justify-between gap-4">
           <div className="flex items-center text-sm text-muted-foreground">
-            Made with <Heart className="w-4 h-4 mx-1 text-red-500" /> for easy image sharing
+            Made with <Heart className="w-4 h-4 mx-1 text-brand-orange" /> for easy image sharing
           </div>
           <div className="text-sm text-muted-foreground">
             © 2025 ImageURL. All rights reserved.

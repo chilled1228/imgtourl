@@ -96,7 +96,7 @@ export default function FAQ() {
         
         <div className="max-w-4xl mx-auto space-y-3">
           {faqData.map((item, index) => (
-            <Card key={index} className="overflow-hidden border-0 shadow-sm hover:shadow-md transition-all duration-200">
+            <Card key={index} className="overflow-hidden border border-brand-beige/50 hover:bg-brand-beige/20 transition-colors duration-200">
               <button
                 onClick={() => toggleItem(index)}
                 className="w-full p-6 md:p-8 text-left flex items-center justify-between hover:bg-muted/30 transition-colors touch-target"

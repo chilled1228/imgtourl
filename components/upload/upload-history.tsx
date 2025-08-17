@@ -113,7 +113,7 @@ export function UploadHistory() {
             <div className="text-sm text-muted-foreground">Total Size</div>
           </div>
           <div className="text-center">
-            <div className="text-2xl font-bold text-green-600">{formatFileSize(stats.totalSaved)}</div>
+            <div className="text-2xl font-bold text-brand-orange">{formatFileSize(stats.totalSaved)}</div>
             <div className="text-sm text-muted-foreground">Space Saved</div>
           </div>
         </div>
@@ -159,7 +159,7 @@ export function UploadHistory() {
                         <p>Size: {formatFileSize(item.size)}</p>
                         <p>Uploaded: {new Date(item.uploadedAt).toLocaleDateString()}</p>
                         {item.optimized && (
-                          <p className="text-green-600">
+                          <p className="text-brand-orange">
                             Optimized: {formatFileSize(item.originalSize - item.size)} saved
                           </p>
                         )}
@@ -195,7 +195,7 @@ export function UploadHistory() {
                           <DropdownMenuSeparator />
                           <DropdownMenuItem 
                             onClick={() => handleDelete(item.id)}
-                            className="text-red-600"
+                            className="text-destructive"
                           >
                             <Trash2 className="w-4 h-4 mr-2" />
                             Delete

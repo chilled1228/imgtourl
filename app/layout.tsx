@@ -115,8 +115,11 @@ export default function RootLayout({
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link rel="dns-prefetch" href="//imagetourl.cloud" />
+        <link rel="icon" type="image/png" href="https://pub-141831e61e69445289222976a15b6fb3.r2.dev/1755416887883-ngt0fiol9a-images.png" />
+        <link rel="shortcut icon" type="image/png" href="https://pub-141831e61e69445289222976a15b6fb3.r2.dev/1755416887883-ngt0fiol9a-images.png" />
+        <link rel="apple-touch-icon" href="https://pub-141831e61e69445289222976a15b6fb3.r2.dev/1755416887883-ngt0fiol9a-images.png" />
         <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-        <meta name="theme-color" content="#3b82f6" />
+        <meta name="theme-color" content="#FF7A30" />
         <meta name="color-scheme" content="light dark" />
       </head>
       <body className={inter.className}>

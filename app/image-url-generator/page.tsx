@@ -31,8 +31,8 @@ export default function ImageURLGeneratorPage() {
         {/* Hero Section */}
         <section className="container mx-auto px-4 py-16">
           <div className="text-center space-y-6 max-w-4xl mx-auto">
-            <h1 className="text-4xl md:text-6xl font-bold bg-gradient-to-r from-blue-600 via-purple-600 to-teal-600 bg-clip-text text-transparent">
-              Image URL Generator Tool
+            <h1 className="text-4xl md:text-6xl font-bold text-foreground">
+              <span className="text-brand-orange">Image URL Generator</span> Tool
               <br />
               Convert Images to URLs Instantly
             </h1>
@@ -41,7 +41,7 @@ export default function ImageURLGeneratorPage() {
               Instant image link generator with bulk upload support - perfect for creating image URLs for websites, forums, and social media.
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-              <Button size="lg" className="bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700">
+              <Button size="lg" className="bg-brand-orange hover:bg-brand-orange/90 text-white border-0">
                 Generate Image URLs Now
                 <ArrowRight className="ml-2 w-4 h-4" />
               </Button>
@@ -72,32 +72,32 @@ export default function ImageURLGeneratorPage() {
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto">
-              <Card className="p-6 text-center hover:shadow-lg transition-shadow">
-                <div className="mx-auto w-12 h-12 bg-gradient-to-br from-blue-500 to-cyan-600 rounded-full flex items-center justify-center mb-4">
+              <Card className="p-6 text-center transition-colors border border-brand-beige/50 hover:bg-brand-beige/20">
+                <div className="mx-auto w-12 h-12 bg-brand-orange rounded-lg flex items-center justify-center mb-4">
                   <span className="text-white font-bold">1</span>
                 </div>
-                <h3 className="text-xl font-semibold mb-2">Upload Your Image</h3>
-                <p className="text-muted-foreground">
+                <h3 className="text-xl font-semibold mb-2 text-foreground">Upload Your Image</h3>
+                <p className="text-brand-blue-gray">
                   Drag & drop your image or click to browse. Supports JPG, PNG, GIF, WEBP, SVG up to 10MB each.
                 </p>
               </Card>
 
-              <Card className="p-6 text-center hover:shadow-lg transition-shadow">
-                <div className="mx-auto w-12 h-12 bg-gradient-to-br from-purple-500 to-violet-600 rounded-full flex items-center justify-center mb-4">
+              <Card className="p-6 text-center transition-colors border border-brand-beige/50 hover:bg-brand-beige/20">
+                <div className="mx-auto w-12 h-12 bg-brand-blue-gray rounded-lg flex items-center justify-center mb-4">
                   <span className="text-white font-bold">2</span>
                 </div>
-                <h3 className="text-xl font-semibold mb-2">Instant URL Generation</h3>
-                <p className="text-muted-foreground">
+                <h3 className="text-xl font-semibold mb-2 text-foreground">Instant URL Generation</h3>
+                <p className="text-brand-blue-gray">
                   Our image URL generator processes your upload and creates a shareable URL in under 1 second.
                 </p>
               </Card>
 
-              <Card className="p-6 text-center hover:shadow-lg transition-shadow">
-                <div className="mx-auto w-12 h-12 bg-gradient-to-br from-green-500 to-emerald-600 rounded-full flex items-center justify-center mb-4">
+              <Card className="p-6 text-center transition-colors border border-brand-beige/50 hover:bg-brand-beige/20">
+                <div className="mx-auto w-12 h-12 bg-brand-orange rounded-lg flex items-center justify-center mb-4">
                   <span className="text-white font-bold">3</span>
                 </div>
-                <h3 className="text-xl font-semibold mb-2">Copy & Share</h3>
-                <p className="text-muted-foreground">
+                <h3 className="text-xl font-semibold mb-2 text-foreground">Copy & Share</h3>
+                <p className="text-brand-blue-gray">
                   Get your image URL instantly. One-click copy to share anywhere - forums, social media, websites.
                 </p>
               </Card>
@@ -115,42 +115,42 @@ export default function ImageURLGeneratorPage() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            <Card className="p-6 text-center hover:shadow-lg transition-shadow">
-              <div className="mx-auto w-12 h-12 bg-gradient-to-br from-blue-500 to-cyan-600 rounded-full flex items-center justify-center mb-4">
+            <Card className="p-6 text-center transition-colors border border-brand-beige/50 hover:bg-brand-beige/20">
+              <div className="mx-auto w-12 h-12 bg-brand-blue-gray rounded-lg flex items-center justify-center mb-4">
                 <Zap className="w-6 h-6 text-white" />
               </div>
-              <h3 className="text-xl font-semibold mb-2">Instant Generation</h3>
-              <p className="text-muted-foreground">
+              <h3 className="text-xl font-semibold mb-2 text-foreground">Instant Generation</h3>
+              <p className="text-brand-blue-gray">
                 Convert images to URLs in under 1 second. Fastest image URL generator tool available.
               </p>
             </Card>
 
-            <Card className="p-6 text-center hover:shadow-lg transition-shadow">
-              <div className="mx-auto w-12 h-12 bg-gradient-to-br from-purple-500 to-violet-600 rounded-full flex items-center justify-center mb-4">
+            <Card className="p-6 text-center transition-colors border border-brand-beige/50 hover:bg-brand-beige/20">
+              <div className="mx-auto w-12 h-12 bg-brand-blue-gray rounded-lg flex items-center justify-center mb-4">
                 <Link className="w-6 h-6 text-white" />
               </div>
-              <h3 className="text-xl font-semibold mb-2">Permanent URLs</h3>
-              <p className="text-muted-foreground">
+              <h3 className="text-xl font-semibold mb-2 text-foreground">Permanent URLs</h3>
+              <p className="text-brand-blue-gray">
                 Generated image URLs never expire. Reliable links for long-term use and sharing.
               </p>
             </Card>
 
-            <Card className="p-6 text-center hover:shadow-lg transition-shadow">
-              <div className="mx-auto w-12 h-12 bg-gradient-to-br from-green-500 to-emerald-600 rounded-full flex items-center justify-center mb-4">
+            <Card className="p-6 text-center transition-colors border border-brand-beige/50 hover:bg-brand-beige/20">
+              <div className="mx-auto w-12 h-12 bg-brand-orange rounded-lg flex items-center justify-center mb-4">
                 <Copy className="w-6 h-6 text-white" />
               </div>
-              <h3 className="text-xl font-semibold mb-2">Bulk URL Generator</h3>
-              <p className="text-muted-foreground">
+              <h3 className="text-xl font-semibold mb-2 text-foreground">Bulk URL Generator</h3>
+              <p className="text-brand-blue-gray">
                 Upload multiple images and generate URLs in batch. Perfect for bulk image processing.
               </p>
             </Card>
 
-            <Card className="p-6 text-center hover:shadow-lg transition-shadow">
-              <div className="mx-auto w-12 h-12 bg-gradient-to-br from-orange-500 to-red-600 rounded-full flex items-center justify-center mb-4">
+            <Card className="p-6 text-center transition-colors border border-brand-beige/50 hover:bg-brand-beige/20">
+              <div className="mx-auto w-12 h-12 bg-brand-orange rounded-lg flex items-center justify-center mb-4">
                 <Share2 className="w-6 h-6 text-white" />
               </div>
-              <h3 className="text-xl font-semibold mb-2">Easy Sharing</h3>
-              <p className="text-muted-foreground">
+              <h3 className="text-xl font-semibold mb-2 text-foreground">Easy Sharing</h3>
+              <p className="text-brand-blue-gray">
                 One-click copy, QR codes, and social media integration for effortless image URL sharing.
               </p>
             </Card>
@@ -211,7 +211,7 @@ export default function ImageURLGeneratorPage() {
               Experience the best image URL generator tool online. Convert your first image to URL 
               and see why thousands choose our instant image link generator.
             </p>
-            <Button size="lg" className="bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700">
+            <Button size="lg" className="bg-brand-orange hover:bg-brand-orange/90 text-white border-0">
               Create Image URLs Now
               <ArrowRight className="ml-2 w-4 h-4" />
             </Button>

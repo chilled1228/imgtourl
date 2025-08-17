@@ -30,8 +30,8 @@ export default function FreeImageHostingPage() {
         {/* Hero Section */}
         <section className="container mx-auto px-4 py-16">
           <div className="text-center space-y-6 max-w-4xl mx-auto">
-            <h1 className="text-4xl md:text-6xl font-bold bg-gradient-to-r from-blue-600 via-purple-600 to-teal-600 bg-clip-text text-transparent">
-              Free Image Hosting Service
+            <h1 className="text-4xl md:text-6xl font-bold text-foreground">
+              <span className="text-brand-orange">Free Image Hosting</span> Service
               <br />
               Unlimited Uploads Forever
             </h1>
@@ -40,7 +40,7 @@ export default function FreeImageHostingPage() {
               No signup required - start hosting images for free instantly with our secure image hosting service.
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-              <Button size="lg" className="bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700">
+              <Button size="lg" className="bg-brand-orange hover:bg-brand-orange/90 text-white border-0">
                 Start Free Image Hosting
                 <ArrowRight className="ml-2 w-4 h-4" />
               </Button>
@@ -70,42 +70,42 @@ export default function FreeImageHostingPage() {
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-              <Card className="p-6 text-center hover:shadow-lg transition-shadow">
-                <div className="mx-auto w-12 h-12 bg-gradient-to-br from-green-500 to-emerald-600 rounded-full flex items-center justify-center mb-4">
+              <Card className="p-6 text-center transition-colors border border-brand-beige/50 hover:bg-brand-beige/20">
+                <div className="mx-auto w-12 h-12 bg-brand-orange rounded-lg flex items-center justify-center mb-4">
                   <Upload className="w-6 h-6 text-white" />
                 </div>
-                <h3 className="text-xl font-semibold mb-2">Unlimited Free Uploads</h3>
-                <p className="text-muted-foreground">
+                <h3 className="text-xl font-semibold mb-2 text-foreground">Unlimited Free Uploads</h3>
+                <p className="text-brand-blue-gray">
                   Upload as many images as you want with no limits. Our free image storage service never expires.
                 </p>
               </Card>
 
-              <Card className="p-6 text-center hover:shadow-lg transition-shadow">
-                <div className="mx-auto w-12 h-12 bg-gradient-to-br from-blue-500 to-cyan-600 rounded-full flex items-center justify-center mb-4">
+              <Card className="p-6 text-center transition-colors border border-brand-beige/50 hover:bg-brand-beige/20">
+                <div className="mx-auto w-12 h-12 bg-brand-blue-gray rounded-lg flex items-center justify-center mb-4">
                   <Globe className="w-6 h-6 text-white" />
                 </div>
-                <h3 className="text-xl font-semibold mb-2">Global CDN Network</h3>
-                <p className="text-muted-foreground">
+                <h3 className="text-xl font-semibold mb-2 text-foreground">Global CDN Network</h3>
+                <p className="text-brand-blue-gray">
                   Fast image delivery worldwide through 275+ data centers. Your images load instantly everywhere.
                 </p>
               </Card>
 
-              <Card className="p-6 text-center hover:shadow-lg transition-shadow">
-                <div className="mx-auto w-12 h-12 bg-gradient-to-br from-purple-500 to-violet-600 rounded-full flex items-center justify-center mb-4">
+              <Card className="p-6 text-center transition-colors border border-brand-beige/50 hover:bg-brand-beige/20">
+                <div className="mx-auto w-12 h-12 bg-brand-orange rounded-lg flex items-center justify-center mb-4">
                   <Shield className="w-6 h-6 text-white" />
                 </div>
-                <h3 className="text-xl font-semibold mb-2">Secure Image Hosting</h3>
-                <p className="text-muted-foreground">
+                <h3 className="text-xl font-semibold mb-2 text-foreground">Secure Image Hosting</h3>
+                <p className="text-brand-blue-gray">
                   Enterprise-grade security protects your images. Anonymous image hosting available for privacy.
                 </p>
               </Card>
 
-              <Card className="p-6 text-center hover:shadow-lg transition-shadow">
-                <div className="mx-auto w-12 h-12 bg-gradient-to-br from-orange-500 to-red-600 rounded-full flex items-center justify-center mb-4">
+              <Card className="p-6 text-center transition-colors border border-brand-beige/50 hover:bg-brand-beige/20">
+                <div className="mx-auto w-12 h-12 bg-brand-blue-gray rounded-lg flex items-center justify-center mb-4">
                   <Zap className="w-6 h-6 text-white" />
                 </div>
-                <h3 className="text-xl font-semibold mb-2">No Signup Required</h3>
-                <p className="text-muted-foreground">
+                <h3 className="text-xl font-semibold mb-2 text-foreground">No Signup Required</h3>
+                <p className="text-brand-blue-gray">
                   Start using our free image hosting immediately. No registration, no ads, just pure image hosting.
                 </p>
               </Card>
@@ -166,7 +166,7 @@ export default function FreeImageHostingPage() {
                 Join thousands who trust our free image hosting service. Upload your first image and experience 
                 the best free image storage platform available.
               </p>
-              <Button size="lg" className="bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700">
+              <Button size="lg" className="bg-brand-orange hover:bg-brand-orange/90 text-white border-0">
                 Upload Images Free Now
                 <ArrowRight className="ml-2 w-4 h-4" />
               </Button>

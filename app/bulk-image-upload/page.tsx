@@ -33,8 +33,8 @@ export default function BulkImageUploadPage() {
         {/* Hero Section */}
         <section className="container mx-auto px-4 py-16">
           <div className="text-center space-y-6 max-w-4xl mx-auto">
-            <h1 className="text-4xl md:text-6xl font-bold bg-gradient-to-r from-blue-600 via-purple-600 to-teal-600 bg-clip-text text-transparent">
-              Bulk Image Upload Service
+            <h1 className="text-4xl md:text-6xl font-bold text-foreground">
+              <span className="text-brand-orange">Bulk Image Upload</span> Service
               <br />
               Upload Multiple Images Get URLs
             </h1>
@@ -43,7 +43,7 @@ export default function BulkImageUploadPage() {
               Best bulk image URL generator with batch processing - upload dozens of images and get all URLs instantly.
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-              <Button size="lg" className="bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700">
+              <Button size="lg" className="bg-brand-orange hover:bg-brand-orange/90 text-white border-0">
                 Start Bulk Upload
                 <ArrowRight className="ml-2 w-4 h-4" />
               </Button>
@@ -74,42 +74,42 @@ export default function BulkImageUploadPage() {
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-              <Card className="p-6 text-center hover:shadow-lg transition-shadow">
-                <div className="mx-auto w-12 h-12 bg-gradient-to-br from-blue-500 to-cyan-600 rounded-full flex items-center justify-center mb-4">
+              <Card className="p-6 text-center transition-colors border border-brand-beige/50 hover:bg-brand-beige/20">
+                <div className="mx-auto w-12 h-12 bg-brand-orange rounded-lg flex items-center justify-center mb-4">
                   <Layers className="w-6 h-6 text-white" />
                 </div>
-                <h3 className="text-xl font-semibold mb-2">Multiple Image Upload</h3>
-                <p className="text-muted-foreground">
+                <h3 className="text-xl font-semibold mb-2 text-foreground">Multiple Image Upload</h3>
+                <p className="text-brand-blue-gray">
                   Upload dozens of images simultaneously. Drag & drop multiple files or select entire folders.
                 </p>
               </Card>
 
-              <Card className="p-6 text-center hover:shadow-lg transition-shadow">
-                <div className="mx-auto w-12 h-12 bg-gradient-to-br from-purple-500 to-violet-600 rounded-full flex items-center justify-center mb-4">
+              <Card className="p-6 text-center transition-colors border border-brand-beige/50 hover:bg-brand-beige/20">
+                <div className="mx-auto w-12 h-12 bg-brand-blue-gray rounded-lg flex items-center justify-center mb-4">
                   <Zap className="w-6 h-6 text-white" />
                 </div>
-                <h3 className="text-xl font-semibold mb-2">Batch URL Generation</h3>
-                <p className="text-muted-foreground">
+                <h3 className="text-xl font-semibold mb-2 text-foreground">Batch URL Generation</h3>
+                <p className="text-brand-blue-gray">
                   Generate URLs for all uploaded images instantly. Bulk image URL generator processes files in parallel.
                 </p>
               </Card>
 
-              <Card className="p-6 text-center hover:shadow-lg transition-shadow">
-                <div className="mx-auto w-12 h-12 bg-gradient-to-br from-green-500 to-emerald-600 rounded-full flex items-center justify-center mb-4">
+              <Card className="p-6 text-center transition-colors border border-brand-beige/50 hover:bg-brand-beige/20">
+                <div className="mx-auto w-12 h-12 bg-brand-orange rounded-lg flex items-center justify-center mb-4">
                   <CheckCircle className="w-6 h-6 text-white" />
                 </div>
-                <h3 className="text-xl font-semibold mb-2">Progress Tracking</h3>
-                <p className="text-muted-foreground">
+                <h3 className="text-xl font-semibold mb-2 text-foreground">Progress Tracking</h3>
+                <p className="text-brand-blue-gray">
                   Real-time progress tracking for each image. See upload status and completion for bulk operations.
                 </p>
               </Card>
 
-              <Card className="p-6 text-center hover:shadow-lg transition-shadow">
-                <div className="mx-auto w-12 h-12 bg-gradient-to-br from-orange-500 to-red-600 rounded-full flex items-center justify-center mb-4">
+              <Card className="p-6 text-center transition-colors border border-brand-beige/50 hover:bg-brand-beige/20">
+                <div className="mx-auto w-12 h-12 bg-brand-blue-gray rounded-lg flex items-center justify-center mb-4">
                   <Upload className="w-6 h-6 text-white" />
                 </div>
-                <h3 className="text-xl font-semibold mb-2">Bulk Export Options</h3>
-                <p className="text-muted-foreground">
+                <h3 className="text-xl font-semibold mb-2 text-foreground">Bulk Export Options</h3>
+                <p className="text-brand-blue-gray">
                   Export all URLs as text, CSV, or JSON. Perfect for importing into other systems and databases.
                 </p>
               </Card>
@@ -127,42 +127,42 @@ export default function BulkImageUploadPage() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8 max-w-6xl mx-auto">
-            <Card className="p-6 text-center hover:shadow-lg transition-shadow">
-              <div className="mx-auto w-12 h-12 bg-gradient-to-br from-blue-500 to-cyan-600 rounded-full flex items-center justify-center mb-4">
+            <Card className="p-6 text-center transition-colors border border-brand-beige/50 hover:bg-brand-beige/20">
+              <div className="mx-auto w-12 h-12 bg-brand-orange rounded-lg flex items-center justify-center mb-4">
                 <span className="text-white font-bold">1</span>
               </div>
-              <h3 className="text-lg font-semibold mb-2">Select Multiple Images</h3>
-              <p className="text-muted-foreground text-sm">
+              <h3 className="text-lg font-semibold mb-2 text-foreground">Select Multiple Images</h3>
+              <p className="text-brand-blue-gray text-sm">
                 Choose multiple images from your device or drag entire folders into the upload zone.
               </p>
             </Card>
 
-            <Card className="p-6 text-center hover:shadow-lg transition-shadow">
-              <div className="mx-auto w-12 h-12 bg-gradient-to-br from-purple-500 to-violet-600 rounded-full flex items-center justify-center mb-4">
+            <Card className="p-6 text-center transition-colors border border-brand-beige/50 hover:bg-brand-beige/20">
+              <div className="mx-auto w-12 h-12 bg-brand-blue-gray rounded-lg flex items-center justify-center mb-4">
                 <span className="text-white font-bold">2</span>
               </div>
-              <h3 className="text-lg font-semibold mb-2">Batch Processing</h3>
-              <p className="text-muted-foreground text-sm">
+              <h3 className="text-lg font-semibold mb-2 text-foreground">Batch Processing</h3>
+              <p className="text-brand-blue-gray text-sm">
                 Our bulk image upload service processes all images simultaneously with progress tracking.
               </p>
             </Card>
 
-            <Card className="p-6 text-center hover:shadow-lg transition-shadow">
-              <div className="mx-auto w-12 h-12 bg-gradient-to-br from-green-500 to-emerald-600 rounded-full flex items-center justify-center mb-4">
+            <Card className="p-6 text-center transition-colors border border-brand-beige/50 hover:bg-brand-beige/20">
+              <div className="mx-auto w-12 h-12 bg-brand-orange rounded-lg flex items-center justify-center mb-4">
                 <span className="text-white font-bold">3</span>
               </div>
-              <h3 className="text-lg font-semibold mb-2">URL Generation</h3>
-              <p className="text-muted-foreground text-sm">
+              <h3 className="text-lg font-semibold mb-2 text-foreground">URL Generation</h3>
+              <p className="text-brand-blue-gray text-sm">
                 Bulk image URL generator creates shareable links for all uploaded images instantly.
               </p>
             </Card>
 
-            <Card className="p-6 text-center hover:shadow-lg transition-shadow">
-              <div className="mx-auto w-12 h-12 bg-gradient-to-br from-orange-500 to-red-600 rounded-full flex items-center justify-center mb-4">
+            <Card className="p-6 text-center transition-colors border border-brand-beige/50 hover:bg-brand-beige/20">
+              <div className="mx-auto w-12 h-12 bg-brand-blue-gray rounded-lg flex items-center justify-center mb-4">
                 <span className="text-white font-bold">4</span>
               </div>
-              <h3 className="text-lg font-semibold mb-2">Export & Share</h3>
-              <p className="text-muted-foreground text-sm">
+              <h3 className="text-lg font-semibold mb-2 text-foreground">Export & Share</h3>
+              <p className="text-brand-blue-gray text-sm">
                 Copy all URLs at once or export them in various formats for easy sharing and integration.
               </p>
             </Card>
@@ -223,7 +223,7 @@ export default function BulkImageUploadPage() {
               Experience the most efficient bulk image upload service. Upload multiple images and generate 
               URLs instantly with our professional batch processing system.
             </p>
-            <Button size="lg" className="bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700">
+            <Button size="lg" className="bg-brand-orange hover:bg-brand-orange/90 text-white border-0">
               Upload Multiple Images Now
               <ArrowRight className="ml-2 w-4 h-4" />
             </Button>

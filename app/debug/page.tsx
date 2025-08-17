@@ -72,7 +72,7 @@ export default function DebugPage() {
           <button 
             onClick={testAPI}
             disabled={loading}
-            className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 disabled:opacity-50"
+            className="bg-brand-orange text-white px-4 py-2 rounded hover:bg-brand-orange/90 disabled:opacity-50"
           >
             {loading ? 'Testing...' : 'Test /api/test'}
           </button>
@@ -92,7 +92,7 @@ export default function DebugPage() {
           <button 
             onClick={testUploadAPI}
             disabled={loading}
-            className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 disabled:opacity-50"
+            className="bg-brand-blue-gray text-white px-4 py-2 rounded hover:bg-brand-blue-gray/90 disabled:opacity-50"
           >
             {loading ? 'Testing...' : 'Test /api/upload'}
           </button>
