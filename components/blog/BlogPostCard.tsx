@@ -38,8 +38,9 @@ export default function BlogPostCard({ post, variant = 'default' }: BlogPostCard
           <div className="aspect-video overflow-hidden">
             <img
               src={post.featuredImage}
-              alt={post.title}
+              alt={`Featured image for blog post: ${post.title}`}
               className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+              loading="lazy"
             />
           </div>
         )}

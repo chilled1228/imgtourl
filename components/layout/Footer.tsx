@@ -2,14 +2,18 @@ import { Image as ImageIcon, Heart } from 'lucide-react';
 
 export default function Footer() {
   return (
-    <footer className="border-t bg-muted/50">
+    <footer className="border-t bg-muted/50" role="contentinfo">
       <div className="container mx-auto px-4 py-16">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           {/* Brand - Simplified */}
           <div className="space-y-4 md:col-span-2">
-            <a href="/" className="flex items-center space-x-3 hover:opacity-80 transition-opacity">
+            <a
+              href="/"
+              className="flex items-center space-x-3 hover:opacity-80 transition-opacity focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-orange focus-visible:ring-offset-2 rounded-lg"
+              aria-label="ImageURL - Free Image Hosting - Go to homepage"
+            >
               <div className="w-10 h-10 bg-brand-orange rounded-lg flex items-center justify-center">
-                <ImageIcon className="w-6 h-6 text-white" />
+                <ImageIcon className="w-6 h-6 text-white" aria-hidden="true" />
               </div>
               <div>
                 <span className="text-xl font-bold text-foreground">ImageURL</span>
@@ -23,27 +27,27 @@ export default function Footer() {
           </div>
 
           {/* Quick Links - Simplified */}
-          <div>
-            <h3 className="font-semibold mb-4">Quick Links</h3>
+          <nav aria-labelledby="footer-quick-links">
+            <h3 id="footer-quick-links" className="font-semibold mb-4">Quick Links</h3>
             <ul className="space-y-3 text-sm">
-              <li><a href="/free-image-hosting" className="text-brand-blue-gray hover:text-brand-orange transition-colors">Free Hosting</a></li>
-              <li><a href="/image-url-generator" className="text-brand-blue-gray hover:text-brand-orange transition-colors">URL Generator</a></li>
-              <li><a href="/bulk-image-upload" className="text-brand-blue-gray hover:text-brand-orange transition-colors">Bulk Upload</a></li>
-              <li><a href="/blog" className="text-brand-blue-gray hover:text-brand-orange transition-colors">Blog</a></li>
-              <li><a href="#faq" className="text-brand-blue-gray hover:text-brand-orange transition-colors">Help & FAQ</a></li>
+              <li><a href="/free-image-hosting" className="text-brand-blue-gray hover:text-brand-orange transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-orange focus-visible:ring-offset-2 rounded">Free Hosting</a></li>
+              <li><a href="/image-url-generator" className="text-brand-blue-gray hover:text-brand-orange transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-orange focus-visible:ring-offset-2 rounded">URL Generator</a></li>
+              <li><a href="/bulk-image-upload" className="text-brand-blue-gray hover:text-brand-orange transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-orange focus-visible:ring-offset-2 rounded">Bulk Upload</a></li>
+              <li><a href="/blog" className="text-brand-blue-gray hover:text-brand-orange transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-orange focus-visible:ring-offset-2 rounded">Blog</a></li>
+              <li><a href="#faq" className="text-brand-blue-gray hover:text-brand-orange transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-orange focus-visible:ring-offset-2 rounded">Help & FAQ</a></li>
             </ul>
-          </div>
+          </nav>
 
           {/* Support & Legal - Combined */}
-          <div>
-            <h3 className="font-semibold mb-4">Support</h3>
+          <nav aria-labelledby="footer-support">
+            <h3 id="footer-support" className="font-semibold mb-4">Support</h3>
             <ul className="space-y-3 text-sm">
-              <li><a href="#" className="text-brand-blue-gray hover:text-brand-orange transition-colors">Contact Us</a></li>
-              <li><a href="#" className="text-brand-blue-gray hover:text-brand-orange transition-colors">Privacy Policy</a></li>
-              <li><a href="#" className="text-brand-blue-gray hover:text-brand-orange transition-colors">Terms of Service</a></li>
-              <li><a href="#" className="text-brand-blue-gray hover:text-brand-orange transition-colors">GDPR</a></li>
+              <li><a href="#" className="text-brand-blue-gray hover:text-brand-orange transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-orange focus-visible:ring-offset-2 rounded">Contact Us</a></li>
+              <li><a href="#" className="text-brand-blue-gray hover:text-brand-orange transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-orange focus-visible:ring-offset-2 rounded">Privacy Policy</a></li>
+              <li><a href="#" className="text-brand-blue-gray hover:text-brand-orange transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-orange focus-visible:ring-offset-2 rounded">Terms of Service</a></li>
+              <li><a href="#" className="text-brand-blue-gray hover:text-brand-orange transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-orange focus-visible:ring-offset-2 rounded">GDPR</a></li>
             </ul>
-          </div>
+          </nav>
         </div>
 
         <div className="border-t mt-12 pt-8 flex flex-col md:flex-row items-center justify-between gap-4">

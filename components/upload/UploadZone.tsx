@@ -33,6 +33,7 @@ export default function UploadZone() {
   const [uploadProgress, setUploadProgress] = useState<Record<string, number>>({});
   const [shareDialog, setShareDialog] = useState<{ isOpen: boolean; url: string; title: string } | null>(null);
   const [copiedStates, setCopiedStates] = useState<Record<string, boolean>>({});
+  const [statusMessage, setStatusMessage] = useState<string>('');
 
   const onDrop = useCallback((acceptedFiles: File[]) => {
     const newFiles = acceptedFiles.map(file => {
@@ -58,6 +59,14 @@ export default function UploadZone() {
     maxSize: 10 * 1024 * 1024, // 10MB
     multiple: true,
   });
+
+  // Enhanced input props with accessibility attributes
+  const inputProps = {
+    ...getInputProps(),
+    'aria-label': 'Upload images - drag and drop or click to browse',
+    'aria-describedby': 'upload-instructions upload-formats',
+    id: 'image-upload-input'
+  };
 
   const removeFile = (index: number) => {
     setFiles(prev => {
@@ -98,8 +107,14 @@ export default function UploadZone() {
         }, 2000);
       }
 
+      // Announce to screen readers
+      setStatusMessage('Link copied to clipboard successfully');
+      setTimeout(() => setStatusMessage(''), 3000);
+
       showSuccessToast('Copied to clipboard!');
     } catch (error) {
+      setStatusMessage('Failed to copy link to clipboard');
+      setTimeout(() => setStatusMessage(''), 3000);
       showErrorToast('Failed to copy');
     }
   };
@@ -121,6 +136,10 @@ export default function UploadZone() {
     console.log('Starting upload for', targetFiles.length, 'files');
     setUploading(true);
     setUploadProgress({});
+
+    // Announce upload start to screen readers
+    setStatusMessage(`Starting upload of ${targetFiles.length} ${targetFiles.length === 1 ? 'file' : 'files'}`);
+    setTimeout(() => setStatusMessage(''), 3000);
 
     const uploadPromises = targetFiles.map(async (file, index) => {
       console.log('Uploading file:', file.name, 'Size:', file.size, 'Type:', file.type);
@@ -211,10 +230,18 @@ export default function UploadZone() {
       const failed = results.filter(r => r.status === 'rejected').length;
 
       if (successful > 0) {
-        showSuccessToast(
-          `Successfully uploaded ${successful} image${successful > 1 ? 's' : ''}`,
-          failed > 0 ? `${failed} upload${failed > 1 ? 's' : ''} failed` : undefined
-        );
+        const successMessage = `Successfully uploaded ${successful} image${successful > 1 ? 's' : ''}`;
+        const failMessage = failed > 0 ? `${failed} upload${failed > 1 ? 's' : ''} failed` : undefined;
+
+        // Announce completion to screen readers
+        setStatusMessage(failMessage ? `${successMessage}. ${failMessage}` : successMessage);
+        setTimeout(() => setStatusMessage(''), 5000);
+
+        showSuccessToast(successMessage, failMessage);
+      } else if (failed > 0) {
+        // Announce failure to screen readers
+        setStatusMessage(`All ${failed} upload${failed > 1 ? 's' : ''} failed`);
+        setTimeout(() => setStatusMessage(''), 5000);
       }
     } finally {
       setUploading(false);
@@ -234,6 +261,16 @@ export default function UploadZone() {
 
   return (
     <div className="w-full max-w-4xl mx-auto space-y-8">
+      {/* ARIA Live Region for Status Announcements */}
+      <div
+        aria-live="polite"
+        aria-atomic="true"
+        className="sr-only"
+        role="status"
+      >
+        {statusMessage}
+      </div>
+
       {/* Upload Controls */}
       <div className="flex justify-end gap-2">
         <button
@@ -253,12 +290,22 @@ export default function UploadZone() {
           className={cn(
             'border-2 border-dashed rounded-2xl p-6 md:p-16 text-center cursor-pointer transition-all duration-300',
             'touch-manipulation min-h-[320px] md:min-h-[360px] flex items-center justify-center',
+            'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-orange focus-visible:ring-offset-2',
             SEMANTIC_COLORS.uploadZone.container,
             isDragActive && SEMANTIC_COLORS.uploadZone.dragActive,
             uploading && 'pointer-events-none opacity-50'
           )}
+          role="button"
+          aria-label={isDragActive ? "Drop images to upload" : "Click to upload images or drag and drop"}
+          tabIndex={0}
+          onKeyDown={(e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+              e.preventDefault();
+              // The dropzone will handle the click
+            }
+          }}
         >
-          <input {...getInputProps()} />
+          <input {...inputProps} />
           <div className="space-y-6 w-full max-w-md mx-auto">
             {/* Visual Icon - Larger for mobile */}
             <div className={cn(
@@ -279,24 +326,24 @@ export default function UploadZone() {
                   <p className={cn("text-xl md:text-2xl font-bold", SEMANTIC_COLORS.uploadZone.title)}>
                     Choose Your Images
                   </p>
-                  <p className={cn("text-base md:text-lg", SEMANTIC_COLORS.uploadZone.subtitle)}>
+                  <p id="upload-instructions" className={cn("text-base md:text-lg", SEMANTIC_COLORS.uploadZone.subtitle)}>
                     Drag photos here or click to browse • Links created instantly
                   </p>
                 </div>
 
                 {/* Simple format info */}
-                <div className={cn("rounded-lg p-4 text-sm", SEMANTIC_COLORS.uploadZone.info)}>
+                <div id="upload-formats" className={cn("rounded-lg p-4 text-sm", SEMANTIC_COLORS.uploadZone.info)}>
                   <div className="flex items-center justify-center space-x-4 flex-wrap gap-2">
                     <span className="flex items-center space-x-1">
-                      <div className="w-2 h-2 bg-brand-orange rounded-sm"></div>
+                      <div className="w-2 h-2 bg-brand-orange rounded-sm" aria-hidden="true"></div>
                       <span>JPG, PNG, GIF</span>
                     </span>
                     <span className="flex items-center space-x-1">
-                      <div className="w-2 h-2 bg-brand-blue-gray rounded-sm"></div>
+                      <div className="w-2 h-2 bg-brand-blue-gray rounded-sm" aria-hidden="true"></div>
                       <span>Up to 10MB</span>
                     </span>
                     <span className="flex items-center space-x-1">
-                      <div className="w-2 h-2 bg-brand-orange rounded-sm"></div>
+                      <div className="w-2 h-2 bg-brand-orange rounded-sm" aria-hidden="true"></div>
                       <span>Multiple files OK</span>
                     </span>
                   </div>
@@ -333,32 +380,40 @@ export default function UploadZone() {
                 <div className="relative">
                   <img
                     src={file.preview}
-                    alt={file.name}
+                    alt={`Preview of ${file.name.replace(/\.[^/.]+$/, "")}`}
                     className="w-full h-32 object-cover rounded-md"
+                    loading="lazy"
                   />
                   {!uploading && (
                     <button
                       onClick={() => removeFile(index)}
+                      aria-label={`Remove ${file.name} from upload queue`}
                       className={cn(
                         "absolute -top-2 -right-2 w-6 h-6 rounded-full flex items-center justify-center transition-colors",
+                        "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-orange focus-visible:ring-offset-2",
                         SEMANTIC_COLORS.filePreview.removeButton
                       )}
                     >
-                      <X className="w-3 h-3" />
+                      <X className="w-3 h-3" aria-hidden="true" />
                     </button>
                   )}
                   
                   {/* Progress Overlay */}
                   {uploading && uploadProgress[file.name] !== undefined && (
-                    <div className={cn("absolute inset-0 rounded-md flex items-center justify-center", SEMANTIC_COLORS.filePreview.progressOverlay)}>
+                    <div
+                      className={cn("absolute inset-0 rounded-md flex items-center justify-center", SEMANTIC_COLORS.filePreview.progressOverlay)}
+                      role="status"
+                      aria-live="polite"
+                      aria-label={`Upload progress for ${file.name}`}
+                    >
                       {uploadProgress[file.name] === -1 ? (
                         <div className={cn("text-center", SEMANTIC_COLORS.filePreview.errorIcon)}>
-                          <X className="w-6 h-6 mx-auto mb-1" />
+                          <X className="w-6 h-6 mx-auto mb-1" aria-hidden="true" />
                           <span className="text-xs">Failed</span>
                         </div>
                       ) : uploadProgress[file.name] === 100 ? (
                         <div className={cn("text-center", SEMANTIC_COLORS.filePreview.successIcon)}>
-                          <CheckCircle2 className="w-6 h-6 mx-auto mb-1" />
+                          <CheckCircle2 className="w-6 h-6 mx-auto mb-1" aria-hidden="true" />
                           <span className="text-xs">Complete</span>
                         </div>
                       ) : (
@@ -461,8 +516,18 @@ export default function UploadZone() {
                   <div className="space-y-3">
                     <img
                       src={file.url}
-                      alt={file.originalName}
+                      alt={`Uploaded image: ${file.originalName.replace(/\.[^/.]+$/, "")}`}
                       className="w-full h-48 object-cover rounded-xl border"
+                      loading="lazy"
+                      onLoad={(e) => {
+                        // Announce successful image load to screen readers
+                        const img = e.target as HTMLImageElement;
+                        img.setAttribute('aria-label', `Image ${file.originalName} loaded successfully`);
+                      }}
+                      onError={(e) => {
+                        const img = e.target as HTMLImageElement;
+                        img.setAttribute('aria-label', `Failed to load image ${file.originalName}`);
+                      }}
                     />
                     <div className="text-sm text-muted-foreground">
                       <p className="font-medium text-foreground truncate">{file.originalName}</p>
@@ -489,12 +554,20 @@ export default function UploadZone() {
 
                     {/* Prominent URL Field */}
                     <div className="space-y-3">
-                      <label className="text-lg font-semibold text-foreground block text-center">Your Shareable Link</label>
+                      <label
+                        htmlFor={`url-input-${file.id}`}
+                        className="text-lg font-semibold text-foreground block text-center"
+                      >
+                        Your Shareable Link
+                      </label>
                       <div className="relative">
                         <input
+                          id={`url-input-${file.id}`}
                           type="text"
                           value={file.url}
                           readOnly
+                          aria-label={`Shareable link for ${file.originalName}`}
+                          aria-describedby={`url-description-${file.id}`}
                           className={cn(
                             "w-full px-6 py-4 border-2 rounded-2xl text-base font-mono text-center bg-gray-50 dark:bg-gray-800 border-gray-200 dark:border-gray-700 focus:border-brand-orange focus:ring-2 focus:ring-brand-orange/20",
                             "selection:bg-brand-orange/20"
@@ -504,8 +577,10 @@ export default function UploadZone() {
                         <div className="absolute inset-y-0 right-3 flex items-center">
                           <button
                             onClick={() => copyToClipboard(file.url, `copy-${file.id}`)}
+                            aria-label={`Copy link for ${file.originalName} to clipboard`}
                             className={cn(
                               "px-4 py-2 rounded-xl transition-all duration-200 transform hover:scale-105 active:scale-95 font-medium",
+                              "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-brand-orange",
                               copiedStates[`copy-${file.id}`]
                                 ? "bg-green-500 text-white"
                                 : "bg-brand-orange text-white hover:bg-brand-orange/90"
@@ -525,18 +600,23 @@ export default function UploadZone() {
                           </button>
                         </div>
                       </div>
+                      <p id={`url-description-${file.id}`} className="text-sm text-muted-foreground text-center">
+                        Click the input field to select all text, or use the copy button
+                      </p>
                     </div>
 
                     {/* Simplified Actions */}
                     <div className="flex flex-wrap justify-center gap-3">
                       <button
                         onClick={() => window.open(file.url, '_blank')}
+                        aria-label={`View ${file.originalName} in new tab`}
                         className={cn(
                           "px-6 py-3 rounded-xl transition-all duration-200 font-medium flex items-center space-x-2 transform hover:scale-105 active:scale-95 min-h-[44px]",
-                          "bg-gray-100 hover:bg-gray-200 text-gray-700 dark:bg-gray-700 dark:hover:bg-gray-600 dark:text-gray-200"
+                          "bg-gray-100 hover:bg-gray-200 text-gray-700 dark:bg-gray-700 dark:hover:bg-gray-600 dark:text-gray-200",
+                          "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-orange focus-visible:ring-offset-2"
                         )}
                       >
-                        <ImageIcon className="w-4 h-4" />
+                        <ImageIcon className="w-4 h-4" aria-hidden="true" />
                         <span>View</span>
                       </button>
                       <button
@@ -545,16 +625,19 @@ export default function UploadZone() {
                           url: file.url,
                           title: file.originalName
                         })}
+                        aria-label={`Share ${file.originalName}`}
                         className={cn(
                           "px-6 py-3 rounded-xl transition-all duration-200 font-medium flex items-center space-x-2 transform hover:scale-105 active:scale-95 min-h-[44px]",
-                          "bg-gray-100 hover:bg-gray-200 text-gray-700 dark:bg-gray-700 dark:hover:bg-gray-600 dark:text-gray-200"
+                          "bg-gray-100 hover:bg-gray-200 text-gray-700 dark:bg-gray-700 dark:hover:bg-gray-600 dark:text-gray-200",
+                          "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-orange focus-visible:ring-offset-2"
                         )}
                       >
-                        <Share2 className="w-4 h-4" />
+                        <Share2 className="w-4 h-4" aria-hidden="true" />
                         <span>Share</span>
                       </button>
                       <button
                         onClick={() => copyHtmlEmbed(file.url, file.originalName)}
+                        aria-label={`Copy HTML embed code for ${file.originalName}`}
                         className={cn(
                           "px-6 py-3 rounded-xl transition-all duration-200 font-medium flex items-center space-x-2 transform hover:scale-105 active:scale-95 min-h-[44px]",
                           "bg-gray-100 hover:bg-gray-200 text-gray-700 dark:bg-gray-700 dark:hover:bg-gray-600 dark:text-gray-200"

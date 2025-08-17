@@ -21,8 +21,20 @@ export default function ScrollButton({
   onClick
 }: ScrollButtonProps) {
   const handleClick = () => {
-    document.getElementById(targetId)?.scrollIntoView({ behavior: 'smooth' });
+    const target = document.getElementById(targetId);
+    if (target) {
+      target.scrollIntoView({ behavior: 'smooth' });
+      // Focus the target element for screen readers
+      target.focus({ preventScroll: true });
+    }
     onClick?.();
+  };
+
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      handleClick();
+    }
   };
 
   return (
@@ -31,8 +43,13 @@ export default function ScrollButton({
       variant={variant}
       className={className}
       onClick={handleClick}
+      onKeyDown={handleKeyDown}
+      aria-describedby={`scroll-to-${targetId}`}
     >
       {children}
+      <span id={`scroll-to-${targetId}`} className="sr-only">
+        Scroll to {targetId.replace('-', ' ')} section
+      </span>
     </Button>
   );
 }

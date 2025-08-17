@@ -25,6 +25,21 @@ export default function ShareDialog({ isOpen, onClose, url, title = 'Shared Cont
     }
   }, [isOpen, url]);
 
+  // Focus management for accessibility
+  useEffect(() => {
+    if (isOpen) {
+      // Trap focus within the dialog when it opens
+      const handleKeyDown = (e: KeyboardEvent) => {
+        if (e.key === 'Escape') {
+          onClose();
+        }
+      };
+
+      document.addEventListener('keydown', handleKeyDown);
+      return () => document.removeEventListener('keydown', handleKeyDown);
+    }
+  }, [isOpen, onClose]);
+
   const generateQRCode = async () => {
     try {
       const qrDataUrl = await QRCode.toDataURL(url, {
@@ -96,11 +111,22 @@ export default function ShareDialog({ isOpen, onClose, url, title = 'Shared Cont
         <div className="space-y-6">
           {/* URL Input */}
           <div className="space-y-2">
-            <label className="text-sm font-medium">Share Link</label>
+            <label htmlFor="share-url-input" className="text-sm font-medium">Share Link</label>
             <div className="flex gap-2">
-              <Input value={url} readOnly className="flex-1" />
-              <Button onClick={copyToClipboard} size="sm">
-                <Copy className="w-4 h-4" />
+              <Input
+                id="share-url-input"
+                value={url}
+                readOnly
+                className="flex-1"
+                aria-label={`Shareable link for ${title}`}
+                onClick={(e) => e.currentTarget.select()}
+              />
+              <Button
+                onClick={copyToClipboard}
+                size="sm"
+                aria-label="Copy link to clipboard"
+              >
+                <Copy className="w-4 h-4" aria-hidden="true" />
               </Button>
             </div>
           </div>
@@ -111,11 +137,20 @@ export default function ShareDialog({ isOpen, onClose, url, title = 'Shared Cont
             <div className="flex flex-col items-center space-y-3">
               {qrCodeUrl && (
                 <div className="p-4 bg-white rounded-lg border">
-                  <img src={qrCodeUrl} alt="QR Code" className="w-48 h-48" />
+                  <img
+                    src={qrCodeUrl}
+                    alt={`QR code for ${title} - scan to access the link`}
+                    className="w-48 h-48"
+                  />
                 </div>
               )}
-              <Button onClick={downloadQRCode} variant="outline" size="sm">
-                <QrCode className="w-4 h-4 mr-2" />
+              <Button
+                onClick={downloadQRCode}
+                variant="outline"
+                size="sm"
+                aria-label="Download QR code image"
+              >
+                <QrCode className="w-4 h-4 mr-2" aria-hidden="true" />
                 Download QR Code
               </Button>
             </div>
@@ -125,20 +160,40 @@ export default function ShareDialog({ isOpen, onClose, url, title = 'Shared Cont
           <div className="space-y-3">
             <label className="text-sm font-medium">Share on Social Media</label>
             <div className="grid grid-cols-2 gap-2">
-              <Button onClick={shareToFacebook} variant="outline" className="flex items-center gap-2">
-                <Facebook className="w-4 h-4" />
+              <Button
+                onClick={shareToFacebook}
+                variant="outline"
+                className="flex items-center gap-2"
+                aria-label={`Share ${title} on Facebook`}
+              >
+                <Facebook className="w-4 h-4" aria-hidden="true" />
                 Facebook
               </Button>
-              <Button onClick={shareToTwitter} variant="outline" className="flex items-center gap-2">
-                <Twitter className="w-4 h-4" />
+              <Button
+                onClick={shareToTwitter}
+                variant="outline"
+                className="flex items-center gap-2"
+                aria-label={`Share ${title} on Twitter`}
+              >
+                <Twitter className="w-4 h-4" aria-hidden="true" />
                 Twitter
               </Button>
-              <Button onClick={shareToWhatsApp} variant="outline" className="flex items-center gap-2">
-                <MessageCircle className="w-4 h-4" />
+              <Button
+                onClick={shareToWhatsApp}
+                variant="outline"
+                className="flex items-center gap-2"
+                aria-label={`Share ${title} on WhatsApp`}
+              >
+                <MessageCircle className="w-4 h-4" aria-hidden="true" />
                 WhatsApp
               </Button>
-              <Button onClick={shareViaEmail} variant="outline" className="flex items-center gap-2">
-                <Mail className="w-4 h-4" />
+              <Button
+                onClick={shareViaEmail}
+                variant="outline"
+                className="flex items-center gap-2"
+                aria-label={`Share ${title} via email`}
+              >
+                <Mail className="w-4 h-4" aria-hidden="true" />
                 Email
               </Button>
             </div>

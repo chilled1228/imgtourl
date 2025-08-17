@@ -15,13 +15,13 @@ export default function Home() {
       <PerformanceOptimizer />
       <StructuredData type="service" />
       <StructuredData type="faq" />
-      <div className="space-y-16">
+      <main id="main-content" className="space-y-16">
       {/* Hero Section with Upload Zone - Simplified and Above Fold */}
-      <section className="container mx-auto px-4 py-8 md:py-12 min-h-[80vh] flex flex-col justify-center">
+      <section className="container mx-auto px-4 py-8 md:py-12 min-h-[80vh] flex flex-col justify-center" aria-labelledby="hero-heading">
         <div className="text-center space-y-8 max-w-4xl mx-auto">
           {/* Simplified Headline */}
           <div className="space-y-4">
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-foreground leading-tight">
+            <h1 id="hero-heading" className="text-4xl md:text-5xl lg:text-6xl font-bold text-foreground leading-tight">
               Turn Your Images Into
               <span className="block text-brand-orange">
                 Shareable Links
@@ -68,10 +68,10 @@ export default function Home() {
       </section>
 
       {/* Features Section - Flat design with solid background */}
-      <section id="features" className="bg-brand-beige/30 dark:bg-brand-blue-gray/10 py-20">
+      <section id="features" className="bg-brand-beige/30 dark:bg-brand-blue-gray/10 py-20" aria-labelledby="features-heading">
         <div className="container mx-auto px-4">
           <div className="text-center space-y-6 mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold">Why Choose Our Image Hosting?</h2>
+            <h2 id="features-heading" className="text-3xl md:text-4xl font-bold">Why Choose Our Image Hosting?</h2>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
               Simple, fast, and reliable. Everything you need to share images online.
             </p>
@@ -152,9 +152,9 @@ export default function Home() {
       </section>
 
       {/* Blog Section */}
-      <section className="container mx-auto px-4 py-16">
+      <section className="container mx-auto px-4 py-16" aria-labelledby="blog-heading">
         <div className="text-center space-y-6 mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold">Learn More About Image Hosting</h2>
+          <h2 id="blog-heading" className="text-3xl md:text-4xl font-bold">Learn More About Image Hosting</h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
             Discover expert tips, tutorials, and best practices for image optimization, hosting, and sharing.
           </p>
@@ -242,7 +242,7 @@ export default function Home() {
           </div>
         </div>
       </section>
-      </div>
+      </main>
     </>
   );
 }
