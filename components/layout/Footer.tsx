@@ -7,7 +7,7 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           {/* Brand - Simplified */}
           <div className="space-y-4 md:col-span-2">
-            <div className="flex items-center space-x-3">
+            <a href="/" className="flex items-center space-x-3 hover:opacity-80 transition-opacity">
               <div className="w-10 h-10 bg-brand-orange rounded-lg flex items-center justify-center">
                 <ImageIcon className="w-6 h-6 text-white" />
               </div>
@@ -15,7 +15,7 @@ export default function Footer() {
                 <span className="text-xl font-bold text-foreground">ImageURL</span>
                 <p className="text-sm text-brand-blue-gray">Free Image Hosting</p>
               </div>
-            </div>
+            </a>
             <p className="text-sm text-muted-foreground leading-relaxed max-w-md">
               The easiest way to turn your images into shareable links.
               Upload photos and get links instantly - completely free, no signup required.
@@ -29,6 +29,7 @@ export default function Footer() {
               <li><a href="/free-image-hosting" className="text-brand-blue-gray hover:text-brand-orange transition-colors">Free Hosting</a></li>
               <li><a href="/image-url-generator" className="text-brand-blue-gray hover:text-brand-orange transition-colors">URL Generator</a></li>
               <li><a href="/bulk-image-upload" className="text-brand-blue-gray hover:text-brand-orange transition-colors">Bulk Upload</a></li>
+              <li><a href="/blog" className="text-brand-blue-gray hover:text-brand-orange transition-colors">Blog</a></li>
               <li><a href="#faq" className="text-brand-blue-gray hover:text-brand-orange transition-colors">Help & FAQ</a></li>
             </ul>
           </div>

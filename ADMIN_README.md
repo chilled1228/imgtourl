@@ -37,6 +37,11 @@ The admin credentials are stored in your `.env.local` file:
 ADMIN_USERNAME=admin
 ADMIN_PASSWORD=admin123
 JWT_SECRET=your-super-secret-jwt-key-change-in-production-please
+
+# Supabase Configuration (required)
+NEXT_PUBLIC_SUPABASE_URL=https://your-project.supabase.co
+NEXT_PUBLIC_SUPABASE_ANON_KEY=your-supabase-anon-key
+SUPABASE_SERVICE_ROLE_KEY=your-supabase-service-role-key
 ```
 
 **Important**: Change these credentials before deploying to production!
@@ -165,14 +170,17 @@ data/
 
 ## Storage System
 
-The admin interface uses a simple file-based storage system:
+The admin interface now uses Supabase database storage:
 
-- **Location**: `data/blog-posts.json`
-- **Format**: JSON array of blog post objects
-- **Backup**: Manual (copy the JSON file)
-- **Scalability**: Suitable for small to medium blogs
+- **Database**: PostgreSQL via Supabase
+- **Table**: `blog_posts` with proper indexes and RLS policies
+- **Backup**: Automated Supabase backups with point-in-time recovery
+- **Scalability**: Highly scalable with global distribution
+- **Performance**: Optimized queries with database indexes
 
-For larger applications, consider migrating to a database like PostgreSQL or MongoDB.
+### Migration from File Storage
+
+If migrating from the previous file-based system, see `SUPABASE_MIGRATION.md` for detailed instructions.
 
 ## Deployment Notes
 

@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import StructuredData from '@/components/seo/StructuredData';
 import BlogListingJsonLd from '@/components/seo/BlogListingJsonLd';
-import { getPublishedPosts, getFeaturedPosts as getStorageFeaturedPosts, getCategories } from '@/lib/blog-storage';
+import { getPublishedPosts, getFeaturedPosts as getStorageFeaturedPosts, getCategories } from '@/lib/blog-storage-supabase';
 import BlogPostCard from '@/components/blog/BlogPostCard';
 import Breadcrumbs from '@/components/blog/Breadcrumbs';
 

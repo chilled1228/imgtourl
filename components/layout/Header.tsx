@@ -14,7 +14,7 @@ export default function Header() {
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-16">
           {/* Logo - Flat design with solid colors */}
-          <div className="flex items-center space-x-3">
+          <a href="/" className="flex items-center space-x-3 hover:opacity-80 transition-opacity">
             <div className="w-10 h-10 bg-brand-orange rounded-lg flex items-center justify-center">
               <ImageIcon className="w-6 h-6 text-white" />
             </div>
@@ -26,7 +26,7 @@ export default function Header() {
                 Free Image Hosting
               </span>
             </div>
-          </div>
+          </a>
 
           {/* Desktop Navigation - Simplified language */}
           <nav className="hidden md:flex items-center space-x-6">

@@ -26,6 +26,12 @@ export const ERROR_CODES = {
   RATE_LIMITED: 'RATE_LIMITED',
   SERVER_ERROR: 'SERVER_ERROR',
   VALIDATION_ERROR: 'VALIDATION_ERROR',
+  // Supabase-specific errors
+  DATABASE_ERROR: 'DATABASE_ERROR',
+  CONNECTION_ERROR: 'CONNECTION_ERROR',
+  AUTHENTICATION_ERROR: 'AUTHENTICATION_ERROR',
+  NOT_FOUND: 'NOT_FOUND',
+  DUPLICATE_ENTRY: 'DUPLICATE_ENTRY',
 } as const;
 
 export const ERROR_MESSAGES = {
@@ -36,6 +42,12 @@ export const ERROR_MESSAGES = {
   [ERROR_CODES.RATE_LIMITED]: 'Too many requests. Please wait before uploading again',
   [ERROR_CODES.SERVER_ERROR]: 'Server error. Please try again later',
   [ERROR_CODES.VALIDATION_ERROR]: 'Validation error. Please check your file',
+  // Supabase-specific error messages
+  [ERROR_CODES.DATABASE_ERROR]: 'Database operation failed. Please try again',
+  [ERROR_CODES.CONNECTION_ERROR]: 'Unable to connect to database. Please check your connection',
+  [ERROR_CODES.AUTHENTICATION_ERROR]: 'Authentication failed. Please check your credentials',
+  [ERROR_CODES.NOT_FOUND]: 'The requested resource was not found',
+  [ERROR_CODES.DUPLICATE_ENTRY]: 'A record with this information already exists',
 } as const;
 
 export function handleError(error: unknown): AppError {
@@ -103,4 +115,91 @@ export function showWarningToast(message: string, description?: string) {
     description,
     duration: 4000,
   });
+}
+
+// Supabase-specific error handling
+export class SupabaseError extends Error {
+  code?: string;
+  details?: any;
+  operation: string;
+
+  constructor(message: string, operation: string, code?: string, details?: any) {
+    super(message);
+    this.name = 'SupabaseError';
+    this.code = code;
+    this.details = details;
+    this.operation = operation;
+  }
+}
+
+export function handleSupabaseError(error: any, operation: string): AppError {
+  console.error(`[${operation}] Supabase error:`, error);
+
+  // Handle specific Supabase error codes
+  if (error?.code) {
+    switch (error.code) {
+      case 'PGRST116':
+        return {
+          code: ERROR_CODES.NOT_FOUND,
+          message: ERROR_MESSAGES[ERROR_CODES.NOT_FOUND],
+          details: `No records found for ${operation}`,
+        };
+      case '23505': // Unique constraint violation
+        return {
+          code: ERROR_CODES.DUPLICATE_ENTRY,
+          message: ERROR_MESSAGES[ERROR_CODES.DUPLICATE_ENTRY],
+          details: error.message,
+        };
+      case 'ECONNREFUSED':
+      case 'ENOTFOUND':
+      case 'ETIMEDOUT':
+        return {
+          code: ERROR_CODES.CONNECTION_ERROR,
+          message: ERROR_MESSAGES[ERROR_CODES.CONNECTION_ERROR],
+          details: error.message,
+        };
+      default:
+        return {
+          code: ERROR_CODES.DATABASE_ERROR,
+          message: ERROR_MESSAGES[ERROR_CODES.DATABASE_ERROR],
+          details: error.message,
+        };
+    }
+  }
+
+  // Handle network errors
+  if (error?.message?.includes('fetch') || error?.message?.includes('network')) {
+    return {
+      code: ERROR_CODES.NETWORK_ERROR,
+      message: ERROR_MESSAGES[ERROR_CODES.NETWORK_ERROR],
+      details: error.message,
+    };
+  }
+
+  // Generic database error
+  return {
+    code: ERROR_CODES.DATABASE_ERROR,
+    message: error?.message || ERROR_MESSAGES[ERROR_CODES.DATABASE_ERROR],
+    details: error?.details,
+  };
+}
+
+export async function withErrorHandling<T>(
+  operation: string,
+  fn: () => Promise<T>,
+  fallback?: T
+): Promise<T> {
+  try {
+    return await fn();
+  } catch (error: any) {
+    const appError = handleSupabaseError(error, operation);
+
+    // If a fallback is provided, return it instead of throwing
+    if (fallback !== undefined) {
+      console.warn(`[${operation}] Returning fallback value due to error:`, appError);
+      return fallback;
+    }
+
+    throw new SupabaseError(appError.message, operation, appError.code, appError.details);
+  }
 }

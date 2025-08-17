@@ -2,10 +2,10 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import { FileText, Plus, Eye, Edit } from 'lucide-react';
-import { getAllPosts } from '@/lib/blog-data';
+import { getAllBlogPosts } from '@/lib/blog-storage-supabase';
 
-export default function AdminDashboard() {
-  const posts = getAllPosts();
+export default async function AdminDashboard() {
+  const posts = await getAllBlogPosts();
   const publishedPosts = posts.filter(post => post.status === 'published');
   const draftPosts = posts.filter(post => post.status === 'draft');
 

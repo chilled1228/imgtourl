@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getAdminFromRequest } from '@/lib/auth';
-import { createBlogPost, getAllBlogPosts } from '@/lib/blog-storage';
+import { createBlogPost, getAllBlogPosts } from '@/lib/blog-storage-supabase';
 import { processHTMLContent, validateHTMLContent, extractExcerpt } from '@/lib/html-processor-server';
 import { nanoid } from 'nanoid';
 

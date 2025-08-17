@@ -6,7 +6,7 @@ import { Card } from '@/components/ui/card';
 import Link from 'next/link';
 import StructuredData from '@/components/seo/StructuredData';
 import BlogJsonLd from '@/components/seo/BlogJsonLd';
-import { getPublishedPosts, getBlogPostBySlug, getRelatedPosts } from '@/lib/blog-storage';
+import { getPublishedPosts, getBlogPostBySlug, getRelatedPosts } from '@/lib/blog-storage-supabase';
 import BlogPostCard from '@/components/blog/BlogPostCard';
 import Breadcrumbs from '@/components/blog/Breadcrumbs';
 

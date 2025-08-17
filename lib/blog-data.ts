@@ -30,7 +30,20 @@ export interface BlogTag {
   count: number;
 }
 
-// Sample blog posts data - in a real app, this would come from a CMS or database
+// Import Supabase storage functions
+import {
+  getPublishedPosts as getSupabasePublishedPosts,
+  getBlogPostBySlug as getSupabaseBlogPostBySlug,
+  getFeaturedPosts as getSupabaseFeaturedPosts,
+  getPostsByCategory as getSupabasePostsByCategory,
+  getPostsByTag as getSupabasePostsByTag,
+  getCategories as getSupabaseCategories,
+  getTags as getSupabaseTags,
+  getRelatedPosts as getSupabaseRelatedPosts,
+  searchPosts as getSupabaseSearchPosts
+} from './blog-storage-supabase';
+
+// Sample blog posts data - now replaced with Supabase data
 export const blogPosts: BlogPost[] = [
   {
     id: 'image-optimization-guide-2024',
@@ -454,88 +467,85 @@ For more tips on image hosting and optimization, check out our comprehensive gui
   }
 ];
 
-// Helper functions for blog data management
-export function getAllPosts(): BlogPost[] {
-  return blogPosts.filter(post => post.status === 'published').sort((a, b) =>
-    new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime()
-  );
+// Helper functions for blog data management - now using Supabase
+export async function getAllPosts(): Promise<BlogPost[]> {
+  try {
+    return await getSupabasePublishedPosts();
+  } catch (error) {
+    console.error('Error fetching posts:', error);
+    return [];
+  }
 }
 
-export function getPostBySlug(slug: string): BlogPost | undefined {
-  return blogPosts.find(post => post.slug === slug && post.status === 'published');
+export async function getPostBySlug(slug: string): Promise<BlogPost | undefined> {
+  try {
+    const post = await getSupabaseBlogPostBySlug(slug);
+    return post || undefined;
+  } catch (error) {
+    console.error('Error fetching post by slug:', error);
+    return undefined;
+  }
 }
 
-export function getFeaturedPosts(): BlogPost[] {
-  return blogPosts.filter(post => post.featured && post.status === 'published');
+export async function getFeaturedPosts(): Promise<BlogPost[]> {
+  try {
+    return await getSupabaseFeaturedPosts();
+  } catch (error) {
+    console.error('Error fetching featured posts:', error);
+    return [];
+  }
 }
 
-export function getPostsByCategory(category: string): BlogPost[] {
-  return blogPosts.filter(post => 
-    post.category === category && post.status === 'published'
-  );
+export async function getPostsByCategory(category: string): Promise<BlogPost[]> {
+  try {
+    return await getSupabasePostsByCategory(category);
+  } catch (error) {
+    console.error('Error fetching posts by category:', error);
+    return [];
+  }
 }
 
-export function getPostsByTag(tag: string): BlogPost[] {
-  return blogPosts.filter(post => 
-    post.tags.includes(tag) && post.status === 'published'
-  );
+export async function getPostsByTag(tag: string): Promise<BlogPost[]> {
+  try {
+    return await getSupabasePostsByTag(tag);
+  } catch (error) {
+    console.error('Error fetching posts by tag:', error);
+    return [];
+  }
 }
 
-export function getCategories(): BlogCategory[] {
-  const categoryMap = new Map<string, number>();
-  
-  blogPosts.forEach(post => {
-    if (post.status === 'published') {
-      categoryMap.set(post.category, (categoryMap.get(post.category) || 0) + 1);
-    }
-  });
-
-  return Array.from(categoryMap.entries()).map(([name, count]) => ({
-    name,
-    slug: name.toLowerCase().replace(/\s+/g, '-'),
-    description: `Articles about ${name.toLowerCase()}`,
-    count
-  }));
+export async function getCategories(): Promise<BlogCategory[]> {
+  try {
+    return await getSupabaseCategories();
+  } catch (error) {
+    console.error('Error fetching categories:', error);
+    return [];
+  }
 }
 
-export function getTags(): BlogTag[] {
-  const tagMap = new Map<string, number>();
-  
-  blogPosts.forEach(post => {
-    if (post.status === 'published') {
-      post.tags.forEach(tag => {
-        tagMap.set(tag, (tagMap.get(tag) || 0) + 1);
-      });
-    }
-  });
-
-  return Array.from(tagMap.entries())
-    .map(([name, count]) => ({
-      name,
-      slug: name.toLowerCase().replace(/\s+/g, '-'),
-      count
-    }))
-    .sort((a, b) => b.count - a.count);
+export async function getTags(): Promise<BlogTag[]> {
+  try {
+    return await getSupabaseTags();
+  } catch (error) {
+    console.error('Error fetching tags:', error);
+    return [];
+  }
 }
 
-export function getRelatedPosts(currentPost: BlogPost, limit: number = 3): BlogPost[] {
-  return blogPosts
-    .filter(post => 
-      post.slug !== currentPost.slug && 
-      post.status === 'published' &&
-      (post.category === currentPost.category || 
-       post.tags.some(tag => currentPost.tags.includes(tag)))
-    )
-    .slice(0, limit);
+export async function getRelatedPosts(currentPost: BlogPost, limit: number = 3): Promise<BlogPost[]> {
+  try {
+    return await getSupabaseRelatedPosts(currentPost, limit);
+  } catch (error) {
+    console.error('Error fetching related posts:', error);
+    return [];
+  }
 }
 
-export function searchPosts(query: string): BlogPost[] {
-  const lowercaseQuery = query.toLowerCase();
-  return blogPosts.filter(post => 
-    post.status === 'published' &&
-    (post.title.toLowerCase().includes(lowercaseQuery) ||
-     post.excerpt.toLowerCase().includes(lowercaseQuery) ||
-     post.content.toLowerCase().includes(lowercaseQuery) ||
-     post.tags.some(tag => tag.toLowerCase().includes(lowercaseQuery)))
-  );
+export async function searchPosts(query: string): Promise<BlogPost[]> {
+  try {
+    return await getSupabaseSearchPosts(query);
+  } catch (error) {
+    console.error('Error searching posts:', error);
+    return [];
+  }
 }

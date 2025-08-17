@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getAdminFromRequest } from '@/lib/auth';
-import { getBlogPostById, updateBlogPost, deleteBlogPost } from '@/lib/blog-storage';
+import { getBlogPostById, updateBlogPost, deleteBlogPost } from '@/lib/blog-storage-supabase';
 import { processHTMLContent, validateHTMLContent, extractExcerpt } from '@/lib/html-processor-server';
 
 interface RouteParams {

@@ -12,6 +12,20 @@ const inter = Inter({ subsets: ['latin'] });
 export const metadata: Metadata = {
   title: 'Free Image to URL Converter - Upload Images Get Links Instantly',
   description: 'Free image hosting service with instant URL generation. Upload photos, get shareable links instantly. Drag & drop image uploader with unlimited free uploads. Best image URL generator tool online.',
+  icons: {
+    icon: [
+      { url: '/favicon.svg', type: 'image/svg+xml' },
+      { url: '/favicon-16x16.png', sizes: '16x16', type: 'image/png' },
+      { url: '/favicon-32x32.png', sizes: '32x32', type: 'image/png' },
+    ],
+    apple: [
+      { url: '/apple-touch-icon.png', sizes: '180x180', type: 'image/png' },
+    ],
+    other: [
+      { rel: 'mask-icon', url: '/safari-pinned-tab.svg', color: '#FF7A30' },
+    ],
+  },
+  manifest: '/site.webmanifest',
   keywords: [
     'image to url converter',
     'free image hosting',
@@ -115,9 +129,6 @@ export default function RootLayout({
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link rel="dns-prefetch" href="//imagetourl.cloud" />
-        <link rel="icon" type="image/png" href="https://pub-141831e61e69445289222976a15b6fb3.r2.dev/1755416887883-ngt0fiol9a-images.png" />
-        <link rel="shortcut icon" type="image/png" href="https://pub-141831e61e69445289222976a15b6fb3.r2.dev/1755416887883-ngt0fiol9a-images.png" />
-        <link rel="apple-touch-icon" href="https://pub-141831e61e69445289222976a15b6fb3.r2.dev/1755416887883-ngt0fiol9a-images.png" />
         <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
         <meta name="theme-color" content="#FF7A30" />
         <meta name="color-scheme" content="light dark" />
