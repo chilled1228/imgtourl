@@ -19,11 +19,11 @@ export default function StructuredData({ type = 'website', data }: StructuredDat
   const getWebsiteSchema = () => ({
     "@context": "https://schema.org",
     "@type": "WebSite",
-    "name": "ImageURL - Free Image to URL Converter",
-    "alternateName": "Free Image Hosting Service",
+    "name": "ImageURL - Image to URL Converter",
+    "alternateName": "Free Image to URL Tool",
     "url": process.env.NEXT_PUBLIC_APP_URL || "https://imagetourl.cloud",
-    "description": "Free image hosting service with instant URL generation. Upload photos, get shareable links instantly. Best image to URL converter tool online.",
-    "keywords": "image to url converter, free image hosting, image url generator, upload image get link, convert image to url, free image uploader, image hosting service, drag drop image upload",
+    "description": "Free image to URL converter tool. Upload any photo and get a web link instantly. Simple, fast, and works everywhere. Turn photos into shareable links in seconds.",
+    "keywords": "image to url, image to url converter, convert image to url, photo to url, turn image into link, free image to url, photo link generator",
     "potentialAction": {
       "@type": "SearchAction",
       "target": {
@@ -45,20 +45,20 @@ export default function StructuredData({ type = 'website', data }: StructuredDat
   const getServiceSchema = () => ({
     "@context": "https://schema.org",
     "@type": "Service",
-    "name": "Free Image to URL Converter",
-    "description": "Professional image hosting service that converts images to shareable URLs instantly. Upload photos and get permanent links with unlimited free uploads.",
+    "name": "Image to URL Converter",
+    "description": "Easy image to URL converter tool. Upload any photo and get a web link instantly. Free, simple, and works everywhere. Turn your pictures into shareable links in seconds.",
     "provider": {
       "@type": "Organization",
       "name": "ImageURL",
       "url": process.env.NEXT_PUBLIC_APP_URL || "https://imagetourl.cloud"
     },
-    "serviceType": "Image Hosting Service",
-    "category": "Web Service",
+    "serviceType": "Image to URL Converter",
+    "category": "Web Tool",
     "offers": {
       "@type": "Offer",
       "price": "0",
       "priceCurrency": "USD",
-      "description": "Free image hosting with unlimited uploads"
+      "description": "Free image to URL conversion with unlimited uploads"
     },
     "hasOfferCatalog": {
       "@type": "OfferCatalog",
@@ -68,24 +68,24 @@ export default function StructuredData({ type = 'website', data }: StructuredDat
           "@type": "Offer",
           "itemOffered": {
             "@type": "Service",
-            "name": "Instant Image Link Generator",
-            "description": "Convert images to URLs instantly with drag & drop upload"
+            "name": "Image to URL Converter",
+            "description": "Turn photos into web links instantly with easy upload"
           }
         },
         {
           "@type": "Offer",
           "itemOffered": {
             "@type": "Service",
-            "name": "Bulk Image URL Generator",
-            "description": "Upload multiple images and generate URLs in batch"
+            "name": "Multiple Photo to URL",
+            "description": "Upload many photos at once and get web links for all"
           }
         },
         {
           "@type": "Offer",
           "itemOffered": {
             "@type": "Service",
-            "name": "Secure Image Upload Tool",
-            "description": "Enterprise-grade security for safe image hosting"
+            "name": "Safe Photo Upload",
+            "description": "Keep your photos safe and secure when creating web links"
           }
         }
       ]
@@ -105,26 +105,26 @@ export default function StructuredData({ type = 'website', data }: StructuredDat
     "mainEntity": [
       {
         "@type": "Question",
-        "name": "How to convert photo to url free?",
+        "name": "How do I turn my photo into a URL for free?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Converting photos to URLs is completely free with our image hosting service. Simply drag and drop your image into our upload zone, or click to browse and select your photo. Our instant image link generator will process your upload and provide you with a shareable URL within seconds. No registration required for this free image uploader."
+          "text": "Turning photos into URLs is completely free and easy! Just drag your picture into our upload area or click to choose a file from your computer. Our image to URL converter will give you a web link in seconds. No need to sign up or create an account."
         }
       },
       {
         "@type": "Question",
-        "name": "What is the best tool for instant image links?",
+        "name": "What's the best way to get a link for my image?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Our free image to URL converter is the best tool for creating instant image links. It offers unlimited free image uploads, supports all major formats (JPG, PNG, GIF, WEBP, SVG), and provides permanent image links with global CDN delivery."
+          "text": "Our free image to URL tool is the easiest way to get links for your pictures. You can upload any photo type (JPG, PNG, GIF, etc.) and get a permanent web link that works everywhere. Just upload and copy your link - it's that simple!"
         }
       },
       {
         "@type": "Question",
-        "name": "How can I get a free service to upload and share images?",
+        "name": "Can I share my photos online without creating an account?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Our platform provides a completely free image hosting service with no signup required. Upload images up to 10MB each, get shareable image links instantly, and enjoy unlimited free uploads. This anonymous image uploader is perfect for social media sharing."
+          "text": "Yes! You can upload and share photos without any account. Just upload your picture (up to 10MB), get your web link instantly, and share it anywhere you want. Perfect for social media, messaging, or showing photos to friends and family."
         }
       },
       {

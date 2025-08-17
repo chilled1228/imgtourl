@@ -6,20 +6,20 @@ import StructuredData from '@/components/seo/StructuredData';
 import { generatePageMetadata } from '@/lib/metadata';
 
 export const metadata = generatePageMetadata(
-  'Image URL Generator Tool - Convert Images to URLs Instantly | ImageURL',
-  'Best image URL generator tool online. Convert images to shareable URLs instantly. Upload photos get links in seconds with our instant image link generator.',
+  'Image to URL Generator - Turn Photos Into Web Links Instantly | ImageURL',
+  'Easy image to URL generator tool. Upload any photo and get a web link instantly. Simple, fast, and works everywhere. Turn your pictures into shareable links in seconds.',
   '/image-url-generator',
   [
-    'instant image link generator',
+    'image to url generator',
+    'image to url',
     'convert image to url',
+    'photo to url',
+    'turn image into link',
+    'photo link generator',
     'image link creator',
-    'photo url generator tool',
-    'generate image url',
-    'url from image',
-    'image to link converter',
-    'shareable image link',
-    'create image url online',
-    'bulk image url generator'
+    'picture to url',
+    'convert photo to url',
+    'image url maker'
   ]
 );
 
@@ -32,17 +32,17 @@ export default function ImageURLGeneratorPage() {
         <section className="container mx-auto px-4 py-16">
           <div className="text-center space-y-6 max-w-4xl mx-auto">
             <h1 className="text-4xl md:text-6xl font-bold text-foreground">
-              <span className="text-brand-orange">Image URL Generator</span> Tool
+              <span className="text-brand-orange">Image to URL</span> Generator
               <br />
-              Convert Images to URLs Instantly
+              Turn Photos Into Web Links Instantly
             </h1>
             <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-              Best image URL generator tool online. Upload photos and get shareable URLs in seconds. 
-              Instant image link generator with bulk upload support - perfect for creating image URLs for websites, forums, and social media.
+              The easiest image to URL generator online. Upload any photo and get a web link in seconds.
+              Perfect for sharing pictures on websites, social media, messages, or anywhere you need a photo link.
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
               <Button size="lg" className="bg-brand-orange hover:bg-brand-orange/90 text-white border-0">
-                Generate Image URLs Now
+                Turn Photos Into Links Now
                 <ArrowRight className="ml-2 w-4 h-4" />
               </Button>
             </div>

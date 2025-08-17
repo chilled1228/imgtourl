@@ -19,32 +19,32 @@ export default function Home() {
       {/* Hero Section with Upload Zone - Simplified and Above Fold */}
       <section className="container mx-auto px-4 py-8 md:py-12 min-h-[80vh] flex flex-col justify-center" aria-labelledby="hero-heading">
         <div className="text-center space-y-8 max-w-4xl mx-auto">
-          {/* Simplified Headline */}
+          {/* SEO-Optimized Headline with "image to url" keyword */}
           <div className="space-y-4">
             <h1 id="hero-heading" className="text-4xl md:text-5xl lg:text-6xl font-bold text-foreground leading-tight">
-              Turn Your Images Into
+              Free Image to URL Converter
               <span className="block text-brand-orange">
-                Shareable Links
+                Turn Photos Into Links
               </span>
             </h1>
             <p className="text-xl md:text-2xl text-muted-foreground font-medium">
-              Upload any image and get a link to share instantly
+              Upload any photo and get a web link to share anywhere - it's that simple!
             </p>
           </div>
 
-          {/* Key Benefits - Simplified */}
+          {/* Key Benefits - Simple language for everyone */}
           <div className="flex flex-wrap justify-center gap-6 text-sm md:text-base">
             <div className="flex items-center space-x-2">
               <div className="w-2 h-2 bg-brand-orange rounded-full"></div>
-              <span className="text-brand-blue-gray font-medium">100% Free</span>
+              <span className="text-brand-blue-gray font-medium">Always Free</span>
             </div>
             <div className="flex items-center space-x-2">
               <div className="w-2 h-2 bg-brand-blue-gray rounded-full"></div>
-              <span className="text-brand-blue-gray font-medium">No Sign-up</span>
+              <span className="text-brand-blue-gray font-medium">No Account Needed</span>
             </div>
             <div className="flex items-center space-x-2">
               <div className="w-2 h-2 bg-brand-orange rounded-full"></div>
-              <span className="text-brand-blue-gray font-medium">Instant Results</span>
+              <span className="text-brand-blue-gray font-medium">Works Right Away</span>
             </div>
           </div>
 
@@ -53,9 +53,9 @@ export default function Home() {
             <UploadZone />
           </div>
 
-          {/* File Format Info */}
+          {/* File Format Info - Simple language */}
           <p className="text-sm text-muted-foreground">
-            Supports: JPG, PNG, GIF, WEBP, SVG • Max size: 10MB • Unlimited uploads
+            Works with all photo types • Up to 10MB each • Upload as many as you want
           </p>
         </div>
       </section>
@@ -71,9 +71,9 @@ export default function Home() {
       <section id="features" className="bg-brand-beige/30 dark:bg-brand-blue-gray/10 py-20" aria-labelledby="features-heading">
         <div className="container mx-auto px-4">
           <div className="text-center space-y-6 mb-16">
-            <h2 id="features-heading" className="text-3xl md:text-4xl font-bold">Why Choose Our Image Hosting?</h2>
+            <h2 id="features-heading" className="text-3xl md:text-4xl font-bold">Why Use Our Image to URL Tool?</h2>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              Simple, fast, and reliable. Everything you need to share images online.
+              Easy, fast, and works every time. Everything you need to turn photos into web links.
             </p>
           </div>
 
@@ -83,10 +83,10 @@ export default function Home() {
               <div className="mx-auto w-16 h-16 bg-brand-orange rounded-lg flex items-center justify-center mb-6">
                 <Zap className="w-8 h-8 text-white" />
               </div>
-              <h3 className="text-xl font-bold mb-3 text-foreground">Lightning Fast</h3>
+              <h3 className="text-xl font-bold mb-3 text-foreground">Super Fast</h3>
               <p className="text-brand-blue-gray leading-relaxed">
-                Upload images and get shareable links in seconds. Automatic optimization
-                makes your images load faster everywhere.
+                Upload your photo and get a web link in seconds. We make your pictures
+                load quickly no matter where you share them.
               </p>
             </Card>
 
@@ -94,10 +94,10 @@ export default function Home() {
               <div className="mx-auto w-16 h-16 bg-brand-blue-gray rounded-lg flex items-center justify-center mb-6">
                 <Globe className="w-8 h-8 text-white" />
               </div>
-              <h3 className="text-xl font-bold mb-3 text-foreground">Works Everywhere</h3>
+              <h3 className="text-xl font-bold mb-3 text-foreground">Works Anywhere</h3>
               <p className="text-brand-blue-gray leading-relaxed">
-                Global delivery network ensures your images load quickly worldwide.
-                Perfect for social media, websites, and forums.
+                Your image links work on any website or app around the world.
+                Great for social media, blogs, and sharing with friends.
               </p>
             </Card>
 
@@ -105,10 +105,10 @@ export default function Home() {
               <div className="mx-auto w-16 h-16 bg-brand-orange rounded-lg flex items-center justify-center mb-6">
                 <Shield className="w-8 h-8 text-white" />
               </div>
-              <h3 className="text-xl font-bold mb-3 text-foreground">Safe & Secure</h3>
+              <h3 className="text-xl font-bold mb-3 text-foreground">Safe & Private</h3>
               <p className="text-brand-blue-gray leading-relaxed">
-                Your images are protected with enterprise-grade security.
-                Upload anonymously if you prefer complete privacy.
+                Your photos are kept safe and secure on our servers.
+                No need to create an account - upload privately anytime.
               </p>
             </Card>
           </div>
@@ -119,33 +119,33 @@ export default function Home() {
               <div className="mx-auto w-12 h-12 bg-brand-orange rounded-lg flex items-center justify-center">
                 <Upload className="w-6 h-6 text-white" />
               </div>
-              <h4 className="font-semibold text-foreground">Multiple Images</h4>
-              <p className="text-sm text-brand-blue-gray">Upload several photos at once and get all your links together.</p>
+              <h4 className="font-semibold text-foreground">Upload Many Photos</h4>
+              <p className="text-sm text-brand-blue-gray">Add several pictures at once and get all your links at the same time.</p>
             </div>
 
             <div className="text-center space-y-4">
               <div className="mx-auto w-12 h-12 bg-brand-blue-gray rounded-lg flex items-center justify-center">
                 <ArrowRight className="w-6 h-6 text-white" />
               </div>
-              <h4 className="font-semibold text-foreground">One-Click Sharing</h4>
-              <p className="text-sm text-brand-blue-gray">Copy links instantly and share them anywhere you want.</p>
+              <h4 className="font-semibold text-foreground">Easy Sharing</h4>
+              <p className="text-sm text-brand-blue-gray">Copy your image link with one click and share it anywhere you want.</p>
             </div>
 
             <div className="text-center space-y-4">
               <div className="mx-auto w-12 h-12 bg-brand-orange rounded-lg flex items-center justify-center">
                 <Shield className="w-6 h-6 text-white" />
               </div>
-              <h4 className="font-semibold text-foreground">Links Never Expire</h4>
-              <p className="text-sm text-brand-blue-gray">Your image links work forever - no worries about broken links.</p>
+              <h4 className="font-semibold text-foreground">Links Last Forever</h4>
+              <p className="text-sm text-brand-blue-gray">Your image links keep working forever - they'll never break or disappear.</p>
             </div>
           </div>
 
-          {/* SEO Content - Preserved but less prominent */}
+          {/* SEO Content - Optimized for "image to url" keyword */}
           <div className="mt-16 text-center">
             <p className="text-sm text-muted-foreground max-w-4xl mx-auto leading-relaxed">
-              Best free image upload tool with secure image upload features. Fast image uploader with
-              instant image link generator, bulk image URL generator, and reliable public image hosting platform.
-              Perfect for anonymous image uploader needs with high quality image sharing and permanent image links.
+              The best free image to URL converter tool online. Turn any photo into a web link instantly with our
+              simple image to URL service. Upload pictures and get shareable links that work everywhere - perfect for
+              social media, websites, and sharing with friends and family.
             </p>
           </div>
         </div>
@@ -154,9 +154,9 @@ export default function Home() {
       {/* Blog Section */}
       <section className="container mx-auto px-4 py-16" aria-labelledby="blog-heading">
         <div className="text-center space-y-6 mb-12">
-          <h2 id="blog-heading" className="text-3xl md:text-4xl font-bold">Learn More About Image Hosting</h2>
+          <h2 id="blog-heading" className="text-3xl md:text-4xl font-bold">Learn More About Image to URL</h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Discover expert tips, tutorials, and best practices for image optimization, hosting, and sharing.
+            Discover helpful tips and simple guides for turning your photos into web links and sharing them online.
           </p>
         </div>
 
@@ -220,10 +220,10 @@ export default function Home() {
       <section className="bg-brand-beige/40 dark:bg-brand-blue-gray/10 py-20">
         <div className="container mx-auto px-4">
           <div className="text-center space-y-8 max-w-3xl mx-auto">
-            <h2 className="text-3xl md:text-4xl font-bold text-foreground">Ready to Share Your Images?</h2>
+            <h2 className="text-3xl md:text-4xl font-bold text-foreground">Ready to Convert Your Images to URLs?</h2>
             <p className="text-xl text-brand-blue-gray leading-relaxed">
-              Join thousands who trust our free image hosting service.
-              Upload your first photo and get a shareable link in seconds!
+              Join thousands who use our free image to URL converter every day.
+              Upload your first photo and get a web link in seconds!
             </p>
             <ScrollButton
               targetId="upload-section"
@@ -234,10 +234,10 @@ export default function Home() {
               Start Uploading Now
             </ScrollButton>
 
-            {/* SEO content preserved but less prominent */}
+            {/* SEO content optimized for "image to url" keyword */}
             <p className="text-sm text-muted-foreground max-w-2xl mx-auto">
-              Best image URL generator tool online for converting images to URLs instantly with our
-              free image hosting service and unlimited uploads.
+              The easiest image to URL converter online. Turn any photo into a shareable web link
+              instantly with our free service - no account required, unlimited uploads.
             </p>
           </div>
         </div>

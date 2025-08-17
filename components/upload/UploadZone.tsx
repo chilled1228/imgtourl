@@ -63,7 +63,7 @@ export default function UploadZone() {
   // Enhanced input props with accessibility attributes
   const inputProps = {
     ...getInputProps(),
-    'aria-label': 'Upload images - drag and drop or click to browse',
+    'aria-label': 'Upload photos - drag and drop or click to choose',
     'aria-describedby': 'upload-instructions upload-formats',
     id: 'image-upload-input'
   };
@@ -296,7 +296,7 @@ export default function UploadZone() {
             uploading && 'pointer-events-none opacity-50'
           )}
           role="button"
-          aria-label={isDragActive ? "Drop images to upload" : "Click to upload images or drag and drop"}
+          aria-label={isDragActive ? "Drop photos to turn into links" : "Click to upload photos or drag and drop"}
           tabIndex={0}
           onKeyDown={(e) => {
             if (e.key === 'Enter' || e.key === ' ') {
@@ -317,17 +317,17 @@ export default function UploadZone() {
 
             {isDragActive ? (
               <div className="space-y-2">
-                <p className={cn("text-xl md:text-2xl font-bold", BRAND_CLASSES.text.accent)}>Drop your images here!</p>
-                <p className={cn("text-base", SEMANTIC_COLORS.uploadZone.subtitle)}>Release to start uploading</p>
+                <p className={cn("text-xl md:text-2xl font-bold", BRAND_CLASSES.text.accent)}>Drop your photos here!</p>
+                <p className={cn("text-base", SEMANTIC_COLORS.uploadZone.subtitle)}>Let go to turn them into web links</p>
               </div>
             ) : (
               <div className="space-y-4">
                 <div className="space-y-2">
                   <p className={cn("text-xl md:text-2xl font-bold", SEMANTIC_COLORS.uploadZone.title)}>
-                    Choose Your Images
+                    Upload Your Photos
                   </p>
                   <p id="upload-instructions" className={cn("text-base md:text-lg", SEMANTIC_COLORS.uploadZone.subtitle)}>
-                    Drag photos here or click to browse • Links created instantly
+                    Drag photos here or click to choose • Get web links instantly
                   </p>
                 </div>
 
@@ -344,7 +344,7 @@ export default function UploadZone() {
                     </span>
                     <span className="flex items-center space-x-1">
                       <div className="w-2 h-2 bg-brand-orange rounded-sm" aria-hidden="true"></div>
-                      <span>Multiple files OK</span>
+                      <span>Many photos at once</span>
                     </span>
                   </div>
                 </div>

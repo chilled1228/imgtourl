@@ -6,19 +6,19 @@ import StructuredData from '@/components/seo/StructuredData';
 import { generatePageMetadata } from '@/lib/metadata';
 
 export const metadata = generatePageMetadata(
-  'Free Image Hosting Service - Unlimited Image Uploads | ImageURL',
-  'Best free image hosting service with unlimited uploads. Secure image hosting platform with permanent links, global CDN, and no signup required. Upload images for free.',
+  'Free Image to URL Service - Turn Photos Into Web Links | ImageURL',
+  'Free image to URL converter service. Upload any photo and get a web link instantly. Simple, fast, and works everywhere. No account needed - unlimited uploads.',
   '/free-image-hosting',
   [
-    'unlimited image uploads',
-    'free image storage',
-    'secure image hosting',
-    'permanent image links',
-    'no signup image hosting',
-    'anonymous image hosting',
-    'ad-free image hosting',
-    'reliable image hosting',
-    'public image hosting platform'
+    'image to url',
+    'free image to url',
+    'convert image to url',
+    'photo to url',
+    'turn image into link',
+    'image link generator',
+    'free photo hosting',
+    'upload photos online',
+    'shareable photo links'
   ]
 );
 
@@ -31,17 +31,17 @@ export default function FreeImageHostingPage() {
         <section className="container mx-auto px-4 py-16">
           <div className="text-center space-y-6 max-w-4xl mx-auto">
             <h1 className="text-4xl md:text-6xl font-bold text-foreground">
-              <span className="text-brand-orange">Free Image Hosting</span> Service
+              <span className="text-brand-orange">Free Image to URL</span> Service
               <br />
-              Unlimited Uploads Forever
+              Turn Photos Into Web Links
             </h1>
             <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-              Best free image hosting platform with unlimited image uploads, permanent links, and global CDN delivery. 
-              No signup required - start hosting images for free instantly with our secure image hosting service.
+              Easy image to URL converter. Upload any photo and get a web link instantly. Works everywhere,
+              lasts forever. No account needed - start turning your photos into shareable links right now.
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
               <Button size="lg" className="bg-brand-orange hover:bg-brand-orange/90 text-white border-0">
-                Start Free Image Hosting
+                Start Converting Photos to URLs
                 <ArrowRight className="ml-2 w-4 h-4" />
               </Button>
             </div>
@@ -51,9 +51,9 @@ export default function FreeImageHostingPage() {
         {/* Upload Section */}
         <section className="container mx-auto px-4">
           <div className="text-center space-y-4 mb-12">
-            <h2 className="text-3xl font-bold">Upload Images for Free - No Limits</h2>
+            <h2 className="text-3xl font-bold">Upload Photos for Free - Get Web Links</h2>
             <p className="text-muted-foreground max-w-2xl mx-auto">
-              Experience the best free image hosting service with unlimited uploads, secure storage, and instant access to your images.
+              The easiest way to turn your photos into web links. Upload unlimited photos, get instant links, and share them anywhere you want.
             </p>
           </div>
           <UploadZone />

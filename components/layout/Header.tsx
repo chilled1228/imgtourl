@@ -17,7 +17,7 @@ export default function Header() {
           <a
             href="/"
             className="flex items-center space-x-3 hover:opacity-80 transition-opacity focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-orange focus-visible:ring-offset-2 rounded-lg"
-            aria-label="ImageURL - Free Image Hosting - Go to homepage"
+            aria-label="ImageURL - Image to URL Converter - Go to homepage"
           >
             <div className="w-10 h-10 bg-brand-orange rounded-lg flex items-center justify-center">
               <ImageIcon className="w-6 h-6 text-white" aria-hidden="true" />
@@ -27,7 +27,7 @@ export default function Header() {
                 ImageURL
               </span>
               <span className="text-xs text-brand-blue-gray hidden sm:block">
-                Free Image Hosting
+                Image to URL
               </span>
             </div>
           </a>
@@ -119,7 +119,7 @@ export default function Header() {
                 onClick={() => setIsMenuOpen(false)}
               >
                 <Upload className="w-4 h-4 mr-2" />
-                Upload Images
+                Upload Photos
               </ScrollButton>
             </nav>
           </div>

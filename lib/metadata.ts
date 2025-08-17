@@ -27,20 +27,20 @@ export function generateImageMetadata({
     title,
     description,
     keywords: [
-      'free image hosting',
-      'image url generator',
-      'upload image get link',
-      'shareable image link',
-      'permanent image links',
-      'image sharing',
-      'photo hosting'
+      'image to url',
+      'image to url converter',
+      'convert image to url',
+      'photo to url',
+      'turn image into link',
+      'image link generator',
+      'free image to url'
     ],
     openGraph: {
       title,
       description,
       type: 'website',
       url: baseUrl,
-      siteName: 'ImageURL - Free Image Hosting',
+      siteName: 'ImageURL - Image to URL Converter',
       images: imageUrl ? [
         {
           url: imageUrl,
@@ -53,7 +53,7 @@ export function generateImageMetadata({
           url: `${baseUrl}/og-image.jpg`,
           width: 1200,
           height: 630,
-          alt: 'ImageURL - Free Image to URL Converter',
+          alt: 'ImageURL - Image to URL Converter Tool',
         }
       ],
     },
@@ -86,11 +86,12 @@ export function generatePageMetadata(
     title,
     description,
     keywords: [
-      'free image hosting',
-      'image url generator',
-      'upload image get link',
+      'image to url',
+      'image to url converter',
       'convert image to url',
-      'image hosting service',
+      'photo to url',
+      'turn image into link',
+      'image link generator',
       ...keywords
     ],
     openGraph: {
@@ -98,7 +99,7 @@ export function generatePageMetadata(
       description,
       type: 'website',
       url: fullUrl,
-      siteName: 'ImageURL - Free Image Hosting',
+      siteName: 'ImageURL - Image to URL Converter',
       images: [
         {
           url: `${baseUrl}/og-image.jpg`,

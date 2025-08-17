@@ -1,7 +1,7 @@
 {
-  "name": "ImageToURL - Free Image to URL Converter",
+  "name": "ImageToURL - Image to URL Converter",
   "short_name": "ImageToURL",
-  "description": "Free image hosting service with instant URL generation",
+  "description": "Free image to URL converter. Turn photos into web links instantly.",
   "icons": [
     {
       "src": "/favicon-16x16.png",

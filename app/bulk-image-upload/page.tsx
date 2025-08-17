@@ -6,22 +6,22 @@ import StructuredData from '@/components/seo/StructuredData';
 import { generatePageMetadata } from '@/lib/metadata';
 
 export const metadata = generatePageMetadata(
-  'Bulk Image Upload Service - Upload Multiple Images Get URLs | ImageURL',
-  'Professional bulk image upload service. Upload multiple images simultaneously and get URLs for all. Best bulk image URL generator for batch processing.',
+  'Upload Many Photos at Once - Bulk Image to URL Converter | ImageURL',
+  'Upload many photos at once and get web links for all of them. Easy bulk image to URL converter. Perfect for when you have lots of pictures to share.',
   '/bulk-image-upload',
   [
-    'bulk image upload',
-    'bulk image url generator',
-    'upload multiple images',
-    'batch image upload',
-    'multiple image uploader',
+    'upload many photos',
+    'bulk image to url',
+    'multiple photos to url',
+    'upload lots of pictures',
+    'many photos at once',
     'bulk photo upload',
-    'mass image upload',
-    'batch image processing',
-    'multiple file upload',
-    'bulk image hosting',
-    'batch url generation',
-    'multi image upload tool'
+    'multiple image upload',
+    'batch photo converter',
+    'upload several photos',
+    'many pictures to links',
+    'bulk photo to url',
+    'multiple photo links'
   ]
 );
 
@@ -34,17 +34,17 @@ export default function BulkImageUploadPage() {
         <section className="container mx-auto px-4 py-16">
           <div className="text-center space-y-6 max-w-4xl mx-auto">
             <h1 className="text-4xl md:text-6xl font-bold text-foreground">
-              <span className="text-brand-orange">Bulk Image Upload</span> Service
+              <span className="text-brand-orange">Upload Many Photos</span> at Once
               <br />
-              Upload Multiple Images Get URLs
+              Turn Lots of Pictures Into Web Links
             </h1>
             <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-              Professional bulk image upload service for uploading multiple images simultaneously. 
-              Best bulk image URL generator with batch processing - upload dozens of images and get all URLs instantly.
+              Got lots of photos to share? Upload them all at once and get web links for every picture.
+              Perfect when you have many photos from events, trips, or projects to share with others.
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
               <Button size="lg" className="bg-brand-orange hover:bg-brand-orange/90 text-white border-0">
-                Start Bulk Upload
+                Upload Many Photos Now
                 <ArrowRight className="ml-2 w-4 h-4" />
               </Button>
             </div>
