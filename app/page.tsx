@@ -8,8 +8,13 @@ import FAQ from '@/components/seo/FAQ';
 import StructuredData from '@/components/seo/StructuredData';
 import PerformanceOptimizer from '@/components/performance/PerformanceOptimizer';
 import Link from 'next/link';
+import { getPublishedPosts } from '@/lib/blog-storage-supabase';
+import BlogPostCard from '@/components/blog/BlogPostCard';
 
-export default function Home() {
+export default async function Home() {
+  // Fetch recent blog posts for the home page
+  const allPosts = await getPublishedPosts();
+  const recentPosts = allPosts.slice(0, 3); // Show only 3 most recent posts
   return (
     <>
       <PerformanceOptimizer />
@@ -160,57 +165,34 @@ export default function Home() {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
-          <Card className="p-6 hover:shadow-lg transition-shadow duration-300">
-            <h3 className="text-xl font-bold mb-3 text-foreground">
-              <Link href="/blog/image-optimization-guide-2024" className="hover:text-brand-orange transition-colors">
-                Complete Guide to Image Optimization for Web in 2024
-              </Link>
-            </h3>
-            <p className="text-muted-foreground mb-4 text-sm">
-              Learn the latest techniques for optimizing images for web performance, including format selection and compression.
-            </p>
-            <Link href="/blog/image-optimization-guide-2024" className="text-brand-orange hover:text-brand-orange/80 text-sm font-medium">
-              Read More →
-            </Link>
-          </Card>
+        {recentPosts.length > 0 ? (
+          <>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
+              {recentPosts.map((post) => (
+                <BlogPostCard key={post.id} post={post} variant="default" />
+              ))}
+            </div>
 
-          <Card className="p-6 hover:shadow-lg transition-shadow duration-300">
-            <h3 className="text-xl font-bold mb-3 text-foreground">
-              <Link href="/blog/best-image-hosting-practices" className="hover:text-brand-orange transition-colors">
-                Best Practices for Free Image Hosting
+            <div className="text-center">
+              <Link href="/blog">
+                <Button variant="outline" className="border-brand-orange/30 hover:border-brand-orange hover:bg-brand-orange/10">
+                  View All Articles
+                </Button>
               </Link>
-            </h3>
-            <p className="text-muted-foreground mb-4 text-sm">
-              Discover essential practices for reliable image hosting, including security, performance, and service selection.
+            </div>
+          </>
+        ) : (
+          <div className="text-center py-12">
+            <p className="text-muted-foreground mb-6">
+              We're working on creating helpful articles about image hosting and optimization.
             </p>
-            <Link href="/blog/best-image-hosting-practices" className="text-brand-orange hover:text-brand-orange/80 text-sm font-medium">
-              Read More →
+            <Link href="/blog">
+              <Button variant="outline" className="border-brand-orange/30 hover:border-brand-orange hover:bg-brand-orange/10">
+                Check Back Soon
+              </Button>
             </Link>
-          </Card>
-
-          <Card className="p-6 hover:shadow-lg transition-shadow duration-300">
-            <h3 className="text-xl font-bold mb-3 text-foreground">
-              <Link href="/blog/url-shortening-benefits" className="hover:text-brand-orange transition-colors">
-                Why URL Shortening Matters for Image Sharing
-              </Link>
-            </h3>
-            <p className="text-muted-foreground mb-4 text-sm">
-              Understand the benefits of URL shortening for image links and improved user experience.
-            </p>
-            <Link href="/blog/url-shortening-benefits" className="text-brand-orange hover:text-brand-orange/80 text-sm font-medium">
-              Read More →
-            </Link>
-          </Card>
-        </div>
-
-        <div className="text-center">
-          <Link href="/blog">
-            <Button variant="outline" className="border-brand-orange/30 hover:border-brand-orange hover:bg-brand-orange/10">
-              View All Articles
-            </Button>
-          </Link>
-        </div>
+          </div>
+        )}
       </section>
 
       {/* FAQ Section */}
