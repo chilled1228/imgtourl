@@ -222,6 +222,16 @@ const config: Config = {
             transform: 'translateX(-100%)',
           },
         },
+        'fade-in-up': {
+          from: {
+            opacity: '0',
+            transform: 'translateY(20px)',
+          },
+          to: {
+            opacity: '1',
+            transform: 'translateY(0)',
+          },
+        },
       },
       animation: {
         'accordion-down': 'accordion-down 0.2s ease-out',
@@ -234,6 +244,7 @@ const config: Config = {
         'slide-in-from-left': 'slide-in-from-left 0.2s ease-out',
         'slide-out-to-top': 'slide-out-to-top 0.2s ease-out',
         'slide-out-to-left': 'slide-out-to-left 0.2s ease-out',
+        'fade-in-up': 'fade-in-up 0.4s ease-out',
       },
     },
   },

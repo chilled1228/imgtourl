@@ -10,6 +10,7 @@ import PerformanceOptimizer from '@/components/performance/PerformanceOptimizer'
 import Link from 'next/link';
 import { getPublishedPosts } from '@/lib/blog-storage-supabase';
 import BlogPostCard from '@/components/blog/BlogPostCard';
+import { ScrollReveal } from '@/components/ui/scroll-reveal';
 
 export default async function Home() {
   // Fetch recent blog posts for the home page
@@ -24,18 +25,19 @@ export default async function Home() {
       {/* Hero Section with Upload Zone - Simplified and Above Fold */}
       <section className="container mx-auto px-4 py-8 md:py-12 min-h-[80vh] flex flex-col justify-center" aria-labelledby="hero-heading">
         <div className="text-center space-y-8 max-w-4xl mx-auto">
-          {/* SEO-Optimized Headline with "image to url" keyword */}
-          <div className="space-y-4">
-            <h1 id="hero-heading" className="text-4xl md:text-5xl lg:text-6xl font-bold text-foreground leading-tight">
-              Free Image to URL Converter
-              <span className="block text-brand-orange">
-                Turn Photos Into Links
-              </span>
-            </h1>
-            <p className="text-xl md:text-2xl text-muted-foreground font-medium">
-              Upload any photo and get a web link to share anywhere - it's that simple!
-            </p>
-          </div>
+          <div className="animate-fade-in">
+            {/* SEO-Optimized Headline with "image to url" keyword */}
+            <div className="space-y-4">
+              <h1 id="hero-heading" className="text-4xl md:text-5xl lg:text-6xl font-bold text-foreground leading-tight">
+                Free Image to URL Converter
+                <span className="block text-brand-orange">
+                  Turn Photos Into Links
+                </span>
+              </h1>
+              <p className="text-xl md:text-2xl text-muted-foreground font-medium">
+                Upload any photo and get a web link to share anywhere - it's that simple!
+              </p>
+            </div>
 
           {/* Key Benefits - Simple language for everyone */}
           <div className="flex flex-wrap justify-center gap-6 text-sm md:text-base">
@@ -58,10 +60,11 @@ export default async function Home() {
             <UploadZone />
           </div>
 
-          {/* File Format Info - Simple language */}
-          <p className="text-sm text-muted-foreground">
-            Works with all photo types • Up to 10MB each • Upload as many as you want
-          </p>
+            {/* File Format Info - Simple language */}
+            <p className="text-sm text-muted-foreground">
+              Works with all photo types • Up to 10MB each • Upload as many as you want
+            </p>
+          </div>
         </div>
       </section>
 
@@ -75,47 +78,53 @@ export default async function Home() {
       {/* Features Section - Flat design with solid background */}
       <section id="features" className="bg-brand-beige/30 dark:bg-brand-blue-gray/10 py-20" aria-labelledby="features-heading">
         <div className="container mx-auto px-4">
-          <div className="text-center space-y-6 mb-16">
+          <ScrollReveal animation="slideUp" className="text-center space-y-6 mb-16">
             <h2 id="features-heading" className="text-3xl md:text-4xl font-bold">Why Use Our Image to URL Tool?</h2>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
               Easy, fast, and works every time. Everything you need to turn photos into web links.
             </p>
-          </div>
+          </ScrollReveal>
 
           {/* Main Features - Simplified Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
-            <Card className="p-8 text-center transition-colors duration-200 border border-brand-beige/50 dark:border-brand-blue-gray/20 bg-white dark:bg-brand-blue-gray/5 hover:bg-brand-beige/20 dark:hover:bg-brand-blue-gray/10">
-              <div className="mx-auto w-16 h-16 bg-brand-orange rounded-lg flex items-center justify-center mb-6">
-                <Zap className="w-8 h-8 text-white" />
-              </div>
-              <h3 className="text-xl font-bold mb-3 text-foreground">Super Fast</h3>
-              <p className="text-brand-blue-gray leading-relaxed">
-                Upload your photo and get a web link in seconds. We make your pictures
-                load quickly no matter where you share them.
-              </p>
-            </Card>
+            <ScrollReveal animation="slideUp" delay={100}>
+              <Card className="p-8 text-center transition-colors duration-200 border border-brand-beige/50 dark:border-brand-blue-gray/20 bg-white dark:bg-brand-blue-gray/5 hover:bg-brand-beige/20 dark:hover:bg-brand-blue-gray/10">
+                <div className="mx-auto w-16 h-16 bg-brand-orange rounded-lg flex items-center justify-center mb-6">
+                  <Zap className="w-8 h-8 text-white" />
+                </div>
+                <h3 className="text-xl font-bold mb-3 text-foreground">Super Fast</h3>
+                <p className="text-brand-blue-gray leading-relaxed">
+                  Upload your photo and get a web link in seconds. We make your pictures
+                  load quickly no matter where you share them.
+                </p>
+              </Card>
+            </ScrollReveal>
 
-            <Card className="p-8 text-center transition-colors duration-200 border border-brand-beige/50 dark:border-brand-blue-gray/20 bg-white dark:bg-brand-blue-gray/5 hover:bg-brand-beige/20 dark:hover:bg-brand-blue-gray/10">
-              <div className="mx-auto w-16 h-16 bg-brand-blue-gray rounded-lg flex items-center justify-center mb-6">
-                <Globe className="w-8 h-8 text-white" />
-              </div>
-              <h3 className="text-xl font-bold mb-3 text-foreground">Works Anywhere</h3>
-              <p className="text-brand-blue-gray leading-relaxed">
-                Your image links work on any website or app around the world.
-                Great for social media, blogs, and sharing with friends.
-              </p>
-            </Card>
+            <ScrollReveal animation="slideUp" delay={200}>
+              <Card className="p-8 text-center transition-colors duration-200 border border-brand-beige/50 dark:border-brand-blue-gray/20 bg-white dark:bg-brand-blue-gray/5 hover:bg-brand-beige/20 dark:hover:bg-brand-blue-gray/10">
+                <div className="mx-auto w-16 h-16 bg-brand-blue-gray rounded-lg flex items-center justify-center mb-6">
+                  <Globe className="w-8 h-8 text-white" />
+                </div>
+                <h3 className="text-xl font-bold mb-3 text-foreground">Works Anywhere</h3>
+                <p className="text-brand-blue-gray leading-relaxed">
+                  Your image links work on any website or app around the world.
+                  Great for social media, blogs, and sharing with friends.
+                </p>
+              </Card>
+            </ScrollReveal>
 
-            <Card className="p-8 text-center transition-colors duration-200 border border-brand-beige/50 dark:border-brand-blue-gray/20 bg-white dark:bg-brand-blue-gray/5 hover:bg-brand-beige/20 dark:hover:bg-brand-blue-gray/10">
-              <div className="mx-auto w-16 h-16 bg-brand-orange rounded-lg flex items-center justify-center mb-6">
-                <Shield className="w-8 h-8 text-white" />
-              </div>
-              <h3 className="text-xl font-bold mb-3 text-foreground">Safe & Private</h3>
-              <p className="text-brand-blue-gray leading-relaxed">
-                Your photos are kept safe and secure on our servers.
-                No need to create an account - upload privately anytime.
-              </p>
-            </Card>
+            <ScrollReveal animation="slideUp" delay={300}>
+              <Card className="p-8 text-center transition-colors duration-200 border border-brand-beige/50 dark:border-brand-blue-gray/20 bg-white dark:bg-brand-blue-gray/5 hover:bg-brand-beige/20 dark:hover:bg-brand-blue-gray/10">
+                <div className="mx-auto w-16 h-16 bg-brand-orange rounded-lg flex items-center justify-center mb-6">
+                  <Shield className="w-8 h-8 text-white" />
+                </div>
+                <h3 className="text-xl font-bold mb-3 text-foreground">Safe & Private</h3>
+                <p className="text-brand-blue-gray leading-relaxed">
+                  Your photos are kept safe and secure on our servers.
+                  No need to create an account - upload privately anytime.
+                </p>
+              </Card>
+            </ScrollReveal>
           </div>
 
           {/* Additional Benefits - Compact Grid */}
@@ -201,7 +210,7 @@ export default async function Home() {
       {/* CTA Section - Flat design with brand colors */}
       <section className="bg-brand-beige/40 dark:bg-brand-blue-gray/10 py-20">
         <div className="container mx-auto px-4">
-          <div className="text-center space-y-8 max-w-3xl mx-auto">
+          <ScrollReveal animation="slideUp" className="text-center space-y-8 max-w-3xl mx-auto">
             <h2 className="text-3xl md:text-4xl font-bold text-foreground">Ready to Convert Your Images to URLs?</h2>
             <p className="text-xl text-brand-blue-gray leading-relaxed">
               Join thousands who use our free image to URL converter every day.
@@ -210,7 +219,7 @@ export default async function Home() {
             <ScrollButton
               targetId="upload-section"
               size="lg"
-              className="bg-brand-orange hover:bg-brand-orange/90 text-white text-lg px-12 py-6 h-auto transition-colors duration-200 border-0"
+              className="bg-brand-orange hover:bg-brand-orange/90 text-white text-lg px-12 py-6 h-auto transition-all duration-200 ease-out hover:scale-105 active:scale-95 border-0 motion-reduce:hover:scale-100 motion-reduce:active:scale-100"
             >
               <Upload className="mr-3 w-6 h-6" />
               Start Uploading Now
@@ -221,7 +230,7 @@ export default async function Home() {
               The easiest image to URL converter online. Turn any photo into a shareable web link
               instantly with our free service - no account required, unlimited uploads.
             </p>
-          </div>
+          </ScrollReveal>
         </div>
       </section>
       </main>

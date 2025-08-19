@@ -6,6 +6,7 @@ import Footer from '@/components/layout/Footer';
 import { ThemeProvider } from '@/components/theme/theme-provider';
 import { Toaster } from '@/components/ui/sonner';
 import StructuredData from '@/components/seo/StructuredData';
+import { ScrollProgress, FloatingScrollButton } from '@/components/ui/scroll-progress';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -167,13 +168,17 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
+          <ScrollProgress />
           <div className="min-h-screen flex flex-col">
             <Header />
             <main className="flex-1" id="main-content">
-              {children}
+              <div className="animate-fade-in">
+                {children}
+              </div>
             </main>
             <Footer />
           </div>
+          <FloatingScrollButton />
           <Toaster />
         </ThemeProvider>
       </body>
