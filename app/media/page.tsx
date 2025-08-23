@@ -49,10 +49,15 @@ export default function MediaManagementPage() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [files, setFiles] = useState<MediaFile[]>([]);
   const [loading, setLoading] = useState(false);
+  const [loadingMore, setLoadingMore] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
   const [stats, setStats] = useState({ count: 0, totalSize: 0 });
   const [typeStats, setTypeStats] = useState<Record<string, number>>({});
+  const [continuationToken, setContinuationToken] = useState<string | null>(null);
+  const [isTruncated, setIsTruncated] = useState(false);
+  const [allFiles, setAllFiles] = useState<MediaFile[]>([]);
+  const [failedImages, setFailedImages] = useState<Set<string>>(new Set());
   
   // Filtering and sorting
   const [sortBy, setSortBy] = useState('lastModified');
@@ -83,7 +88,7 @@ export default function MediaManagementPage() {
       if (response.ok && data.success) {
         setIsAuthenticated(true);
         toast.success('Authenticated successfully');
-        loadMediaFiles();
+        loadAllFiles();
       } else {
         toast.error(data.error || 'Invalid password');
       }
@@ -93,15 +98,27 @@ export default function MediaManagementPage() {
     }
   };
 
-  const loadMediaFiles = async () => {
-    setLoading(true);
+  const loadMediaFiles = async (reset = true, continuation?: string) => {
+    if (reset) {
+      setLoading(true);
+      setAllFiles([]);
+      setContinuationToken(null);
+      setIsTruncated(false);
+    } else {
+      setLoadingMore(true);
+    }
+
     try {
       const params = new URLSearchParams({
         sortBy,
         sortOrder,
         fileType,
-        limit: '200',
+        limit: '500', // Increased limit for better performance
       });
+
+      if (continuation) {
+        params.set('continuation', continuation);
+      }
 
       const response = await fetch(`/api/media?${params}`, {
         headers: {
@@ -114,22 +131,85 @@ export default function MediaManagementPage() {
       }
 
       const data: MediaResponse = await response.json();
-      setFiles(data.files);
+      
+      if (reset) {
+        setAllFiles(data.files);
+        setFiles(data.files);
+      } else {
+        const newAllFiles = [...allFiles, ...data.files];
+        setAllFiles(newAllFiles);
+        setFiles(newAllFiles);
+      }
+
       setStats({ count: data.count, totalSize: data.totalSize });
       setTypeStats(data.typeStats);
-      setSelectedFiles(new Set()); // Reset selection
-      setSelectAll(false);
+      setContinuationToken(data.nextContinuationToken || null);
+      setIsTruncated(data.isTruncated);
+      
+      if (reset) {
+        setSelectedFiles(new Set()); // Reset selection only on initial load
+        setSelectAll(false);
+      }
     } catch (error) {
       console.error('Error loading media files:', error);
       toast.error('Failed to load media files');
     } finally {
       setLoading(false);
+      setLoadingMore(false);
+    }
+  };
+
+  const loadAllFiles = async () => {
+    await loadMediaFiles(true);
+    
+    // Continue loading if there are more files
+    let hasMoreFiles = true;
+    let nextToken = continuationToken;
+    
+    while (hasMoreFiles && nextToken) {
+      try {
+        const params = new URLSearchParams({
+          sortBy,
+          sortOrder,
+          fileType,
+          limit: '500',
+          continuation: nextToken,
+        });
+
+        const response = await fetch(`/api/media?${params}`, {
+          headers: {
+            'x-media-password': password,
+          },
+        });
+
+        if (!response.ok) {
+          break;
+        }
+
+        const data: MediaResponse = await response.json();
+        
+        if (data.files.length > 0) {
+          setAllFiles(prev => [...prev, ...data.files]);
+          setFiles(prev => [...prev, ...data.files]);
+        }
+        
+        hasMoreFiles = data.isTruncated;
+        nextToken = data.nextContinuationToken || null;
+        
+        // Update state for manual pagination if user wants to stop auto-loading
+        setContinuationToken(nextToken);
+        setIsTruncated(hasMoreFiles);
+        
+      } catch (error) {
+        console.error('Error loading additional files:', error);
+        break;
+      }
     }
   };
 
   useEffect(() => {
     if (isAuthenticated) {
-      loadMediaFiles();
+      loadAllFiles();
     }
   }, [sortBy, sortOrder, fileType, isAuthenticated]);
 
@@ -151,7 +231,7 @@ export default function MediaManagementPage() {
       }
 
       toast.success('File deleted successfully');
-      loadMediaFiles();
+      loadAllFiles();
     } catch (error) {
       console.error('Error deleting file:', error);
       toast.error('Failed to delete file');
@@ -185,7 +265,7 @@ export default function MediaManagementPage() {
 
       const result = await response.json();
       toast.success(`${result.count} files deleted successfully`);
-      loadMediaFiles();
+      loadAllFiles();
     } catch (error) {
       console.error('Error deleting files:', error);
       toast.error('Failed to delete files');
@@ -275,6 +355,18 @@ export default function MediaManagementPage() {
     }
   };
 
+  const handleImageError = (key: string) => {
+    setFailedImages(prev => new Set(prev).add(key));
+  };
+
+  const retryImage = (key: string) => {
+    setFailedImages(prev => {
+      const newSet = new Set(prev);
+      newSet.delete(key);
+      return newSet;
+    });
+  };
+
   const filteredFiles = files.filter(file =>
     file.key.toLowerCase().includes(searchTerm.toLowerCase())
   );
@@ -335,6 +427,11 @@ export default function MediaManagementPage() {
           <p className="text-gray-600 dark:text-gray-300">
             Manage your uploaded media files - Available in all environments
           </p>
+          {isTruncated && (
+            <p className="text-sm text-orange-600 dark:text-orange-400 mt-1">
+              ⚠️ Showing {files.length} files. More files available - use "Load More" or refresh to load all files automatically.
+            </p>
+          )}
         </div>
 
         {/* Enhanced Stats Cards */}
@@ -475,7 +572,7 @@ export default function MediaManagementPage() {
               <List className="h-4 w-4" />
             </Button>
 
-            <Button onClick={loadMediaFiles} disabled={loading} size="sm">
+            <Button onClick={loadAllFiles} disabled={loading} size="sm">
               <RefreshCw className={`h-4 w-4 ${loading ? 'animate-spin' : ''}`} />
             </Button>
           </div>
@@ -525,6 +622,9 @@ export default function MediaManagementPage() {
           <div className="text-center py-12">
             <RefreshCw className="h-8 w-8 animate-spin mx-auto mb-4" />
             <p>Loading media files...</p>
+            <p className="text-sm text-muted-foreground mt-2">
+              {files.length > 0 ? `Loaded ${files.length} files so far...` : 'Please wait...'}
+            </p>
           </div>
         ) : filteredFiles.length === 0 ? (
           <div className="text-center py-12">
@@ -552,16 +652,35 @@ export default function MediaManagementPage() {
                     </Badge>
                   </div>
                   {file.isImage ? (
-                    <img
-                      src={file.url}
-                      alt={file.key}
-                      className="w-full h-full object-cover cursor-pointer"
-                      loading="lazy"
-                      onClick={() => {
-                        setSelectedFile(file);
-                        setShowDetailsModal(true);
-                      }}
-                    />
+                    failedImages.has(file.key) ? (
+                      <div className="w-full h-full flex items-center justify-center bg-gray-100 dark:bg-gray-800">
+                        <div className="text-center">
+                          <Image className="h-8 w-8 mx-auto text-gray-400 mb-2" />
+                          <p className="text-xs text-gray-500 mb-2">Failed to load</p>
+                          <Button
+                            size="sm"
+                            variant="outline"
+                            onClick={() => retryImage(file.key)}
+                            className="text-xs"
+                          >
+                            <RefreshCw className="h-3 w-3 mr-1" />
+                            Retry
+                          </Button>
+                        </div>
+                      </div>
+                    ) : (
+                      <img
+                        src={file.url}
+                        alt={file.key}
+                        className="w-full h-full object-cover cursor-pointer"
+                        loading="lazy"
+                        onError={() => handleImageError(file.key)}
+                        onClick={() => {
+                          setSelectedFile(file);
+                          setShowDetailsModal(true);
+                        }}
+                      />
+                    )
                   ) : (
                     <div className="w-full h-full flex items-center justify-center">
                       <div className="text-center">
@@ -654,12 +773,19 @@ export default function MediaManagementPage() {
                     <div className="grid grid-cols-12 gap-4 flex-1 items-center">
                       <div className="col-span-5 flex items-center gap-3">
                         {file.isImage ? (
-                          <img
-                            src={file.url}
-                            alt={file.key}
-                            className="w-10 h-10 object-cover rounded"
-                            loading="lazy"
-                          />
+                          failedImages.has(file.key) ? (
+                            <div className="w-10 h-10 bg-gray-100 dark:bg-gray-800 rounded flex items-center justify-center">
+                              <Image className="h-4 w-4 text-gray-400" />
+                            </div>
+                          ) : (
+                            <img
+                              src={file.url}
+                              alt={file.key}
+                              className="w-10 h-10 object-cover rounded"
+                              loading="lazy"
+                              onError={() => handleImageError(file.key)}
+                            />
+                          )
                         ) : (
                           <div className="w-10 h-10 bg-gray-100 dark:bg-gray-800 rounded flex items-center justify-center">
                             {getFileIcon(file)}
@@ -726,6 +852,22 @@ export default function MediaManagementPage() {
           </Card>
         )}
 
+        {/* Load More Button */}
+        {continuationToken && isTruncated && (
+          <div className="text-center mt-6">
+            <Button
+              onClick={() => loadMediaFiles(false, continuationToken)}
+              disabled={loadingMore}
+              size="lg"
+            >
+              {loadingMore ? (
+                <RefreshCw className="h-4 w-4 animate-spin mr-2" />
+              ) : null}
+              Load More Files
+            </Button>
+          </div>
+        )}
+
         {/* File Details Modal */}
         <Dialog open={showDetailsModal} onOpenChange={setShowDetailsModal}>
           <DialogContent className="max-w-4xl">
@@ -737,11 +879,28 @@ export default function MediaManagementPage() {
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                   <div>
                     {selectedFile.isImage ? (
-                      <img
-                        src={selectedFile.url}
-                        alt={selectedFile.key}
-                        className="w-full rounded-lg"
-                      />
+                      failedImages.has(selectedFile.key) ? (
+                        <div className="w-full h-64 bg-gray-100 dark:bg-gray-800 rounded-lg flex items-center justify-center">
+                          <div className="text-center">
+                            <Image className="h-12 w-12 mx-auto text-gray-400 mb-4" />
+                            <p className="text-muted-foreground mb-4">Failed to load image</p>
+                            <Button
+                              variant="outline"
+                              onClick={() => retryImage(selectedFile.key)}
+                            >
+                              <RefreshCw className="h-4 w-4 mr-2" />
+                              Retry Loading
+                            </Button>
+                          </div>
+                        </div>
+                      ) : (
+                        <img
+                          src={selectedFile.url}
+                          alt={selectedFile.key}
+                          className="w-full rounded-lg"
+                          onError={() => handleImageError(selectedFile.key)}
+                        />
+                      )
                     ) : (
                       <div className="w-full h-64 bg-gray-100 dark:bg-gray-800 rounded-lg flex items-center justify-center">
                         <div className="text-center">
