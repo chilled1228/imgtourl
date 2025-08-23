@@ -57,7 +57,7 @@ export async function POST(request: NextRequest) {
           Key: key,
         });
 
-        const response = await r2Client.send(command);
+        const response = await r2Client!.send(command);
         
         if (response.Body) {
           const chunks: Uint8Array[] = [];
