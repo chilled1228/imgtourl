@@ -2,12 +2,8 @@ import { NextRequest, NextResponse } from 'next/server';
 import { ListObjectsV2Command, DeleteObjectCommand } from '@aws-sdk/client-s3';
 import { r2Client, R2_CONFIG } from '@/lib/r2-client';
 
-// Secure password check for local development
-function checkLocalPassword(request: NextRequest) {
-  if (process.env.NODE_ENV !== 'development') {
-    return false;
-  }
-  
+// Secure password check for media management
+function checkPassword(request: NextRequest) {
   const providedPassword = request.headers.get('x-media-password');
   const correctPassword = process.env.MEDIA_ADMIN_PASSWORD;
   
@@ -20,8 +16,8 @@ function checkLocalPassword(request: NextRequest) {
 }
 
 export async function GET(request: NextRequest) {
-  // Check password for local development
-  if (!checkLocalPassword(request)) {
+  // Check password for media management
+  if (!checkPassword(request)) {
     return NextResponse.json(
       { error: 'Unauthorized' },
       { status: 401 }
@@ -74,8 +70,8 @@ export async function GET(request: NextRequest) {
 }
 
 export async function DELETE(request: NextRequest) {
-  // Check password for local development
-  if (!checkLocalPassword(request)) {
+  // Check password for media management
+  if (!checkPassword(request)) {
     return NextResponse.json(
       { error: 'Unauthorized' },
       { status: 401 }

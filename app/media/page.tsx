@@ -139,10 +139,10 @@ export default function MediaManagementPage() {
           <CardHeader>
             <CardTitle className="text-center">Media Management</CardTitle>
             <p className="text-sm text-muted-foreground text-center">
-              Enter password to access media files (Local Dev Only)
+              Enter password to access media files
             </p>
             <p className="text-xs text-muted-foreground text-center">
-              Password is set in .env.local (MEDIA_ADMIN_PASSWORD)
+              Password is set in environment variables (MEDIA_ADMIN_PASSWORD)
             </p>
           </CardHeader>
           <CardContent className="space-y-4">
@@ -170,7 +170,7 @@ export default function MediaManagementPage() {
             Media Management
           </h1>
           <p className="text-gray-600 dark:text-gray-300">
-            Manage your uploaded media files
+            Manage your uploaded media files - Available in all environments
           </p>
         </div>
 
