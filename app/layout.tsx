@@ -11,21 +11,17 @@ import { ScrollProgress, FloatingScrollButton } from '@/components/ui/scroll-pro
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
-  title: 'Image to URL Converter - Turn Photos Into Web Links Free',
-  description: 'Free image to URL converter tool. Upload any photo and get a web link instantly. Simple, fast, and works everywhere. No account needed - convert images to URLs in seconds.',
-  icons: {
-    icon: [
-      { url: '/favicon.svg', type: 'image/svg+xml' },
-      { url: '/favicon-16x16.png', sizes: '16x16', type: 'image/png' },
-      { url: '/favicon-32x32.png', sizes: '32x32', type: 'image/png' },
-    ],
-    apple: [
-      { url: '/apple-touch-icon.png', sizes: '180x180', type: 'image/png' },
-    ],
-    other: [
-      { rel: 'mask-icon', url: '/safari-pinned-tab.svg', color: '#FF7A30' },
-    ],
-  },
+  title: 'Free Image to URL Converter - No Sign-up Required',
+  description: 'Get shareable URLs instantly. 100% free image hosting with no sign-up required. Supports JPG, PNG, GIF up to 10MB',
+  icons: [
+    { url: '/favicon.ico', sizes: 'any' },
+    { url: '/favicon-16x16.png', sizes: '16x16', type: 'image/png' },
+    { url: '/favicon-32x32.png', sizes: '32x32', type: 'image/png' },
+    { url: '/favicon-48x48.png', sizes: '48x48', type: 'image/png' },
+    { url: '/android-chrome-192x192.png', sizes: '192x192', type: 'image/png' },
+    { url: '/android-chrome-512x512.png', sizes: '512x512', type: 'image/png' },
+    { url: '/apple-touch-icon.png', sizes: '180x180', type: 'image/png', rel: 'apple-touch-icon' },
+  ],
   manifest: '/site.webmanifest',
   keywords: [
     'image to url',
@@ -76,22 +72,22 @@ export const metadata: Metadata = {
     type: 'website',
     locale: 'en_US',
     url: '/',
-    siteName: 'ImageURL - Image to URL Converter',
-    title: 'Image to URL Converter - Turn Photos Into Web Links Free',
-    description: 'Free image to URL converter tool. Upload any photo and get a web link instantly. Simple, fast, and works everywhere. No account needed.',
+    siteName: 'Free Image to URL Converter',
+    title: 'Free Image to URL Converter - No Sign-up Required',
+    description: 'Get shareable URLs instantly. 100% free image hosting with no sign-up required. Supports JPG, PNG, GIF up to 10MB',
     images: [
       {
         url: '/og-image.jpg',
         width: 1200,
         height: 630,
-        alt: 'Image to URL Converter - Turn Photos Into Web Links Free',
+        alt: 'Free Image to URL Converter - No Sign-up Required',
       },
     ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Image to URL Converter - Turn Photos Into Web Links Free',
-    description: 'Free image to URL converter tool. Upload any photo and get a web link instantly. Simple, fast, and works everywhere.',
+    title: 'Free Image to URL Converter - No Sign-up Required',
+    description: 'Get shareable URLs instantly. 100% free image hosting with no sign-up required. Supports JPG, PNG, GIF up to 10MB',
     creator: '@imageurl',
     images: ['/og-image.jpg'],
   },
@@ -139,6 +135,19 @@ export default function RootLayout({
           }}
         />
         <meta name="google-site-verification" content="xquwz1jK5sqIiFN7vc0o5sYsBLBLyAa-1VwUBXV4wDo" />
+        
+        {/* Favicon Links for Maximum Compatibility */}
+        <link rel="icon" href="/favicon.ico" sizes="any" />
+        <link rel="icon" href="/favicon-16x16.png" sizes="16x16" type="image/png" />
+        <link rel="icon" href="/favicon-32x32.png" sizes="32x32" type="image/png" />
+        <link rel="icon" href="/favicon-48x48.png" sizes="48x48" type="image/png" />
+        <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+        <link rel="manifest" href="/site.webmanifest" />
+        
+        {/* Microsoft Tiles */}
+        <meta name="msapplication-TileImage" content="/android-chrome-192x192.png" />
+        <meta name="msapplication-TileColor" content="#FF7A30" />
+        
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link rel="dns-prefetch" href="//imagetourl.cloud" />

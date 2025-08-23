@@ -14,12 +14,12 @@ export function generateImageMetadata({
   uploadDate
 }: ImageMetadataProps): Metadata {
   const title = fileName 
-    ? `${fileName} - Free Image Hosting | ImageURL`
-    : 'Free Image Hosting - Upload Images Get Links | ImageURL';
+    ? `${fileName} - Free Image to URL Converter`
+    : 'Free Image to URL Converter - No Sign-up Required';
     
   const description = fileName
-    ? `View and share ${fileName} hosted on ImageURL. Free image hosting service with instant URL generation and permanent links.`
-    : 'Free image hosting service with instant URL generation. Upload photos and get shareable links instantly with unlimited free uploads.';
+    ? `View and share ${fileName}. Get shareable URLs instantly. 100% free image hosting with no sign-up required.`
+    : 'Get shareable URLs instantly. 100% free image hosting with no sign-up required. Supports JPG, PNG, GIF up to 10MB';
 
   const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'https://imagetourl.cloud';
 
@@ -40,7 +40,7 @@ export function generateImageMetadata({
       description,
       type: 'website',
       url: baseUrl,
-      siteName: 'ImageURL - Image to URL Converter',
+      siteName: 'Free Image to URL Converter',
       images: imageUrl ? [
         {
           url: imageUrl,
@@ -99,7 +99,7 @@ export function generatePageMetadata(
       description,
       type: 'website',
       url: fullUrl,
-      siteName: 'ImageURL - Image to URL Converter',
+      siteName: 'Free Image to URL Converter',
       images: [
         {
           url: `${baseUrl}/og-image.jpg`,
