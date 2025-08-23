@@ -482,40 +482,43 @@ export default function MediaManagementPage() {
         </div>
 
         {/* Bulk Actions */}
-        {selectedFiles.size > 0 && (
-          <Card className="mb-6">
-            <CardContent className="p-4">
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-4">
-                  <span className="font-medium">{selectedFiles.size} files selected</span>
-                  <Button variant="outline" size="sm" onClick={toggleSelectAll}>
-                    {selectAll ? 'Deselect All' : 'Select All'}
-                  </Button>
-                </div>
-                <div className="flex gap-2">
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    onClick={bulkDownload}
-                    disabled={bulkLoading}
-                  >
-                    <Archive className="h-4 w-4 mr-2" />
-                    Download ZIP
-                  </Button>
-                  <Button
-                    variant="destructive"
-                    size="sm"
-                    onClick={bulkDelete}
-                    disabled={bulkLoading}
-                  >
-                    <Trash2 className="h-4 w-4 mr-2" />
-                    Delete Selected
-                  </Button>
-                </div>
+        <Card className="mb-6">
+          <CardContent className="p-4">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-4">
+                <span className="font-medium">
+                  {selectedFiles.size} files selected
+                  {selectedFiles.size === 0 && (
+                    <span className="text-muted-foreground ml-2">(Select files to enable bulk actions)</span>
+                  )}
+                </span>
+                <Button variant="outline" size="sm" onClick={toggleSelectAll} disabled={filteredFiles.length === 0}>
+                  {selectAll ? 'Deselect All' : 'Select All'}
+                </Button>
               </div>
-            </CardContent>
-          </Card>
-        )}
+              <div className="flex gap-2">
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={bulkDownload}
+                  disabled={bulkLoading || selectedFiles.size === 0}
+                >
+                  <Archive className="h-4 w-4 mr-2" />
+                  Download ZIP
+                </Button>
+                <Button
+                  variant="destructive"
+                  size="sm"
+                  onClick={bulkDelete}
+                  disabled={bulkLoading || selectedFiles.size === 0}
+                >
+                  <Trash2 className="h-4 w-4 mr-2" />
+                  Delete Selected
+                </Button>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
 
         {/* Files Display */}
         {loading ? (
@@ -535,10 +538,13 @@ export default function MediaManagementPage() {
               <Card key={file.key} className="overflow-hidden">
                 <div className="aspect-square bg-gray-100 dark:bg-gray-800 relative overflow-hidden">
                   <div className="absolute top-2 left-2 z-10">
-                    <Checkbox
-                      checked={selectedFiles.has(file.key)}
-                      onCheckedChange={() => toggleFileSelection(file.key)}
-                    />
+                    <div className="bg-white/90 dark:bg-black/90 rounded p-1">
+                      <Checkbox
+                        checked={selectedFiles.has(file.key)}
+                        onCheckedChange={() => toggleFileSelection(file.key)}
+                        className="h-5 w-5"
+                      />
+                    </div>
                   </div>
                   <div className="absolute top-2 right-2 z-10">
                     <Badge className={getFileTypeColor(file.type || 'other')}>
@@ -628,6 +634,7 @@ export default function MediaManagementPage() {
                   <Checkbox
                     checked={selectAll}
                     onCheckedChange={toggleSelectAll}
+                    className="h-5 w-5"
                   />
                   <div className="grid grid-cols-12 gap-4 flex-1 text-sm font-medium">
                     <div className="col-span-5">Name</div>
@@ -642,6 +649,7 @@ export default function MediaManagementPage() {
                     <Checkbox
                       checked={selectedFiles.has(file.key)}
                       onCheckedChange={() => toggleFileSelection(file.key)}
+                      className="h-5 w-5"
                     />
                     <div className="grid grid-cols-12 gap-4 flex-1 items-center">
                       <div className="col-span-5 flex items-center gap-3">
