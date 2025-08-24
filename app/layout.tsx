@@ -136,6 +136,7 @@ export default function RootLayout({
           }}
         />
         <meta name="google-site-verification" content="xquwz1jK5sqIiFN7vc0o5sYsBLBLyAa-1VwUBXV4wDo" />
+        <meta name="google-adsense-account" content="ca-pub-7803867089582138" />
         
         {/* Favicon Links for Maximum Compatibility */}
         <link rel="icon" href="/favicon.ico" sizes="any" />
