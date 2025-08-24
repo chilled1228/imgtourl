@@ -7,6 +7,7 @@ import { ThemeProvider } from '@/components/theme/theme-provider';
 import { Toaster } from '@/components/ui/sonner';
 import StructuredData from '@/components/seo/StructuredData';
 import { ScrollProgress, FloatingScrollButton } from '@/components/ui/scroll-progress';
+import CookieConsent from '@/components/ui/cookie-consent';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -189,6 +190,7 @@ export default function RootLayout({
           </div>
           <FloatingScrollButton />
           <Toaster />
+          <CookieConsent />
         </ThemeProvider>
       </body>
     </html>
