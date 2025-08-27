@@ -155,10 +155,27 @@ export default function PrivacyPolicyPage() {
                 <li>Remember your preferences</li>
                 <li>Analyze website traffic and usage patterns</li>
                 <li>Improve our service performance</li>
-                <li>Provide personalized content</li>
+                <li>Provide personalized content (only if you consent)</li>
               </ul>
               <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
-                You can control cookie settings through your browser preferences. However, disabling cookies may affect some functionality of our service.
+                We implement Google Consent Mode v2. By default, advertising and analytics storage are denied until you provide consent via our cookie banner. You can change your preferences at any time using the “Settings” option in the banner.
+              </p>
+              <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
+                We may use Google Analytics and Google AdSense. These services may set cookies or read identifiers only after consent. Learn more in Google’s privacy policies.
+              </p>
+            </CardContent>
+          </Card>
+
+          <Card className="mb-8">
+            <CardHeader>
+              <CardTitle className="text-2xl">Advertising (Google AdSense)</CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
+                We display advertisements through Google AdSense. Ad personalization and the use of advertising identifiers are controlled by your consent. Without consent, ads may still appear but won’t use personal data for personalization.
+              </p>
+              <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
+                We do not pass personally identifiable information to Google. We comply with Google’s policies and applicable regulations, including the EU User Consent Policy.
               </p>
             </CardContent>
           </Card>
@@ -207,6 +224,59 @@ export default function PrivacyPolicyPage() {
               <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
                 Our service is not intended for children under the age of 13. We do not knowingly collect personal information from children under 13. If you are a parent or guardian and believe your child has provided us with personal information, please contact us immediately.
               </p>
+            </CardContent>
+          </Card>
+
+          <Card className="mb-8" id="content-moderation">
+            <CardHeader>
+              <CardTitle className="text-2xl">Content Moderation and Prohibited Content</CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <div className="bg-red-50 dark:bg-red-900/10 border border-red-200 dark:border-red-800 rounded-lg p-4 mb-4">
+                <h3 className="text-lg font-semibold text-red-800 dark:text-red-200 mb-2">
+                  ⚠️ Important Warning: Prohibited Content
+                </h3>
+                <p className="text-red-700 dark:text-red-300 text-sm leading-relaxed">
+                  <strong>Uploading sexually explicit, adult, pornographic, or inappropriate content is strictly prohibited and risky.</strong> Such content violates our terms of service, advertising policies, and may result in immediate account suspension, legal consequences, and permanent banning from our service.
+                </p>
+              </div>
+              
+              <div>
+                <h3 className="text-xl font-semibold mb-3 text-gray-800 dark:text-gray-200">
+                  Automated Content Detection
+                </h3>
+                <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
+                  To maintain a safe environment and comply with advertising policies, we use automated content moderation systems including:
+                </p>
+                <ul className="list-disc list-inside space-y-2 text-gray-700 dark:text-gray-300 ml-4 mt-2">
+                  <li>Real-time detection of sexually explicit, adult, and inappropriate imagery</li>
+                  <li>Automated blocking of flagged content during upload</li>
+                  <li>Advanced SafeSearch technology to identify policy violations</li>
+                  <li>Immediate rejection of content that violates our community standards</li>
+                </ul>
+              </div>
+              
+              <div>
+                <h3 className="text-xl font-semibold mb-3 text-gray-800 dark:text-gray-200">
+                  Consequences of Violations
+                </h3>
+                <ul className="list-disc list-inside space-y-2 text-gray-700 dark:text-gray-300 ml-4">
+                  <li>Immediate content removal and upload blocking</li>
+                  <li>Account suspension or permanent ban</li>
+                  <li>Reporting to relevant authorities if illegal content is detected</li>
+                  <li>Legal action for copyright infringement or illegal material</li>
+                  <li>Loss of access to all services without refund</li>
+                </ul>
+              </div>
+              
+              <div className="bg-blue-50 dark:bg-blue-900/10 border border-blue-200 dark:border-blue-800 rounded-lg p-4">
+                <h3 className="text-lg font-semibold text-blue-800 dark:text-blue-200 mb-2">
+                  ✅ What You Can Upload
+                </h3>
+                <p className="text-blue-700 dark:text-blue-300 text-sm leading-relaxed">
+                  Our service is designed for legitimate image hosting needs: website images, social media content, business materials, educational resources, family photos, and other appropriate visual content that complies with our community standards.
+                </p>
+              </div>
             </CardContent>
           </Card>
 

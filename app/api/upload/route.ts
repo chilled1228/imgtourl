@@ -114,6 +114,8 @@ export async function POST(request: NextRequest) {
       );
     }
 
+    // Note: server-side content moderation removed per user preference to avoid paid APIs.
+
     let optimizedBuffer: Buffer;
     let contentType = file.type;
 

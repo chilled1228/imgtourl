@@ -6,6 +6,31 @@ import { getAdminFromRequest, isAdminRoute } from '@/lib/auth';
 const rateLimitMap = new Map<string, { count: number; lastReset: number }>();
 
 export async function middleware(request: NextRequest) {
+  // Global under-13 site access block - only allow parental consent page and essential assets
+  const under13Cookie = request.cookies.get('under13')?.value;
+  const path = request.nextUrl.pathname;
+  
+  if (under13Cookie === 'true') {
+    // Allow only parental consent page and essential static assets
+    const allowedPaths = [
+      '/parental-consent',
+      '/_next/',          // Next.js assets
+      '/favicon.ico',     // Favicon
+      '/android-chrome-',  // PWA icons
+      '/apple-touch-icon.png',
+      '/site.webmanifest'
+    ];
+    
+    const isAllowed = allowedPaths.some(allowedPath => 
+      path === allowedPath || path.startsWith(allowedPath)
+    );
+    
+    if (!isAllowed) {
+      const url = new URL('/parental-consent', request.url);
+      return NextResponse.redirect(url);
+    }
+  }
+
   // Check admin authentication for admin routes
   if (isAdminRoute(request.nextUrl.pathname)) {
     // Allow access to login page

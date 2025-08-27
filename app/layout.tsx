@@ -8,6 +8,7 @@ import { Toaster } from '@/components/ui/sonner';
 import StructuredData from '@/components/seo/StructuredData';
 import { ScrollProgress, FloatingScrollButton } from '@/components/ui/scroll-progress';
 import CookieConsent from '@/components/ui/cookie-consent';
+import AgeVerification from '@/components/ui/age-verification';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -123,18 +124,39 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
+        {/* Google Consent Mode v2 default (deny until consent) */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);} 
+              gtag('consent', 'default', {
+                ad_storage: 'denied',
+                analytics_storage: 'denied',
+                ad_user_data: 'denied',
+                ad_personalization: 'denied',
+                wait_for_update: 500
+              });
+            `,
+          }}
+        />
+
         {/* Google Analytics */}
         <script async src="https://www.googletagmanager.com/gtag/js?id=G-EWZ02BR7J5"></script>
         <script
           dangerouslySetInnerHTML={{
             __html: `
-              window.dataLayer = window.dataLayer || [];
-              function gtag(){dataLayer.push(arguments);}
               gtag('js', new Date());
               gtag('config', 'G-EWZ02BR7J5');
             `,
           }}
         />
+        {/* Google AdSense Auto Ads */}
+        <script
+          async
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7803867089582138"
+          crossOrigin="anonymous"
+        ></script>
         <meta name="google-site-verification" content="xquwz1jK5sqIiFN7vc0o5sYsBLBLyAa-1VwUBXV4wDo" />
         <meta name="google-adsense-account" content="ca-pub-7803867089582138" />
         
@@ -192,6 +214,7 @@ export default function RootLayout({
           <FloatingScrollButton />
           <Toaster />
           <CookieConsent />
+          <AgeVerification />
         </ThemeProvider>
       </body>
     </html>

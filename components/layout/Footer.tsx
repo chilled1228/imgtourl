@@ -44,6 +44,7 @@ export default function Footer() {
             <ul className="space-y-3 text-sm">
               <li><a href="/contact" className="text-brand-blue-gray hover:text-brand-orange transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-orange focus-visible:ring-offset-2 rounded">Contact Us</a></li>
               <li><a href="/about" className="text-brand-blue-gray hover:text-brand-orange transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-orange focus-visible:ring-offset-2 rounded">About Us</a></li>
+              <li><a href="/content-guidelines" className="text-brand-blue-gray hover:text-brand-orange transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-orange focus-visible:ring-offset-2 rounded">Content Guidelines</a></li>
               <li><a href="/privacy-policy" className="text-brand-blue-gray hover:text-brand-orange transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-orange focus-visible:ring-offset-2 rounded">Privacy Policy</a></li>
               <li><a href="/terms-of-service" className="text-brand-blue-gray hover:text-brand-orange transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-orange focus-visible:ring-offset-2 rounded">Terms of Service</a></li>
             </ul>

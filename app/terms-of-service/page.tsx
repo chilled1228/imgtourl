@@ -91,14 +91,31 @@ export default function TermsOfServicePage() {
                 You agree to use the Service only for lawful purposes and in accordance with these Terms. You agree not to use the Service:
               </p>
               <ul className="list-disc list-inside space-y-2 text-gray-700 dark:text-gray-300 ml-4">
-                <li>To upload, transmit, or distribute any content that is illegal, harmful, threatening, abusive, harassing, defamatory, vulgar, obscene, or otherwise objectionable</li>
-                <li>To upload content that infringes on intellectual property rights or violates privacy rights</li>
+                <li>To upload, transmit, or distribute any content that is illegal or promotes illegal activity</li>
+                <li>To upload adult, pornographic, sexually explicit, or fetish content; sexual content involving minors; or exploitative content</li>
+                <li>To upload content that is violent, hateful, harassing, or that incites harm or discrimination</li>
+                <li>To upload content that infringes intellectual property rights or violates privacy rights</li>
                 <li>To upload malware, viruses, or other harmful code</li>
+                <li>To impersonate others, misrepresent affiliation, or deceive users</li>
                 <li>To attempt to gain unauthorized access to our systems or networks</li>
                 <li>To interfere with or disrupt the Service or servers</li>
                 <li>To use the Service for commercial purposes without our written consent</li>
-                <li>To upload content that promotes illegal activities or violates applicable laws</li>
+                <li>To upload content that promotes illegal drugs, weapons, counterfeit goods, or other prohibited items</li>
               </ul>
+            </CardContent>
+          </Card>
+
+          <Card className="mb-8">
+            <CardHeader>
+              <CardTitle className="text-2xl">Advertising and Monetization</CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
+                Our Service may display advertisements via Google AdSense. You agree not to engage in invalid activity including, without limitation, clicking your own ads, encouraging others to click ads, or using automated means to generate impressions or clicks.
+              </p>
+              <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
+                We comply with Google Publisher Policies. Content that violates these policies may be removed and access may be suspended.
+              </p>
             </CardContent>
           </Card>
 

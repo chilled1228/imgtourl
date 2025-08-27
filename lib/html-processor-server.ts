@@ -67,7 +67,11 @@ export function processHTMLContent(html: string): ProcessedHTML {
   
   // Extract text content for word count
   const textContent = document.body.textContent || '';
-  const wordCount = textContent.trim().split(/\s+/).filter(word => word.length > 0).length;
+  const wordCount = textContent
+    .trim()
+    .split(/\s+/)
+    .filter((word: string) => word.length > 0)
+    .length;
   
   // Calculate read time (average 200 words per minute)
   const readTimeMinutes = Math.max(1, Math.ceil(wordCount / 200));

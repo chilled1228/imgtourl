@@ -18,11 +18,37 @@ export default function CookieConsent() {
 
   const acceptAll = () => {
     localStorage.setItem('cookie-consent', 'all');
+    try {
+      // @ts-ignore
+      if (typeof window !== 'undefined' && window.gtag) {
+        // Update Consent Mode v2 to granted for all relevant scopes
+        // @ts-ignore
+        window.gtag('consent', 'update', {
+          ad_storage: 'granted',
+          analytics_storage: 'granted',
+          ad_user_data: 'granted',
+          ad_personalization: 'granted',
+        });
+      }
+    } catch {}
     setShowConsent(false);
   };
 
   const acceptEssential = () => {
     localStorage.setItem('cookie-consent', 'essential');
+    try {
+      // @ts-ignore
+      if (typeof window !== 'undefined' && window.gtag) {
+        // Keep all denied for essential-only consent
+        // @ts-ignore
+        window.gtag('consent', 'update', {
+          ad_storage: 'denied',
+          analytics_storage: 'denied',
+          ad_user_data: 'denied',
+          ad_personalization: 'denied',
+        });
+      }
+    } catch {}
     setShowConsent(false);
   };
 
@@ -107,6 +133,21 @@ export default function CookieConsent() {
             <Button
               onClick={() => {
                 localStorage.setItem('cookie-consent', 'custom');
+                try {
+                  const analytics = (document.getElementById('analytics') as HTMLInputElement)?.checked;
+                  const marketing = (document.getElementById('marketing') as HTMLInputElement)?.checked;
+                  // @ts-ignore
+                  if (typeof window !== 'undefined' && window.gtag) {
+                    // Update scopes individually
+                    // @ts-ignore
+                    window.gtag('consent', 'update', {
+                      analytics_storage: analytics ? 'granted' : 'denied',
+                      ad_storage: marketing ? 'granted' : 'denied',
+                      ad_user_data: marketing ? 'granted' : 'denied',
+                      ad_personalization: marketing ? 'granted' : 'denied',
+                    });
+                  }
+                } catch {}
                 closeSettings();
               }}
               className="flex-1"
@@ -114,6 +155,7 @@ export default function CookieConsent() {
               Save Preferences
             </Button>
           </div>
+
         </div>
       </div>
     );
@@ -138,6 +180,17 @@ export default function CookieConsent() {
                   Learn more
                 </a>
               </p>
+              <div className="mt-2 p-2 bg-orange-50 dark:bg-orange-900/20 border border-orange-200 dark:border-orange-800 rounded text-xs">
+                <span className="text-orange-700 dark:text-orange-300 font-medium">
+                  ⚠️ Content Warning: 
+                </span>
+                <span className="text-orange-600 dark:text-orange-400">
+                  Uploading sexually explicit, adult, or inappropriate content is strictly prohibited and may result in account suspension.
+                </span>
+                <a href="/privacy-policy#content-moderation" className="text-orange-600 hover:underline ml-1">
+                  Read policy
+                </a>
+              </div>
             </div>
           </div>
           
@@ -151,6 +204,7 @@ export default function CookieConsent() {
               <Settings className="w-4 h-4 mr-2" />
               Settings
             </Button>
+
             <Button
               variant="outline"
               size="sm"
