@@ -154,103 +154,130 @@ export default async function Home() {
             </div>
           </div>
 
-          {/* SEO Content - Optimized for "image to url" keyword */}
-          <div className="mt-16 text-center space-y-8">
-            <div className="max-w-4xl mx-auto space-y-6">
-              <h3 className="text-2xl font-bold text-foreground">Complete Image to URL Solution</h3>
-              <p className="text-lg text-muted-foreground leading-relaxed">
+          {/* SEO Content - Optimized for "image to url" keyword with improved design */}
+          <div className="mt-16">
+            <ScrollReveal animation="slideUp" className="text-center mb-12">
+              <h3 className="text-3xl md:text-4xl font-bold text-foreground mb-4">Complete Image to URL Solution</h3>
+              <p className="text-xl text-brand-blue-gray leading-relaxed max-w-3xl mx-auto">
                 The best free image to URL converter tool online. Turn any photo into a web link instantly with our
-                simple image to URL service. Upload pictures and get shareable links that work everywhere - perfect for
-                social media, websites, and sharing with friends and family.
+                simple image to URL service. Upload pictures and get shareable links that work everywhere.
               </p>
+            </ScrollReveal>
               
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-8 text-left">
-                <div className="space-y-4">
-                  <h4 className="text-xl font-semibold text-foreground">Professional Image Hosting</h4>
-                  <p className="text-muted-foreground">
-                    Our image to URL converter provides professional-grade hosting for your photos. Whether you're a blogger, 
-                    social media manager, or just need to share images quickly, our service delivers fast, reliable URLs 
-                    that work across all platforms. Upload once and share everywhere with confidence.
-                  </p>
-                  <p className="text-muted-foreground">
-                    Compatible with all major image formats including JPEG, PNG, GIF, and WebP. Each image gets 
-                    optimized for web delivery while maintaining quality, ensuring your photos load quickly 
-                    no matter where they're displayed.
-                  </p>
-                </div>
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-16">
+              <ScrollReveal animation="slideUp" delay={100}>
+                <Card className="p-8 h-full border border-brand-beige/50 dark:border-brand-blue-gray/20 bg-white dark:bg-brand-blue-gray/5 hover:bg-brand-beige/20 dark:hover:bg-brand-blue-gray/10 transition-colors duration-200">
+                  <div className="flex items-start space-x-4 mb-6">
+                    <div className="w-12 h-12 bg-brand-orange rounded-lg flex items-center justify-center flex-shrink-0">
+                      <Shield className="w-6 h-6 text-white" />
+                    </div>
+                    <h4 className="text-xl font-bold text-foreground">Professional Image Hosting</h4>
+                  </div>
+                  <div className="space-y-4 text-brand-blue-gray">
+                    <p>
+                      Our image to URL converter provides professional-grade hosting for your photos. Whether you're a blogger, 
+                      social media manager, or just need to share images quickly, our service delivers fast, reliable URLs 
+                      that work across all platforms.
+                    </p>
+                    <p>
+                      Compatible with all major image formats including JPEG, PNG, GIF, and WebP. Each image gets 
+                      optimized for web delivery while maintaining quality, ensuring your photos load quickly 
+                      no matter where they're displayed.
+                    </p>
+                  </div>
+                </Card>
+              </ScrollReveal>
                 
-                <div className="space-y-4">
-                  <h4 className="text-xl font-semibold text-foreground">Why Choose Our Service</h4>
-                  <p className="text-muted-foreground">
-                    Unlike other image hosting services, we focus on simplicity and reliability. No complex signup 
-                    processes, no hidden fees, and no storage limits. Just upload your images and get permanent 
-                    URLs that you can use immediately.
-                  </p>
-                  <p className="text-muted-foreground">
-                    Perfect for developers, content creators, e-commerce businesses, and anyone who needs reliable 
-                    image hosting. Our global CDN ensures your images load fast worldwide, and our secure infrastructure 
-                    keeps your content safe and accessible 24/7.
+              <ScrollReveal animation="slideUp" delay={200}>
+                <Card className="p-8 h-full border border-brand-beige/50 dark:border-brand-blue-gray/20 bg-white dark:bg-brand-blue-gray/5 hover:bg-brand-beige/20 dark:hover:bg-brand-blue-gray/10 transition-colors duration-200">
+                  <div className="flex items-start space-x-4 mb-6">
+                    <div className="w-12 h-12 bg-brand-blue-gray rounded-lg flex items-center justify-center flex-shrink-0">
+                      <Zap className="w-6 h-6 text-white" />
+                    </div>
+                    <h4 className="text-xl font-bold text-foreground">Why Choose Our Service</h4>
+                  </div>
+                  <div className="space-y-4 text-brand-blue-gray">
+                    <p>
+                      Unlike other image hosting services, we focus on simplicity and reliability. No complex signup 
+                      processes, no hidden fees, and no storage limits. Just upload your images and get permanent 
+                      URLs that you can use immediately.
+                    </p>
+                    <p>
+                      Perfect for developers, content creators, e-commerce businesses, and anyone who needs reliable 
+                      image hosting. Our global CDN ensures your images load fast worldwide, and our secure infrastructure 
+                      keeps your content safe and accessible 24/7.
+                    </p>
+                  </div>
+                </Card>
+              </ScrollReveal>
+            </div>
+              
+            <ScrollReveal animation="slideUp" delay={300}>
+              <Card className="p-8 bg-gradient-to-r from-brand-beige/30 to-brand-orange/10 dark:from-brand-blue-gray/20 dark:to-brand-orange/10 border border-brand-orange/20 rounded-xl">
+                <div className="text-center mb-6">
+                  <div className="w-16 h-16 bg-brand-orange rounded-full flex items-center justify-center mx-auto mb-4">
+                    <Globe className="w-8 h-8 text-white" />
+                  </div>
+                  <h4 className="text-2xl font-bold text-foreground mb-3">Learn More About Image Optimization</h4>
+                  <p className="text-brand-blue-gray">
+                    Want to learn more about image optimization and best practices? Check out these helpful resources 
+                    from industry experts:
                   </p>
                 </div>
-              </div>
-              
-              <div className="mt-8 p-6 bg-brand-beige/20 dark:bg-brand-blue-gray/10 rounded-lg">
-                <h4 className="text-lg font-semibold text-foreground mb-4">Learn More About Image Optimization</h4>
-                <p className="text-muted-foreground mb-4">
-                  Want to learn more about image optimization and best practices? Check out these helpful resources 
-                  from industry experts:
-                </p>
                 <div className="flex flex-wrap gap-4 justify-center">
                   <a 
                     href="https://developers.google.com/web/fundamentals/performance/optimizing-content-efficiency/image-optimization" 
                     target="_blank" 
                     rel="noopener noreferrer"
-                    className="text-brand-orange hover:text-brand-orange/80 underline font-medium"
+                    className="inline-flex items-center px-4 py-2 bg-white dark:bg-brand-blue-gray/20 text-brand-orange hover:text-brand-orange/80 rounded-lg border border-brand-orange/20 hover:border-brand-orange/40 transition-all duration-200 text-sm font-medium"
                   >
-                    Google's Image Optimization Guide
+                    Google's Image Guide
                   </a>
                   <a 
                     href="https://web.dev/fast/#optimize-your-images" 
                     target="_blank" 
                     rel="noopener noreferrer"
-                    className="text-brand-orange hover:text-brand-orange/80 underline font-medium"
+                    className="inline-flex items-center px-4 py-2 bg-white dark:bg-brand-blue-gray/20 text-brand-orange hover:text-brand-orange/80 rounded-lg border border-brand-orange/20 hover:border-brand-orange/40 transition-all duration-200 text-sm font-medium"
                   >
-                    Web.dev Image Performance
+                    Web.dev Performance
                   </a>
                   <a 
                     href="https://moz.com/learn/seo/page-speed" 
                     target="_blank" 
                     rel="noopener noreferrer"
-                    className="text-brand-orange hover:text-brand-orange/80 underline font-medium"
+                    className="inline-flex items-center px-4 py-2 bg-white dark:bg-brand-blue-gray/20 text-brand-orange hover:text-brand-orange/80 rounded-lg border border-brand-orange/20 hover:border-brand-orange/40 transition-all duration-200 text-sm font-medium"
                   >
-                    SEO and Page Speed Guide
+                    SEO Guide
                   </a>
                 </div>
-              </div>
+              </Card>
+            </ScrollReveal>
               
-              <div className="mt-8 text-center">
-                <p className="text-muted-foreground mb-4">
-                  Explore more of our tools and resources:
+            <ScrollReveal animation="slideUp" delay={400} className="mt-12 text-center">
+              <div className="mb-6">
+                <h4 className="text-xl font-bold text-foreground mb-3">Explore More Tools</h4>
+                <p className="text-brand-blue-gray">
+                  Discover our full suite of image tools and resources
                 </p>
-                <div className="flex flex-wrap justify-center gap-4">
-                  <Link href="/bulk-image-upload" className="text-brand-orange hover:text-brand-orange/80 underline font-medium">
-                    Bulk Image Upload Tool
-                  </Link>
-                  <Link href="/image-url-generator" className="text-brand-orange hover:text-brand-orange/80 underline font-medium">
-                    Advanced URL Generator
-                  </Link>
-                  <Link href="/media" className="text-brand-orange hover:text-brand-orange/80 underline font-medium">
-                    Media Management
-                  </Link>
-                  <Link href="/blog" className="text-brand-orange hover:text-brand-orange/80 underline font-medium">
-                    Image Optimization Blog
-                  </Link>
-                  <Link href="/docs" className="text-brand-orange hover:text-brand-orange/80 underline font-medium">
-                    API Documentation
-                  </Link>
-                </div>
               </div>
-            </div>
+              <div className="flex flex-wrap justify-center gap-3">
+                <Link href="/bulk-image-upload" className="inline-flex items-center px-6 py-3 bg-brand-orange/10 hover:bg-brand-orange/20 text-brand-orange rounded-lg border border-brand-orange/30 hover:border-brand-orange/50 transition-all duration-200 font-medium">
+                  Bulk Upload Tool
+                </Link>
+                <Link href="/image-url-generator" className="inline-flex items-center px-6 py-3 bg-brand-blue-gray/10 hover:bg-brand-blue-gray/20 text-brand-blue-gray rounded-lg border border-brand-blue-gray/30 hover:border-brand-blue-gray/50 transition-all duration-200 font-medium">
+                  URL Generator
+                </Link>
+                <Link href="/media" className="inline-flex items-center px-6 py-3 bg-brand-orange/10 hover:bg-brand-orange/20 text-brand-orange rounded-lg border border-brand-orange/30 hover:border-brand-orange/50 transition-all duration-200 font-medium">
+                  Media Gallery
+                </Link>
+                <Link href="/blog" className="inline-flex items-center px-6 py-3 bg-brand-blue-gray/10 hover:bg-brand-blue-gray/20 text-brand-blue-gray rounded-lg border border-brand-blue-gray/30 hover:border-brand-blue-gray/50 transition-all duration-200 font-medium">
+                  Blog
+                </Link>
+                <Link href="/docs" className="inline-flex items-center px-6 py-3 bg-brand-orange/10 hover:bg-brand-orange/20 text-brand-orange rounded-lg border border-brand-orange/30 hover:border-brand-orange/50 transition-all duration-200 font-medium">
+                  Documentation
+                </Link>
+              </div>
+            </ScrollReveal>
           </div>
         </div>
       </section>
