@@ -7,6 +7,14 @@ const nextConfig = {
   experimental: {
     serverComponentsExternalPackages: ['sharp'],
   },
+  async rewrites() {
+    return [
+      {
+        source: '/ads.txt',
+        destination: '/api/ads.txt',
+      },
+    ];
+  },
   async headers() {
     return [
       {
