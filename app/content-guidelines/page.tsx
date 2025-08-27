@@ -34,8 +34,7 @@ export default function ContentGuidelinesPage() {
           <Alert className="mb-8 border-red-200 bg-red-50 dark:bg-red-900/10">
             <AlertTriangle className="h-4 w-4 text-red-600" />
             <AlertDescription className="text-red-700 dark:text-red-300">
-              <strong>Important:</strong> Violations of these guidelines may result in immediate content removal, 
-              account suspension, or permanent ban from our service. We use automated systems to detect 
+              <strong>Important:</strong> Violations of these guidelines may result in immediate content removal. We use automated systems to detect 
               prohibited content.
             </AlertDescription>
           </Alert>
@@ -223,7 +222,7 @@ export default function ContentGuidelinesPage() {
                   </div>
                   <h3 className="font-semibold text-orange-800 dark:text-orange-200 mb-2">Repeat Violations</h3>
                   <p className="text-sm text-orange-700 dark:text-orange-300">
-                    Account suspension (24-48 hours)
+                    Content blocking and stricter monitoring
                   </p>
                 </div>
                 

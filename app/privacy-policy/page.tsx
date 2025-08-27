@@ -237,7 +237,7 @@ export default function PrivacyPolicyPage() {
                   ⚠️ Important Warning: Prohibited Content
                 </h3>
                 <p className="text-red-700 dark:text-red-300 text-sm leading-relaxed">
-                  <strong>Uploading sexually explicit, adult, pornographic, or inappropriate content is strictly prohibited and risky.</strong> Such content violates our terms of service, advertising policies, and may result in immediate account suspension, legal consequences, and permanent banning from our service.
+                  <strong>Uploading sexually explicit, adult, pornographic, or inappropriate content is strictly prohibited and risky.</strong> Such content violates our terms of service, advertising policies, and may result in immediate content removal, legal consequences, and permanent service blocking.
                 </p>
               </div>
               
@@ -262,7 +262,7 @@ export default function PrivacyPolicyPage() {
                 </h3>
                 <ul className="list-disc list-inside space-y-2 text-gray-700 dark:text-gray-300 ml-4">
                   <li>Immediate content removal and upload blocking</li>
-                  <li>Account suspension or permanent ban</li>
+                  <li>IP blocking or permanent service restriction</li>
                   <li>Reporting to relevant authorities if illegal content is detected</li>
                   <li>Legal action for copyright infringement or illegal material</li>
                   <li>Loss of access to all services without refund</li>

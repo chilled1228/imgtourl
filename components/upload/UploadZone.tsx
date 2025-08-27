@@ -400,7 +400,7 @@ export default function UploadZone() {
             </h4>
             <p className="text-xs text-red-700 dark:text-red-300 leading-relaxed">
               <strong>Sexually explicit, adult, pornographic, or inappropriate content is strictly prohibited.</strong> 
-              Violations may result in account suspension. Our automated systems scan all uploads.{' '}
+              Our automated systems scan all uploads.{' '}
               <a href="/content-guidelines" className="underline hover:no-underline font-medium">
                 Read full guidelines
               </a>

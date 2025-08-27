@@ -185,7 +185,7 @@ export default function CookieConsent() {
                   ⚠️ Content Warning: 
                 </span>
                 <span className="text-orange-600 dark:text-orange-400">
-                  Uploading sexually explicit, adult, or inappropriate content is strictly prohibited and may result in account suspension.
+                  Uploading sexually explicit, adult, or inappropriate content is strictly prohibited.
                 </span>
                 <a href="/privacy-policy#content-moderation" className="text-orange-600 hover:underline ml-1">
                   Read policy
