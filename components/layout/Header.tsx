@@ -3,6 +3,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { Image as ImageIcon, Menu, X, Upload, ChevronDown, Shield, FileText, Users, AlertTriangle } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import Link from 'next/link';
 import { ThemeToggle } from '@/components/theme/theme-toggle';
 import ScrollButton from '@/components/ui/scroll-button';
 
@@ -56,6 +57,18 @@ export default function Header() {
             >
               Features
             </a>
+            <Link
+              href="/bulk-image-upload"
+              className="text-sm font-medium hover:text-primary transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-orange focus-visible:ring-offset-2 rounded px-2 py-1"
+            >
+              Bulk Upload
+            </Link>
+            <Link
+              href="/media"
+              className="text-sm font-medium hover:text-primary transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-orange focus-visible:ring-offset-2 rounded px-2 py-1"
+            >
+              Gallery
+            </Link>
             <a
               href="/blog"
               className="text-sm font-medium hover:text-primary transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-orange focus-visible:ring-offset-2 rounded px-2 py-1"
@@ -190,6 +203,20 @@ export default function Header() {
               >
                 Features
               </a>
+              <Link
+                href="/bulk-image-upload"
+                className="text-sm font-medium hover:text-brand-orange transition-colors py-2 px-2 rounded-md hover:bg-brand-beige/30 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-orange focus-visible:ring-offset-2"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                Bulk Upload
+              </Link>
+              <Link
+                href="/media"
+                className="text-sm font-medium hover:text-brand-orange transition-colors py-2 px-2 rounded-md hover:bg-brand-beige/30 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-orange focus-visible:ring-offset-2"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                Gallery
+              </Link>
               <a
                 href="/blog"
                 className="text-sm font-medium hover:text-brand-orange transition-colors py-2 px-2 rounded-md hover:bg-brand-beige/30 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-orange focus-visible:ring-offset-2"

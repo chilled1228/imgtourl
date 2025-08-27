@@ -33,7 +33,9 @@ export default function Footer() {
               <li><a href="/free-image-hosting" className="text-brand-blue-gray hover:text-brand-orange transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-orange focus-visible:ring-offset-2 rounded">Free Hosting</a></li>
               <li><a href="/image-url-generator" className="text-brand-blue-gray hover:text-brand-orange transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-orange focus-visible:ring-offset-2 rounded">URL Generator</a></li>
               <li><a href="/bulk-image-upload" className="text-brand-blue-gray hover:text-brand-orange transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-orange focus-visible:ring-offset-2 rounded">Bulk Upload</a></li>
+              <li><a href="/media" className="text-brand-blue-gray hover:text-brand-orange transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-orange focus-visible:ring-offset-2 rounded">Media Gallery</a></li>
               <li><a href="/blog" className="text-brand-blue-gray hover:text-brand-orange transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-orange focus-visible:ring-offset-2 rounded">Blog</a></li>
+              <li><a href="/docs" className="text-brand-blue-gray hover:text-brand-orange transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-orange focus-visible:ring-offset-2 rounded">Documentation</a></li>
               <li><a href="#faq" className="text-brand-blue-gray hover:text-brand-orange transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-orange focus-visible:ring-offset-2 rounded">Help & FAQ</a></li>
             </ul>
           </nav>

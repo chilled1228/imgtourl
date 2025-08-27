@@ -155,12 +155,102 @@ export default async function Home() {
           </div>
 
           {/* SEO Content - Optimized for "image to url" keyword */}
-          <div className="mt-16 text-center">
-            <p className="text-sm text-muted-foreground max-w-4xl mx-auto leading-relaxed">
-              The best free image to URL converter tool online. Turn any photo into a web link instantly with our
-              simple image to URL service. Upload pictures and get shareable links that work everywhere - perfect for
-              social media, websites, and sharing with friends and family.
-            </p>
+          <div className="mt-16 text-center space-y-8">
+            <div className="max-w-4xl mx-auto space-y-6">
+              <h3 className="text-2xl font-bold text-foreground">Complete Image to URL Solution</h3>
+              <p className="text-lg text-muted-foreground leading-relaxed">
+                The best free image to URL converter tool online. Turn any photo into a web link instantly with our
+                simple image to URL service. Upload pictures and get shareable links that work everywhere - perfect for
+                social media, websites, and sharing with friends and family.
+              </p>
+              
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-8 text-left">
+                <div className="space-y-4">
+                  <h4 className="text-xl font-semibold text-foreground">Professional Image Hosting</h4>
+                  <p className="text-muted-foreground">
+                    Our image to URL converter provides professional-grade hosting for your photos. Whether you're a blogger, 
+                    social media manager, or just need to share images quickly, our service delivers fast, reliable URLs 
+                    that work across all platforms. Upload once and share everywhere with confidence.
+                  </p>
+                  <p className="text-muted-foreground">
+                    Compatible with all major image formats including JPEG, PNG, GIF, and WebP. Each image gets 
+                    optimized for web delivery while maintaining quality, ensuring your photos load quickly 
+                    no matter where they're displayed.
+                  </p>
+                </div>
+                
+                <div className="space-y-4">
+                  <h4 className="text-xl font-semibold text-foreground">Why Choose Our Service</h4>
+                  <p className="text-muted-foreground">
+                    Unlike other image hosting services, we focus on simplicity and reliability. No complex signup 
+                    processes, no hidden fees, and no storage limits. Just upload your images and get permanent 
+                    URLs that you can use immediately.
+                  </p>
+                  <p className="text-muted-foreground">
+                    Perfect for developers, content creators, e-commerce businesses, and anyone who needs reliable 
+                    image hosting. Our global CDN ensures your images load fast worldwide, and our secure infrastructure 
+                    keeps your content safe and accessible 24/7.
+                  </p>
+                </div>
+              </div>
+              
+              <div className="mt-8 p-6 bg-brand-beige/20 dark:bg-brand-blue-gray/10 rounded-lg">
+                <h4 className="text-lg font-semibold text-foreground mb-4">Learn More About Image Optimization</h4>
+                <p className="text-muted-foreground mb-4">
+                  Want to learn more about image optimization and best practices? Check out these helpful resources 
+                  from industry experts:
+                </p>
+                <div className="flex flex-wrap gap-4 justify-center">
+                  <a 
+                    href="https://developers.google.com/web/fundamentals/performance/optimizing-content-efficiency/image-optimization" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="text-brand-orange hover:text-brand-orange/80 underline font-medium"
+                  >
+                    Google's Image Optimization Guide
+                  </a>
+                  <a 
+                    href="https://web.dev/fast/#optimize-your-images" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="text-brand-orange hover:text-brand-orange/80 underline font-medium"
+                  >
+                    Web.dev Image Performance
+                  </a>
+                  <a 
+                    href="https://moz.com/learn/seo/page-speed" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="text-brand-orange hover:text-brand-orange/80 underline font-medium"
+                  >
+                    SEO and Page Speed Guide
+                  </a>
+                </div>
+              </div>
+              
+              <div className="mt-8 text-center">
+                <p className="text-muted-foreground mb-4">
+                  Explore more of our tools and resources:
+                </p>
+                <div className="flex flex-wrap justify-center gap-4">
+                  <Link href="/bulk-image-upload" className="text-brand-orange hover:text-brand-orange/80 underline font-medium">
+                    Bulk Image Upload Tool
+                  </Link>
+                  <Link href="/image-url-generator" className="text-brand-orange hover:text-brand-orange/80 underline font-medium">
+                    Advanced URL Generator
+                  </Link>
+                  <Link href="/media" className="text-brand-orange hover:text-brand-orange/80 underline font-medium">
+                    Media Management
+                  </Link>
+                  <Link href="/blog" className="text-brand-orange hover:text-brand-orange/80 underline font-medium">
+                    Image Optimization Blog
+                  </Link>
+                  <Link href="/docs" className="text-brand-orange hover:text-brand-orange/80 underline font-medium">
+                    API Documentation
+                  </Link>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </section>
