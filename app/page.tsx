@@ -267,14 +267,11 @@ export default async function Home() {
                 <Link href="/image-url-generator" className="inline-flex items-center px-6 py-3 bg-brand-blue-gray/10 hover:bg-brand-blue-gray/20 text-brand-blue-gray rounded-lg border border-brand-blue-gray/30 hover:border-brand-blue-gray/50 transition-all duration-200 font-medium">
                   URL Generator
                 </Link>
-                <Link href="/media" className="inline-flex items-center px-6 py-3 bg-brand-orange/10 hover:bg-brand-orange/20 text-brand-orange rounded-lg border border-brand-orange/30 hover:border-brand-orange/50 transition-all duration-200 font-medium">
-                  Media Gallery
-                </Link>
-                <Link href="/blog" className="inline-flex items-center px-6 py-3 bg-brand-blue-gray/10 hover:bg-brand-blue-gray/20 text-brand-blue-gray rounded-lg border border-brand-blue-gray/30 hover:border-brand-blue-gray/50 transition-all duration-200 font-medium">
+                <Link href="/blog" className="inline-flex items-center px-6 py-3 bg-brand-orange/10 hover:bg-brand-orange/20 text-brand-orange rounded-lg border border-brand-orange/30 hover:border-brand-orange/50 transition-all duration-200 font-medium">
                   Blog
                 </Link>
-                <Link href="/docs" className="inline-flex items-center px-6 py-3 bg-brand-orange/10 hover:bg-brand-orange/20 text-brand-orange rounded-lg border border-brand-orange/30 hover:border-brand-orange/50 transition-all duration-200 font-medium">
-                  Documentation
+                <Link href="/privacy-policy" className="inline-flex items-center px-6 py-3 bg-brand-blue-gray/10 hover:bg-brand-blue-gray/20 text-brand-blue-gray rounded-lg border border-brand-blue-gray/30 hover:border-brand-blue-gray/50 transition-all duration-200 font-medium">
+                  Policies & Guidelines
                 </Link>
               </div>
             </ScrollReveal>
