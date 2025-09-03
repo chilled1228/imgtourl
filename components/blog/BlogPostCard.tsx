@@ -41,6 +41,8 @@ export default function BlogPostCard({ post, variant = 'default' }: BlogPostCard
               alt={`Featured image for blog post: ${post.title}`}
               className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
               loading="lazy"
+              width={1280}
+              height={720}
             />
           </div>
         )}
@@ -95,6 +97,8 @@ export default function BlogPostCard({ post, variant = 'default' }: BlogPostCard
               alt={`Featured image for blog post: ${post.title}`}
               className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
               loading="lazy"
+              width={640}
+              height={180}
             />
           </div>
         )}
@@ -147,6 +151,8 @@ export default function BlogPostCard({ post, variant = 'default' }: BlogPostCard
             alt={`Featured image for blog post: ${post.title}`}
             className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
             loading="lazy"
+            width={1280}
+            height={720}
           />
         </div>
       )}

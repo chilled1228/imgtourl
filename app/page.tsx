@@ -12,6 +12,8 @@ import { getPublishedPosts } from '@/lib/blog-storage-supabase';
 import BlogPostCard from '@/components/blog/BlogPostCard';
 import { ScrollReveal } from '@/components/ui/scroll-reveal';
 
+export const dynamic = 'force-dynamic';
+
 export default async function Home() {
   // Fetch recent blog posts for the home page
   const allPosts = await getPublishedPosts();
