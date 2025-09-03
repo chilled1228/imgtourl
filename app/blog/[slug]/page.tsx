@@ -10,6 +10,8 @@ import { getPublishedPosts, getBlogPostBySlug, getRelatedPosts } from '@/lib/blo
 import BlogPostCard from '@/components/blog/BlogPostCard';
 import Breadcrumbs from '@/components/blog/Breadcrumbs';
 
+export const dynamic = 'force-dynamic';
+
 interface BlogPostPageProps {
   params: {
     slug: string;
@@ -148,7 +150,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
 
         {/* Article Content */}
         <section className="mb-12">
-          <div className="bg-white rounded-lg shadow-sm border border-border p-6 md:p-10 lg:p-12">
+          <div className="bg-card rounded-lg shadow-sm border border-border p-6 md:p-10 lg:p-12">
             <div
               className="blog-content max-w-none"
               dangerouslySetInnerHTML={{ __html: post.content }}

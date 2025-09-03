@@ -88,6 +88,16 @@ export default function BlogPostCard({ post, variant = 'default' }: BlogPostCard
   if (variant === 'compact') {
     return (
       <Card className="overflow-hidden hover:shadow-lg transition-shadow duration-300 h-full">
+        {post.featuredImage && (
+          <div className="h-32 overflow-hidden">
+            <img
+              src={post.featuredImage}
+              alt={`Featured image for blog post: ${post.title}`}
+              className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+              loading="lazy"
+            />
+          </div>
+        )}
         <div className="p-4 h-full flex flex-col">
           <div className="flex items-center space-x-3 text-xs text-muted-foreground mb-3">
             <div className="flex items-center space-x-1">
@@ -130,6 +140,16 @@ export default function BlogPostCard({ post, variant = 'default' }: BlogPostCard
   // Default variant
   return (
     <Card className="overflow-hidden hover:shadow-lg transition-shadow duration-300 h-full">
+      {post.featuredImage && (
+        <div className="aspect-video overflow-hidden">
+          <img
+            src={post.featuredImage}
+            alt={`Featured image for blog post: ${post.title}`}
+            className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+            loading="lazy"
+          />
+        </div>
+      )}
       <div className="p-6 h-full flex flex-col">
         <div className="flex items-center space-x-4 text-sm text-muted-foreground mb-3">
           <div className="flex items-center space-x-1">

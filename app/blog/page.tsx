@@ -9,6 +9,8 @@ import { getPublishedPosts, getFeaturedPosts as getStorageFeaturedPosts, getCate
 import BlogPostCard from '@/components/blog/BlogPostCard';
 import Breadcrumbs from '@/components/blog/Breadcrumbs';
 
+export const dynamic = 'force-dynamic';
+
 export const metadata: Metadata = {
   title: 'Blog - Image Hosting Tips, Tutorials & Best Practices | ImageURL',
   description: 'Learn about image hosting, URL generation, web optimization, and digital asset management. Expert tips and tutorials for better image sharing and hosting.',
