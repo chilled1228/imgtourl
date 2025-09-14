@@ -6,6 +6,7 @@ import Footer from '@/components/layout/Footer';
 import { ThemeProvider } from '@/components/theme/theme-provider';
 import { Toaster } from '@/components/ui/sonner';
 import StructuredData from '@/components/seo/StructuredData';
+import HreflangTags from '@/components/seo/HreflangTags';
 import { ScrollProgress, FloatingScrollButton } from '@/components/ui/scroll-progress';
 import CookieConsent from '@/components/ui/cookie-consent';
 import AgeVerification from '@/components/ui/age-verification';
@@ -178,6 +179,9 @@ export default function RootLayout({
         <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
         <meta name="theme-color" content="#FF7A30" />
         <meta name="color-scheme" content="light dark" />
+        
+        {/* Internationalization */}
+        <HreflangTags currentPath="/" availableLocales={['en']} />
       </head>
       <body className={inter.className}>
         {/* Skip Links for Screen Readers */}

@@ -3,27 +3,16 @@ import { ArrowRight, Upload, Layers, Zap, CheckCircle } from 'lucide-react';
 import { Card } from '@/components/ui/card';
 import UploadZone from '@/components/upload/UploadZone';
 import StructuredData from '@/components/seo/StructuredData';
-import { generatePageMetadata } from '@/lib/metadata';
+import { generateMetadata, SEO_KEYWORDS } from '@/lib/seo-utils';
 
-export const metadata = generatePageMetadata(
-  'Upload Many Photos at Once - Bulk Image to URL Converter | ImageURL',
-  'Upload many photos at once and get web links for all of them. Easy bulk image to URL converter. Perfect for when you have lots of pictures to share.',
-  '/bulk-image-upload',
-  [
-    'upload many photos',
-    'bulk image to url',
-    'multiple photos to url',
-    'upload lots of pictures',
-    'many photos at once',
-    'bulk photo upload',
-    'multiple image upload',
-    'batch photo converter',
-    'upload several photos',
-    'many pictures to links',
-    'bulk photo to url',
-    'multiple photo links'
-  ]
-);
+export const metadata = generateMetadata({
+  title: 'Bulk Image Upload - Multiple Photos to URLs at Once | ImageURL',
+  description: 'Upload multiple images simultaneously and generate URLs for all. Batch image upload with progress tracking and export options. Perfect for e-commerce and content creators.',
+  keywords: SEO_KEYWORDS.BULK_UPLOAD,
+  canonical: '/bulk-image-upload',
+  ogType: 'website',
+  ogImage: '/og-image-bulk-upload.jpg'
+});
 
 export default function BulkImageUploadPage() {
   return (

@@ -69,6 +69,12 @@ export default function Header() {
             >
               Blog
             </a>
+            <Link
+              href="/media"
+              className="text-sm font-medium hover:text-primary transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-orange focus-visible:ring-offset-2 rounded px-2 py-1"
+            >
+              Media
+            </Link>
             
             {/* Legal Pages Dropdown */}
             <div className="relative" ref={dropdownRef}>
@@ -139,6 +145,17 @@ export default function Header() {
                       <div>
                         <div className="font-medium">Contact Us</div>
                         <div className="text-xs text-gray-500 dark:text-gray-400">Get help & support</div>
+                      </div>
+                    </a>
+                    <a
+                      href="/parental-consent"
+                      className="flex items-center px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-brand-orange transition-colors"
+                      onClick={() => setIsLegalDropdownOpen(false)}
+                    >
+                      <AlertTriangle className="w-4 h-4 mr-3 text-yellow-500" />
+                      <div>
+                        <div className="font-medium">Parental Consent</div>
+                        <div className="text-xs text-gray-500 dark:text-gray-400">Children's privacy protection</div>
                       </div>
                     </a>
                   </div>

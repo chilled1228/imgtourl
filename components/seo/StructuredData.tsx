@@ -1,4 +1,5 @@
 import Script from 'next/script';
+import { generateLocalBusinessSchema, generateImageObjectSchema } from '@/lib/seo-utils';
 
 interface BlogPost {
   title: string;
@@ -10,9 +11,21 @@ interface BlogPost {
   tags: string[];
 }
 
+interface ImageObject {
+  url: string;
+  name: string;
+  description?: string;
+}
+
+interface BreadcrumbItem {
+  name: string;
+  url: string;
+}
+
 interface StructuredDataProps {
-  type?: 'website' | 'service' | 'faq' | 'blog' | 'article';
-  data?: BlogPost;
+  type?: 'website' | 'service' | 'faq' | 'blog' | 'article' | 'localbusiness' | 'imageobject' | 'breadcrumb' | 'howto' | 'recipe' | 'review' | 'event' | 'video';
+  data?: BlogPost | ImageObject | BreadcrumbItem[] | any;
+  breadcrumbs?: BreadcrumbItem[];
 }
 
 export default function StructuredData({ type = 'website', data }: StructuredDataProps) {
@@ -243,6 +256,171 @@ export default function StructuredData({ type = 'website', data }: StructuredDat
     };
   };
 
+  const getLocalBusinessSchema = () => {
+    const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'https://imagetourl.cloud';
+    return generateLocalBusinessSchema({
+      name: 'ImageURL',
+      description: 'Leading free image hosting service providing instant URL generation for images. Best image to URL converter with unlimited free uploads.',
+      url: baseUrl,
+      logo: `${baseUrl}/logo.png`,
+      email: 'support@imagetourl.cloud',
+      address: {
+        addressCountry: 'IN'
+      },
+      priceRange: '$',
+      paymentAccepted: ['Credit Card', 'PayPal', 'Cryptocurrency'],
+      currenciesAccepted: ['USD', 'EUR', 'INR'],
+      openingHours: [
+        { dayOfWeek: 'Monday', opens: '00:00', closes: '23:59' },
+        { dayOfWeek: 'Tuesday', opens: '00:00', closes: '23:59' },
+        { dayOfWeek: 'Wednesday', opens: '00:00', closes: '23:59' },
+        { dayOfWeek: 'Thursday', opens: '00:00', closes: '23:59' },
+        { dayOfWeek: 'Friday', opens: '00:00', closes: '23:59' },
+        { dayOfWeek: 'Saturday', opens: '00:00', closes: '23:59' },
+        { dayOfWeek: 'Sunday', opens: '00:00', closes: '23:59' }
+      ]
+    });
+  };
+
+  const getImageObjectSchema = () => {
+    if (!data || !('url' in data)) return null;
+    return generateImageObjectSchema(data.url, data.name, data.description);
+  };
+
+  const getBreadcrumbSchema = () => {
+    const breadcrumbData = Array.isArray(data) ? data : (data && 'length' in data ? data : []);
+    return {
+      '@context': 'https://schema.org',
+      '@type': 'BreadcrumbList',
+      itemListElement: breadcrumbData.map((crumb: BreadcrumbItem, index: number) => ({
+        '@type': 'ListItem',
+        position: index + 1,
+        name: crumb.name,
+        item: crumb.url,
+      })),
+    };
+  };
+
+  const getHowToSchema = () => {
+    if (!data || !data.steps) return null;
+    
+    return {
+      '@context': 'https://schema.org',
+      '@type': 'HowTo',
+      'name': data.name,
+      'description': data.description,
+      'totalTime': data.totalTime,
+      'estimatedCost': data.estimatedCost,
+      'step': data.steps.map((step: any, index: number) => ({
+        '@type': 'HowToStep',
+        'position': index + 1,
+        'name': step.name,
+        'text': step.text,
+        'image': step.image,
+        'url': step.url
+      })),
+      'tool': data.tools?.map((tool: any) => ({
+        '@type': 'HowToTool',
+        'name': tool.name
+      })),
+      'supply': data.supplies?.map((supply: any) => ({
+        '@type': 'HowToSupply',
+        'name': supply.name
+      }))
+    };
+  };
+
+  const getVideoSchema = () => {
+    if (!data || !data.videoUrl) return null;
+    
+    return {
+      '@context': 'https://schema.org',
+      '@type': 'VideoObject',
+      'name': data.name,
+      'description': data.description,
+      'thumbnailUrl': data.thumbnailUrl,
+      'uploadDate': data.uploadDate,
+      'duration': data.duration,
+      'contentUrl': data.videoUrl,
+      'embedUrl': data.embedUrl,
+      'publisher': {
+        '@type': 'Organization',
+        'name': 'ImageURL',
+        'logo': {
+          '@type': 'ImageObject',
+          'url': `${process.env.NEXT_PUBLIC_APP_URL || 'https://imagetourl.cloud'}/logo.png`
+        }
+      },
+      'author': {
+        '@type': 'Organization',
+        'name': data.author || 'ImageURL'
+      }
+    };
+  };
+
+  const getReviewSchema = () => {
+    if (!data || !data.rating) return null;
+    
+    return {
+      '@context': 'https://schema.org',
+      '@type': 'Review',
+      'itemReviewed': {
+        '@type': 'Service',
+        'name': data.itemName || 'ImageURL Service',
+        'description': data.itemDescription
+      },
+      'reviewRating': {
+        '@type': 'Rating',
+        'ratingValue': data.rating,
+        'bestRating': data.bestRating || 5,
+        'worstRating': data.worstRating || 1
+      },
+      'author': {
+        '@type': 'Person',
+        'name': data.reviewerName || 'Anonymous'
+      },
+      'datePublished': data.reviewDate,
+      'reviewBody': data.reviewText
+    };
+  };
+
+  const getEventSchema = () => {
+    if (!data || !data.eventName) return null;
+    
+    return {
+      '@context': 'https://schema.org',
+      '@type': 'Event',
+      'name': data.eventName,
+      'description': data.description,
+      'startDate': data.startDate,
+      'endDate': data.endDate,
+      'location': {
+        '@type': 'Place',
+        'name': data.locationName,
+        'address': data.address ? {
+          '@type': 'PostalAddress',
+          'streetAddress': data.address.street,
+          'addressLocality': data.address.city,
+          'addressRegion': data.address.state,
+          'postalCode': data.address.zip,
+          'addressCountry': data.address.country
+        } : undefined
+      },
+      'organizer': {
+        '@type': 'Organization',
+        'name': data.organizerName || 'ImageURL',
+        'url': data.organizerUrl
+      },
+      'offers': data.offers?.map((offer: any) => ({
+        '@type': 'Offer',
+        'url': offer.url,
+        'price': offer.price,
+        'priceCurrency': offer.currency,
+        'availability': offer.availability
+      }))
+    };
+  };
+
   const renderSchema = () => {
     switch (type) {
       case 'service':
@@ -254,6 +432,25 @@ export default function StructuredData({ type = 'website', data }: StructuredDat
       case 'article':
         const articleSchema = getArticleSchema();
         return articleSchema ? [articleSchema, getOrganizationSchema()] : [getOrganizationSchema()];
+      case 'localbusiness':
+        return [getLocalBusinessSchema(), getOrganizationSchema()];
+      case 'imageobject':
+        const imageSchema = getImageObjectSchema();
+        return imageSchema ? [imageSchema] : [];
+      case 'breadcrumb':
+        return [getBreadcrumbSchema()];
+      case 'howto':
+        const howtoSchema = getHowToSchema();
+        return howtoSchema ? [howtoSchema, getOrganizationSchema()] : [getOrganizationSchema()];
+      case 'video':
+        const videoSchema = getVideoSchema();
+        return videoSchema ? [videoSchema, getOrganizationSchema()] : [getOrganizationSchema()];
+      case 'review':
+        const reviewSchema = getReviewSchema();
+        return reviewSchema ? [reviewSchema, getOrganizationSchema()] : [getOrganizationSchema()];
+      case 'event':
+        const eventSchema = getEventSchema();
+        return eventSchema ? [eventSchema, getOrganizationSchema()] : [getOrganizationSchema()];
       default:
         return [getWebsiteSchema(), getOrganizationSchema(), getSoftwareApplicationSchema()];
     }
