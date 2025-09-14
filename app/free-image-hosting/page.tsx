@@ -3,24 +3,16 @@ import { ArrowRight, Upload, Globe, Shield, Zap } from 'lucide-react';
 import { Card } from '@/components/ui/card';
 import UploadZone from '@/components/upload/UploadZone';
 import StructuredData from '@/components/seo/StructuredData';
-import { generatePageMetadata } from '@/lib/metadata';
+import { generateMetadata, SEO_KEYWORDS } from '@/lib/seo-utils';
 
-export const metadata = generatePageMetadata(
-  'Free Image to URL Service - Turn Photos Into Web Links | ImageURL',
-  'Free image to URL converter service. Upload any photo and get a web link instantly. Simple, fast, and works everywhere. No account needed - unlimited uploads.',
-  '/free-image-hosting',
-  [
-    'image to url',
-    'free image to url',
-    'convert image to url',
-    'photo to url',
-    'turn image into link',
-    'image link generator',
-    'free photo hosting',
-    'upload photos online',
-    'shareable photo links'
-  ]
-);
+export const metadata = generateMetadata({
+  title: 'Free Image Hosting Service - Unlimited Storage & Direct Links | ImageURL',
+  description: 'Free image hosting service with unlimited storage. Upload any photo and get direct links instantly. No signup required, ad-free, and permanent image links that work everywhere.',
+  keywords: SEO_KEYWORDS.FREE_HOSTING,
+  canonical: '/free-image-hosting',
+  ogType: 'website',
+  ogImage: '/og-image-free-hosting.jpg'
+});
 
 export default function FreeImageHostingPage() {
   return (

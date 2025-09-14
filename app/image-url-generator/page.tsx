@@ -3,25 +3,16 @@ import { ArrowRight, Link, Zap, Copy, Share2 } from 'lucide-react';
 import { Card } from '@/components/ui/card';
 import UploadZone from '@/components/upload/UploadZone';
 import StructuredData from '@/components/seo/StructuredData';
-import { generatePageMetadata } from '@/lib/metadata';
+import { generateMetadata, SEO_KEYWORDS } from '@/lib/seo-utils';
 
-export const metadata = generatePageMetadata(
-  'Image to URL Generator - Turn Photos Into Web Links Instantly | ImageURL',
-  'Easy image to URL generator tool. Upload any photo and get a web link instantly. Simple, fast, and works everywhere. Turn your pictures into shareable links in seconds.',
-  '/image-url-generator',
-  [
-    'image to url generator',
-    'image to url',
-    'convert image to url',
-    'photo to url',
-    'turn image into link',
-    'photo link generator',
-    'image link creator',
-    'picture to url',
-    'convert photo to url',
-    'image url maker'
-  ]
-);
+export const metadata = generateMetadata({
+  title: 'Image URL Generator - Create Shareable Links from Photos | ImageURL',
+  description: 'Free image URL generator tool. Upload any photo and create shareable links instantly. Perfect for social media, forums, and websites. No signup required.',
+  keywords: SEO_KEYWORDS.URL_GENERATOR,
+  canonical: '/image-url-generator',
+  ogType: 'website',
+  ogImage: '/og-image-url-generator.jpg'
+});
 
 export default function ImageURLGeneratorPage() {
   return (

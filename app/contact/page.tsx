@@ -191,8 +191,8 @@ export default function ContactPage() {
               <p className="text-gray-600 dark:text-gray-400 mb-4">
                 Find answers to common questions
               </p>
-              <Link href="/docs" className="text-blue-600 hover:underline font-medium">
-                Visit Help Center
+              <Link href="/#faq" className="text-blue-600 hover:underline font-medium">
+                View FAQ Section
               </Link>
             </Card>
           </div>
@@ -431,16 +431,16 @@ export default function ContactPage() {
                 <div className="space-y-3">
                   <h4 className="font-semibold text-gray-800 dark:text-gray-200">Common Questions</h4>
                   <div className="space-y-2">
-                    <Link href="/docs" className="block text-blue-600 hover:underline text-sm">
+                    <Link href="/#faq" className="block text-blue-600 hover:underline text-sm">
                       • How to upload images?
                     </Link>
-                    <Link href="/docs" className="block text-blue-600 hover:underline text-sm">
+                    <Link href="/#faq" className="block text-blue-600 hover:underline text-sm">
                       • What file formats are supported?
                     </Link>
-                    <Link href="/docs" className="block text-blue-600 hover:underline text-sm">
+                    <Link href="/#faq" className="block text-blue-600 hover:underline text-sm">
                       • How long are images stored?
                     </Link>
-                    <Link href="/docs" className="block text-blue-600 hover:underline text-sm">
+                    <Link href="/#faq" className="block text-blue-600 hover:underline text-sm">
                       • Is my data secure?
                     </Link>
                   </div>
@@ -449,11 +449,11 @@ export default function ContactPage() {
                 <div className="pt-4 border-t border-gray-200 dark:border-gray-700">
                   <h4 className="font-semibold text-gray-800 dark:text-gray-200 mb-3">Need Immediate Help?</h4>
                   <p className="text-sm text-gray-600 dark:text-gray-400 mb-3">
-                    Check our comprehensive documentation for quick answers to most questions.
+                    Check our FAQ section for quick answers to most common questions.
                   </p>
-                  <Link href="/docs">
+                  <Link href="/#faq">
                     <Button variant="outline" size="sm">
-                      View Documentation
+                      View FAQ Section
                     </Button>
                   </Link>
                 </div>
